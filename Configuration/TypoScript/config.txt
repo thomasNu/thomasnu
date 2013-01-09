@@ -1,0 +1,82 @@
+  # Config
+config {
+  debug = {$config.debug}
+  no_cache = {$config.no_cache}
+  doctype = xhtml_trans
+  doctypeSwitch = 1
+  htmlTag_langKey = {$config.language}
+  xhtml_cleaning = all
+  removeDefaultJS = external
+  noPageTitle = 2
+  disablePrefixComment = 1
+
+  sys_language_uid = {$config.sys_language_uid}
+  metaCharset = utf-8
+  renderCharset = utf-8
+  locale_all = {$config.locale_all}
+  language = {$config.language}
+  additionalHeaders = {$config.additionalHeaders}
+  inlineStyle2TempFile = 1
+  spamProtectEmailAddresses = ascii
+  spamProtectEmailAddresses_atSubst = @
+  index_enable = 1
+  index_externals = 1
+  index_metatags = 0
+  stat = 1
+  stat_mysql = 1
+  stat_typeNumList = 0,1
+  tx_realurl_enable = 1
+  tx_extbase.persistence.classes {
+    Tx_Thomasnu_Domain_Model_Content.newRecordStoragePid = {$config.contentStorage}
+    Tx_Thomasnu_Domain_Model_Section.newRecordStoragePid = {$config.contentStorage}  
+    Tx_Thomasnu_Domain_Model_News.newRecordStoragePid = {$config.newsStorage}  
+    }
+  }
+[usergroup = {$content.editorGroup}]
+config.adminPanel = 1
+[global]
+  # Default PAGE object:
+page = PAGE
+page {
+  typeNum = 0
+  shortcutIcon = fileadmin/images/design/fav.ico
+  includeJS {
+    file0 = EXT:thomasnu/Resources/Public/Javascript/design.js
+    file0.type = text/javascript
+    file10 = EXT:thomasnu/Resources/Public/Javascript/lightbox.js
+    file10.type = text/javascript
+    }
+  stylesheet = EXT:thomasnu/Resources/Public/Stylesheet/design.css
+  CSS_inlineStyle (
+    {$content.menuBack}
+    {$content.menu2Back}
+    {$content.menuLogo}
+    {$content.homeText}
+    )
+  headerData.10 < plugin.tx_simulatebe_pi1
+  headerData.20 < temp.titletag
+  10 = USER
+  10.userFunc = tx_templavoila_pi1->main_page
+  }
+plugin.tx_fed.fce.fed >
+plugin.tx_fed.fce.thomasnu {
+  label = Fluid Content Elements
+  templateRootPath = EXT:thomasnu/Resources/Private/Elements/
+  partialRootPath = EXT:thomasnu/Resources/Private/Partials/
+  layoutRootPath = EXT:thomasnu/Resources/Private/Layouts/
+  }
+plugin.tx_flux.settings.flexform.rteDefaults = richtext[]:rte_transform[mode=ts_css]
+
+tt_content.stdWrap.editPanel = 0
+tt_content.stdWrap.editPanel {
+  allow = {$config.editPanel}
+  line = 1
+  }
+[usergroup = {$content.editorGroup}]
+tt_content.stdWrap.editPanel = 1
+[global]
+[PIDinRootline = {$content.noEditPanel}]
+tt_content.stdWrap.editPanel = 0
+[global]
+includeLibs.user_my = EXT:thomasnu/Configuration/Script/user.php
+  

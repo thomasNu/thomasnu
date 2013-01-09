@@ -1,0 +1,67 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div id="thumbnails">
+	<script language="JavaScript">
+		var StartPhoto = '{startPhoto.id}';
+		var Groups = new Array({groups});
+	</script>
+
+	<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+		<tnu:if condition="ord('{groupText}') == ord('*')">
+			<p  class="thumbnails-text" style="padding-bottom:2px"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
+		</tnu:if>
+		<f:for each="{photosOfThisGroupe}" as="photo">
+			<p class="thumbnails-photo"><a name="a{photo.id}" href="javascript:ShowPhoto('{photo.id}')" title="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}">
+			<tnu:if condition="'{photo.id}' == '{firstPhoto.id}'">
+				<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
+			</tnu:if>
+			<f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="100m" />
+			<tnu:if condition="'{photo.id}' == '{lastPhoto.id}'">
+				<br /><strong>{settings.clickPhoto}</strong>
+			</tnu:if></a></p>
+		</f:for>
+		<tnu:if condition="ord('{groupText}') != ord('*') && {groupCount} > 1">
+			<p class="thumbnails-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
+		</tnu:if>
+	</f:groupedFor> 
+</div>
+
+<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+	<f:for each="{photosOfThisGroupe}" as="photo">
+		<div id="{photo.id}" class="slide">
+			<p class="slide-photo"><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}"
+				title="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="575m" /></p>
+			<p class="slide-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'slide', caption: photo.caption, text: photo.text)}</tnu:wiki>
+		</div>
+	</f:for>
+</f:groupedFor> 
+
+<div id = "slideshow">
+	<h2>{settings.fgTitle} {gallery.header}</h2>
+	<p class="navlinks"><b>{settings.fgLinks}<span class="navlink">
+		<a title="{settings.fgPrev}" href="javascript:NextPhoto(-1)"><font color="#800000">&nbsp;<<&nbsp;</font></a></span>
+		<span class="navlink"><a title="1 {settings.fgInterval}" href="javascript:PlayPhotos(1)"><font color="#800000">&nbsp;&gt;1&nbsp;</font></a></span>
+		<span class="navlink"><a title="2 {settings.fgInterval}" href="javascript:PlayPhotos(2)"><font color="#800000">&nbsp;&gt;2&nbsp;</font></a></span>
+		<span class="navlink"><a title="4 {settings.fgInterval}" href="javascript:PlayPhotos(4)"><font color="#800000">&nbsp;&gt;4&nbsp;</font></a></span>
+		<span class="navlink"><a title="8 {settings.fgInterval}" href="javascript:PlayPhotos(8)"><font color="#800000">&nbsp;&gt;8&nbsp;</font></a></span>
+		<span class="navlink"><a title="16 {settings.fgInterval}" href="javascript:PlayPhotos(16)"><font color="#800000">&nbsp;&gt;16&nbsp;</font></a></span>
+		<span class="navlink"><a title="{settings.fgPause}" href="javascript:PausePhotos()"><font color="#800000">&nbsp;III&nbsp;</font></a></span>
+		<span class="navlink"><a title="{settings.fgNext}" href="javascript:NextPhoto(1)"><font color="#800000">>>&nbsp;</font></a></span>
+		<span class="navlink"><a title="{settings.fgPrint}" href="{print}"><font color="#800000">⎙&nbsp;</font></a></span>
+		</b>| <a href="{back}">{settings.fgBack}</a>
+	</p>
+</div>
+
+<!-- [CDATA[
+plugin.tx_thomasnu.settings {
+	fgTitle = Fotogalerie
+	fgLinks = Galerie:
+	fgPrev = Vorheriges Bild
+	fgInterval = s Interval
+	fgPause = Pause
+	fgNext = Nächstes Bild
+	fgPrint = Album drucken
+	fgBack = Zurück zur Seite
+	}
+]] -->
+

@@ -1,0 +1,266 @@
+* {
+	padding: 0;
+	margin: 0;
+	}
+html {
+	height: 100%;
+	margin-bottom: 1px;
+	}
+body {
+	color: black; 
+	background-color: #eef3fa;
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	font-size: 13px;
+	line-height: 18px; 
+	height: 100%;
+	}
+pre, code {
+	font-size: 12px;
+	line-height: 16px; 
+	}
+p, dl, pre { 
+	padding-top: 0px; 
+	padding-bottom: 6px; 
+	}
+p.indent { 
+	padding-left: 40px;
+	}
+dt { 
+	font-weight:bold;
+	color:#063055;
+	} 
+dd { 
+	padding-left:40px;
+	}
+ol { 
+	padding-top:0px; 
+	padding-bottom:6px; 
+	padding-left: 40px;
+	}
+ul { 
+	list-style-image:url('../Icons/dot.gif');
+	padding-top:0px; 
+	padding-bottom:6px; 
+	padding-left: 40px;
+	}
+.dash { 
+	list-style-image:url('../Icons/dash.gif');
+	padding-left:20px;
+	}
+.italic { 
+	font-style: italic
+	}
+.red { 
+	color:#800000;
+	}
+.bluebox { 
+	color:#800000;
+	background-color:#DFEFFF;
+	}
+.bluebox1 { 
+	background-color:#DFEFFF;
+	padding: 0
+	}
+.greenbox1 { 
+	background-color:#DDEEDD;
+	}
+.yellowbox { 
+	color:#800000;
+	background-color:#EEEECC;
+	}
+.yellowbox1 { 
+	background-color:#EEEECC;
+	}
+.orangebox1 { 
+	background-color:#FFDDBB;
+	}
+.redbox1 { 
+	background-color:#FFCCCC;
+	}
+.mark { 
+	color:#800000;
+	font-weight:bold;
+	background-color:#EEEECC;
+	}
+.markblue { 
+	color:#003DAE;
+	font-weight:bold;
+	background-color:#EEEECC;
+	}
+.note { 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:13px; 
+	}
+.yellownote { 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:13px; 
+	color:#800000;
+	background-color:#EEEECC;
+	}
+.mini { 
+	font-family:'Trebuchet MS',Arial,Helvetica,sans-serif; 
+	font-size:10px;
+	line-height:11px; 
+	}
+.foto { 
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:13px; 
+	padding-top:2px; 
+	padding-bottom:0px; 
+	}
+.thumbnail { 
+	border-style: solid;
+	border-width: 5px;
+	}
+/****img {
+	border: none;
+	}  */
+.border { 
+	border-width: 1px; 
+	border-style: solid; 
+	border-color: #063055; 
+	}
+b { 
+	color:#063055; 
+	}
+h3 { 
+	font-size:17px;
+	color:#063055; 
+	padding-top:6px; 
+	padding-bottom:6px; 
+	}
+h4 { 
+	font-size:15px;
+	color:#063055; 
+	padding-top:6px; 
+	padding-bottom:4px; 
+	}
+h5 { 
+	font-size:13px;
+	color:#063055; 
+	padding-top:6px; 
+	padding-bottom:2px; 
+	}
+h6 { 
+	font-size:13px;
+	line-height:18px; 
+	color:#063055; 
+	padding-bottom: 6px; 
+	}
+.tit17 { 
+	font-size:23px;
+	line-height:32px; 
+	font-weight:bold;
+	color:#063055; 
+	}
+.tit14 { 
+	font-size:19px;
+	line-height:27px; 
+	font-weight:bold;
+	color:#063055; 
+	}
+.tit12n { 
+	font-size:16px;
+	line-height:20px; 
+	font-weight:bold;
+	color:#063055; 
+	}
+.tit10n { 
+	font-size:13px;
+	font-weight:bold;
+	line-height:18px; 
+	color:#063055;
+	}
+.tit12 { 
+	font-size:16px;
+	font-weight:bold;
+	line-height:22px;
+	color:#063055;
+	} 
+.tit10 { 
+	font-size:13px;
+	font-weight:bold;
+	line-height:20px; 
+	color:#063055;
+	}
+input[type="text"], input[type="password"], textarea {
+	width: 310px;
+	background-color: #DFEFFF;
+	border-width: thin;
+	}
+.margin-top textarea {
+	width: 160px; 
+	background-color: #DDEEDD;
+	}
+.margin-bottom textarea {
+	width: 160px; 
+	background-color: #FFDDBB;
+	}
+input:focus, textarea:focus {
+	background-color: #EEEECC;
+	}
+a:link {
+	color:#003DAE; 
+	text-decoration:none;
+	}
+a:visited {
+	color:#003DAE; 
+	text-decoration:none;
+	} 
+a:hover {
+	color:#800000;
+	text-decoration:underline;
+	}
+a:active {
+	color:#333333;
+	text-decoration:none;
+	}
+/* Navigation Portal (fp) */
+a.quick {
+	display:block;
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif;
+	font-size:12px;
+	font-weight:bold;
+	height:16px; 
+	}
+a:link.quick {
+	color:#FFFFFF; 
+	}
+a:visited.quick {
+	color:#FFFFFF; 
+	} 
+a:hover.quick {
+	color:#FFFF00;
+	text-decoration:none;
+	}
+a:active.quick {
+	color:#FFFFFF;
+	}
+/* Aktuell als Link (fp)*/
+.newslink { 
+	font-family:'Trebuchet MS',Arial,Helvetica,sans-serif; 
+	font-size:14px; 
+	line-height:20px;
+	font-weight:bold;
+	text-decoration:none;
+	color:#063055;
+	}
+.news { 
+	font-family:Verdana,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:13px;
+	padding-bottom:0; 
+	}
+.nl { 
+	text-decoration:none;
+	color:#050000;
+	}
+.imgt { 
+	padding-top:0px; 
+	}
+.imgb { 
+	padding-bottom:0px; 
+	}	

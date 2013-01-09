@@ -1,0 +1,54 @@
+{namespace flux=Tx_Flux_ViewHelpers}
+
+<f:layout name="FCE" />
+
+<f:section name="Configuration">
+	<flux:flexform id="section" label="Inhaltsabschnitt" enabled="TRUE">
+		<flux:flexform.field.select name="mode" label="0 = s+n Wiki, 1 = RTE, 10/11 = Abschnitt auf neuer Druckseite" commaSeparatedItems="0,1,10,11" requestUpdate="1" />
+				<f:if condition="{mode} % 10">
+					<f:then>
+						<flux:flexform.field.text name="main" label="Hauptinhalt" enableRichText="1" />
+					</f:then>
+					<f:else>
+						<flux:flexform.field.text name="main" label="Hauptinhalt" />
+					</f:else>
+				</f:if>
+				<f:if condition="{mode} % 10">
+					<f:then>
+						<flux:flexform.field.text name="margin" label="Marginalie oben" enableRichText="1" />
+					</f:then>
+					<f:else>
+						<flux:flexform.field.text name="margin" label="Marginalie oben" />
+					</f:else>
+				</f:if>
+				<f:if condition="{mode} % 10">
+					<f:then>
+						<flux:flexform.field.text name="bottom" label="Marginalie unten" enableRichText="1" />
+					</f:then>
+					<f:else>
+						<flux:flexform.field.text name="bottom" label="Marginalie unten" />
+					</f:else>
+				</f:if>
+	</flux:flexform>
+</f:section>
+
+<f:section name="Main">
+	<f:if condition="{mode} >= 10">
+		<div class="divider"><hr /></div>
+	</f:if>
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<f:render partial="TextContent" arguments="{content: main, mode: mode}" />
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<f:render partial="TextContent" arguments="{content: margin, mode: mode}" />
+			</div>
+			<div class="margin-bottom">
+				<f:render partial="TextContent" arguments="{content: bottom, mode: mode}" />
+			</div>
+		</div>
+	</div>
+</f:section>

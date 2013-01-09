@@ -1,0 +1,10 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+	<f:for each="{photosOfThisGroupe}" as="photo">
+		<div id="{photo.id}" class="banner-slide">
+			<img src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="160" height="160" border="0" />
+		</div>
+	</f:for>
+</f:groupedFor> 
+

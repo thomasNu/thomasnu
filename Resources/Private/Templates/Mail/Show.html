@@ -1,0 +1,21 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="anmeldung">
+	<div>
+		<h4>Anmeldeunterlagen Wirtefachkurs</h4>
+		<p>Datum: <f:format.date format="d.m.Y - H:i">{mail.date}</f:format.date></p>
+		<p>Formular: {mail.form}</p>
+		<p>Anrede: {mail.gender}</p>
+		<p>Name: {mail.name}</p>
+		<p>Adresse: {mail.address}</p>
+		<p>Wohnort: {mail.place}</p>
+		<p>Mailadresse: {mail.email}</p>
+		<p>Anmerkung: {mail.remark}</p>
+		<p>Option: {mail.mark}</p>
+		<p>Telefon: {mail.phone}</p>
+		<p><f:link.action action="new">Zurück zum Formular</f:link.action></p>
+	</div>
+</f:section>
+

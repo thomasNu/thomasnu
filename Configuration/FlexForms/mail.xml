@@ -1,0 +1,26 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>Mail Aktion wählen:</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">Formular</numIndex>
+								<numIndex index="1">Mail->new;Mail->create;Mail->show</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Anzeige</numIndex>
+								<numIndex index="1">Mail->show</numIndex>
+							</numIndex>
+						</items>
+					</config>
+				</TCEforms>
+			</switchableControllerActions>
+		</el>
+	</ROOT>
+</T3DataStructure>
+

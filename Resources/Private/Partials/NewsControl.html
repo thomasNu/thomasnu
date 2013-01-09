@@ -1,0 +1,72 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:security.ifHasRole role="Editor">
+	<div class="main-box" style="width: 78px; {f:if(condition: '{insert} != 0', then: 'display: none;')}">
+		<a id="b{news.uid}" href="#" onmouseover="displayIcons(this.id)" onclick="return false;">&nbsp;</a>
+	</div>
+	<div class="main-right" style="{f:if(condition: '{insert} != 0', then: 'width: 40px;')}">
+		<f:if condition="{insert} == 1">
+			<f:link.action controller="News" action="update" arguments="{news: insertNews, modify: '{newTerm}'}" title="{tnu:translate(key: 'news.paste')}">
+				<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'news.paste')}" />
+			</f:link.action>			
+		</f:if>
+		<f:if condition="{insert} == -1">
+			<f:link.action controller="News" action="update" arguments="{news: insertNews, modify: '-{newTerm}'}" title="{tnu:translate(key: 'news.move')}">
+				<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'news.move')}" />
+			</f:link.action>			
+		</f:if>
+		<f:link.action controller="News" action="new" arguments="{newTerm: newTerm}" title="{tnu:translate(key: 'news.new')}">
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'news.new')}" />
+		</f:link.action><br />
+		<f:link.action controller="News" action="edit" arguments="{news: news}" title="{tnu:translate(key: 'news.edit')}">
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/edit.gif" alt="{tnu:translate(key: 'news.edit')}" />
+		</f:link.action>			
+	</div>
+	<div id="s{news.uid}" class="main-over" style="width: 58px; {f:if(condition: '{insert} != 0', then: 'display: block;')}">
+		<a href="{f:uri.action(controller: 'News' action: 'delete' arguments: {news: news})}" title="{tnu:translate(key: 'news.delete')}" 
+				onclick="if (confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'news.delete')}" />
+		</a>
+		<tnu:if condition="'{news.uid}' == '{insertNews.uid}' && '{insert}' == '-1'">
+			<f:then>
+				<f:link.action controller="News" action="update" arguments="{news: news, modify: 'cut1'}" title="{tnu:translate(key: 'news.cut1')}">
+					<f:image src="EXT:thomasnu/Resources/Public/Icons/cut1.gif" alt="{tnu:translate(key: 'news.cut1')}" />
+				</f:link.action>			
+			</f:then>
+			<f:else>
+				<f:link.action controller="News" action="update" arguments="{news: news, modify: 'cut'}" title="{tnu:translate(key: 'news.cut')}">
+					<f:image src="EXT:thomasnu/Resources/Public/Icons/cut.gif" alt="{tnu:translate(key: 'news.cut')}" />
+				</f:link.action>			
+			</f:else>
+		</tnu:if>
+		<tnu:if condition="'{news.uid}' == '{insertNews.uid}' && '{insert}' == '1'">
+			<f:then>
+				<f:link.action controller="News" action="update" arguments="{news: news, modify: 'copy1'}" title="{tnu:translate(key: 'news.copy1')}">
+					<f:image src="EXT:thomasnu/Resources/Public/Icons/copy1.gif" alt="{tnu:translate(key: 'news.copy1')}" />
+				</f:link.action>			
+			</f:then>
+			<f:else>
+				<f:link.action controller="News" action="update" arguments="{news: news, modify: 'copy'}" title="{tnu:translate(key: 'news.copy')}">
+					<f:image src="EXT:thomasnu/Resources/Public/Icons/copy.gif" alt="{tnu:translate(key: 'news.copy')}" />
+				</f:link.action>			
+			</f:else>
+		</tnu:if>
+	</div>
+</f:security.ifHasRole>
+<script language="JavaScript">
+	/*<![CDATA[*/
+	<!--
+	var sCurrent = '';
+
+	function displayIcons(current) {
+		current = 's' + current.slice(1);
+		if (current != sCurrent) {
+			if (sCurrent) document.getElementById(sCurrent).style.display = 'none';
+			document.getElementById(current).style.display = 'block';
+			sCurrent = current;
+		}
+	}
+	//-->
+	/*]]>*/
+</script>
+

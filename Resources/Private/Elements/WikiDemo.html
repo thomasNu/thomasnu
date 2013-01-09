@@ -1,0 +1,46 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+{namespace fed=Tx_Fed_ViewHelpers}
+{namespace flux=Tx_Flux_ViewHelpers}
+
+<f:layout name="FCE" />
+
+<f:section name="Configuration">
+	<flux:flexform id="wikidemo" label="Wiki Demo" enabled="TRUE">
+		<flux:flexform.field.text name="input" label="Texteingabe mit Wiki-Zeichen" />
+		<flux:flexform.field.select name="mode" label="0 = Normal, 1 = Marginale, 2 = Marginale auf neuer Druckseite" commaSeparatedItems="0,1,2" requestUpdate="1" />
+  		<f:if condition="{mode}">
+			<flux:flexform.field.text name="remark" label="Bemerkungen zu Marginale" enableRichText="1" />
+		</f:if>
+	</flux:flexform>
+</f:section>
+
+<f:section name="Main">
+	<f:if condition="{mode}">
+		<f:then>
+			<f:if condition="{mode} == 2">
+				<div class="divider"><hr /></div>
+			</f:if>
+			<div class="section"> 
+				<div class="col-main">
+					<div class="main">
+						<h5>Folgende Wiki Eingabe formatiert nebenstenenden Text</h5>
+						<f:render partial="WikiCode" arguments="{input: input}" />
+						<f:format.html>{remark}</f:format.html>			
+					</div>
+				</div>
+				<div class="col-margin">
+					<div class="margin-top">
+						<tnu:wiki>{input}</tnu:wiki>			
+					</div>
+				</div>
+			</div>
+		</f:then>
+		<f:else>
+			<div class="greenbox1">
+				<tnu:wiki>{input}</tnu:wiki>
+			</div>			
+			<h5>Folgende Wiki Eingabe formatiert obenstehenden Text</h5>
+			<f:render partial="WikiCode" arguments="{input: input}" />
+		</f:else>
+	</f:if>
+</f:section>

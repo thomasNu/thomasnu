@@ -1,0 +1,86 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="anmeldung">
+	<f:if condition="{debug}"><f:debug>{debug}</f:debug></f:if>
+	<script language="JavaScript">
+		/*<![CDATA[*/
+		<!--
+		var sAnrede = "";
+
+		function OnRadioClick(radio) {
+			sAnrede = radio.value;
+			}
+		function CheckInput() {
+			document.forms["contact"].elements[5].checked = true;
+			document.forms["contact"].elements[6].value = sAnrede;
+			if(sAnrede == "") {
+				alert("Bitte wählen Sie die passende Anrede.");
+				document.forms["contact"].elements[9].focus();
+				window.scrollBy(0,-17);
+				return;
+				}
+			if(document.forms["contact"].elements[9].value == "") {
+				alert("Bitte geben Sie Ihren Namen und Vornamen an.");
+				document.forms["contact"].elements[9].focus();
+				window.scrollBy(0,-17);
+				return;
+				}
+			if(document.forms["contact"].elements[10].value == "") {
+				alert("Bitte geben Sie die Adresse Ihres Wohnorts an.");
+				document.forms["contact"].elements[10].focus();
+				window.scrollBy(0,-17);
+				return;
+				}
+			if(document.forms["contact"].elements[11].value == "") {
+				alert("Bitte geben Sie Ihren Wohnort mit PLZ an.");
+				document.forms["contact"].elements[11].focus();
+				window.scrollBy(0,-17);
+				return;
+				}
+			if(document.forms["contact"].elements[12].value != "") {
+				var usr = "([a-zA-Z0-9][a-zA-Z0-9_.-]*|\"([^\\\\\x80-\xff\015\012\"]|\\\\[^\x80-\xff])+\")";
+				var domain = "([a-zA-Z0-9][a-zA-Z0-9._-]*\\.)*[a-zA-Z0-9][a-zA-Z0-9._-]*\\.[a-zA-Z]{2,5}";
+				var myrxp = new RegExp(regex = "^"+usr+"\@"+domain+"$");
+				if (!(myrxp.test(document.forms["contact"].elements[12].value))) {
+					alert("Bitte geben Sie Ihre E-Mail-Adresse an. Sie können dieses Feld leer lassen. Dann erhalten Sie keine Bestätigung.");
+					document.forms["contact"].elements[12].focus();
+					window.scrollBy(0, -17);
+					return;
+					}
+				}
+			document.contact.submit();
+			}
+		//-->
+		/*]]>*/
+	</script>
+	<f:form action="create" controller="Mail" object="{newMail}" objectName="newMail"  name="contact" method="post">
+		<dl>
+			<dt>
+				<h5><f:form.hidden property="form" value="2" /><input type="checkbox" checked="checked" />
+				Wirtefachkurs und Wirtefachprüfung</h5>
+			</dt>
+			<dd>
+				<f:form.hidden property="gender" value="" />
+				<input type="radio" name="a" onclick="OnRadioClick(this)" value="Frau"> <b>Frau</b>&nbsp;&nbsp;&nbsp;
+				<input type="radio" name="a" onclick="OnRadioClick(this)" value="Herr"> <b>Herr</b><br />
+				<b><span class="red">*</span>Name&nbsp; Vorname</b><br />
+				<f:form.textfield property="name" size="28" maxlength="256" /><br />
+				<b><span class="red">*</span>Adresse / Strasse</b><br />
+				<f:form.textfield property="address" size="28" maxlength="256" /><br />
+				<b><span class="red">*</span>PLZ&nbsp; Wohnort</b><br />
+				<f:form.textfield property="place" size="28" maxlength="256" /><br />	
+				&nbsp;E-Mail<br />
+				<f:form.textfield property="email" size="28" maxlength="256" /><br />
+			</dd>
+			<dt><h5>Haben Sie eine Anmerkung?</h5></dt>
+			<dd>
+				&nbsp;Bitte schreiben Sie hier<br />
+				<f:form.textarea property="remark" rows="8" cols="27" /><br />
+			</dd>
+		</dl>
+		<p><input type="button" value="Abschicken" onclick="CheckInput()"></p>
+	</f:form>
+</f:section>
+

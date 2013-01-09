@@ -1,0 +1,149 @@
+#prt-page {
+   	width: 607px;
+	background: #003dae url('../Icons/background.gif') repeat-y right top; 
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	}
+#prt-title {
+	overflow: hidden;
+	width: 605px;
+	height: 85px; 
+	}
+#prt-content {
+	position: relative;
+	width: 575px;
+	margin-left: 30px;
+	}
+#page {
+   	width: 767px;
+	background: #003dae url('../Icons/background.gif') repeat-y right top; 
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	}
+#title {
+	width: 575px;
+	height: 105px; 
+	margin-left: 190px;
+	}
+#content {
+	width: 575px;
+	margin-left: 190px;
+	}
+.wiki {
+	position: relative;
+	overflow: hidden;
+	width: 575px;
+	}
+.section {
+	position: relative;
+	overflow: hidden;
+	width: 575px;
+	}
+.col-main {	
+	float: left;
+	width: 415px;
+	height: 1%;
+	}
+.main {	
+	width: 400px;
+	}
+.main-box {	
+	position: absolute;
+	width: 118px;
+	height: 60px;
+	right: 161px;
+	top: 0px;
+	line-height: 60px;
+	text-align: right;
+	border: #800000 dotted 1px;
+	display: block;
+	}
+.main-box A {	
+	display: block;
+	text-decoration: none;
+	}
+.main-right {	
+	position: absolute;
+	width: 20px;
+	height: 40px;
+	right: 162px;
+	top: 1px;
+	text-align: right;
+	background-color: #FFDDBB; 
+	}
+.main-over {	
+	position: absolute;
+	width: 98px;
+	height: 20px;
+	right: 182px;
+	top: 21px;
+	text-align: right;
+	background-color: #FFDDBB; 
+	display: none;
+	}
+.wiki-bottom {	
+	position: absolute;
+	width: 20px;
+	right: 162px;
+	bottom: 0px;
+	text-align: right;
+	background-color: #FFDDBB; 
+	}
+.main-right img, .main-over img, .wiki-bottom img {
+	border: none;
+	}
+.col-margin {
+	float: right;
+	width: 160px;
+	height: 1%;
+	}
+.margin-top {	
+	width: 160px;
+	text-align: right;
+	}
+.margin-bottom {	
+	position: absolute;
+	width: 160px;
+	right: 0px;
+	bottom: 0px;
+	text-align: right;
+	}
+hr {	
+	color: white;
+	border: none;
+	}
+.divider {	
+	display: none;
+	}
+#footer {
+	overflow: hidden;
+	width: 605px;
+	height: 51px;
+	margin: 10px 0 0 160px;
+	background-color: #DFEFFF;
+	}
+#header {
+	position: fixed;
+	width: 605px;
+	height: 90px;
+	left: 160px;
+	top: 0;
+	background-color: #DFEFFF;
+	}
+* html #header {
+	position: absolute;
+	}
+#sidebar {
+	position: fixed;
+	width: 160px;
+	left: 0px;
+	top: 0px;
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	}
+* html #sidebar {
+	position: absolute;
+	}

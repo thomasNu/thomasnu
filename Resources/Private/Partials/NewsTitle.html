@@ -1,0 +1,43 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<strong>
+	<f:if condition="{tnu:term(format: 'Ymd', term: news.endterm)} > {tnu:term(format: 'Ymd', term: news.term)}">
+		<f:then>
+			<f:if condition="{tnu:term(format: 'n', term: news.endterm)} == {tnu:term(format: 'n', term: news.term)}">
+				<f:then>
+					<tnu:term format="j.">{news.term}</tnu:term>
+				</f:then>
+				<f:else>
+					<tnu:term format="j. M">{news.term}</tnu:term>
+				</f:else>
+			</f:if>
+			<tnu:if condition="strpos('x{news.subject}', '++') || strpos('x{news.subject}', '2 T.')">
+				<f:then>
+					{tnu:translate(key: 'common.and')}
+				</f:then>
+				<f:else>
+					{tnu:translate(key: 'common.to')}
+				</f:else>
+			</tnu:if>
+			<tnu:term format="j. M Y">{news.endterm}</tnu:term>
+		</f:then>
+		<f:else>
+			<tnu:term format="{tnu:newsDateFormat(term: news.term, sort: news.sort)}">{news.term}</tnu:term>
+		</f:else>
+	</f:if>
+	<tnu:if condition="'{detail}' == '1' && strpos('{news.link}', '@')">
+		<f:then>
+			&nbsp; <tnu:wiki noTags="1">[mailx:{news.link}|{news.subject}|{news.title}]</tnu:wiki>
+		</f:then>
+		<f:else>
+			<tnu:eval code="str_replace('++', '', str_replace('2 T.', '', '{news.subject}'))" as="subject">
+				<f:if condition="{subject}"> &ndash; {subject}</f:if>
+			</tnu:eval>
+		</f:else>
+	</tnu:if>
+	<tnu:if condition="substr('{news.portal}', 0, 1) == '*' && substr('{news.category}', 0, 2) == 'WB'"> &ndash; <tnu:wiki noTags="1">[r:ausgebucht]</tnu:wiki></tnu:if>
+</strong><br />
+<span class="newslink" <f:if condition="{detail} != 1">onmouseover="this.style.color='#800000'" onmouseout="this.style.color='#063055'"</f:if>>
+	<tnu:wiki noTags="1">{f:if(condition: news.title, then: news.title, else: news.agenda)}</tnu:wiki>
+</span>
+

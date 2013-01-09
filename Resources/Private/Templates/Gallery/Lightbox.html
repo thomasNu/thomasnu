@@ -1,0 +1,15 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div id="thumbnails-lightbox">
+	<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+		<f:for each="{photosOfThisGroupe}" as="photo">
+			<p class="thumbnails-lightbox-photo"><a href="fileadmin/images/gallery/{photo.id}.jpg" rel="lightbox" title="{tnu:gallery(mode: 'lightbox', caption: photo.caption, text: photo.text)}">
+			<tnu:if condition="'{photo.id}' == '{firstPhoto.id}'">
+				<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
+			</tnu:if>
+			<f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="160m" /></a></p>
+		</f:for>
+		<p class="thumbnails-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
+	</f:groupedFor> 
+</div>
+

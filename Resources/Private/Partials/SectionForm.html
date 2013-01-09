@@ -1,0 +1,77 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+{namespace fed=Tx_Fed_ViewHelpers}
+<fed:jQuery jQueryVersion="1.8.0" jQueryUIVersion="1.8.23" />
+<f:render partial="FormErrors" />
+<f:form action="{action}" controller="Section" arguments="{page: page}" objectName="{objectName}" object="{object}" method="post">
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<h4><f:link.action action="index" arguments="{page: page}" title="{tnu:translate(key: 'common.cancel')}">[{tnu:translate(key: 'common.cancel')}]</f:link.action>
+				<tnu:if condition="'{action}' == 'create'">
+					<f:then>
+						<tnu:translate key="section.createHeader" /></h4>
+					</f:then>
+					<f:else>
+						<tnu:eval code="str_replace(array('+', '*'), '', '{object.name}')" as="header">
+							<tnu:translate key="section.editHeader" arguments="{0: header}" /></h4>
+						</tnu:eval>
+					</f:else>
+				</tnu:if>
+				<f:form.hidden property="section" value="{sectionId}" />
+				<p><b>&nbsp;<tnu:translate key="section.name" /></b><br />
+				<f:form.textfield property="name" size="28" maxlength="256" /></p>
+				<fed:jQuery.tab animated="TRUE">
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.paragraph')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.paragraph')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.text')}" active="TRUE">
+						<tnu:wiki>{tnu:translate(key: 'wiki.text')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.image')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.image')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.link')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.link')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.imageLink')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.imageLink')}</tnu:wiki>			
+					</fed:jQuery.tab>
+				</fed:jQuery.tab>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<tnu:wiki specialChars="{[§°}]">{tnu:translate(key: 'wiki.help')}</tnu:wiki>			
+			</div>
+		</div>
+	</div>
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<p><b>&nbsp;<tnu:translate key="section.main" /></b><br />
+				<f:form.textarea property="main" rows="17" cols="49" style="width: 400px;" /></p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<p><b>&nbsp;<tnu:translate key="section.margin" /></b><br />
+				<f:form.textarea property="margin" rows="{tnu:eval(code: '\'{object.bottom}\' ? 9 :14')}" cols="19" /></p>
+			</div>
+			<div class="margin-bottom">
+				<p><f:form.textarea property="bottom" rows="{tnu:eval(code: '\'{object.bottom}\' ? 6 :1')}" cols="19" /></p>
+			</div>
+		</div>
+	</div>
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<p><f:form.submit value="{tnu:translate(key: 'common.save')}" /><p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<p style="margin-top:-4px;"><b>&nbsp;<tnu:translate key="section.bottom" /></b></p>
+			</div>
+		</div>
+	</div>
+</f:form>

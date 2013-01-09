@@ -1,0 +1,52 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>News Aktion wählen:</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">Default</numIndex>
+								<numIndex index="1">News->index</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Banner</numIndex>
+								<numIndex index="1">News->banner</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">Infos</numIndex>
+								<numIndex index="1">News->info;News->detail;News->edit;News->update;News->new;News->create;News->delete</numIndex>
+							</numIndex>
+						</items>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</switchableControllerActions>
+			<settings.dayRange>
+				<TCEforms>
+					<label>Aktuell +/- Tage:</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</settings.dayRange>
+			<settings.newsCategory>
+				<TCEforms>
+					<label>Kategorie</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</settings.newsCategory>
+		</el>
+	</ROOT>
+</T3DataStructure>
+

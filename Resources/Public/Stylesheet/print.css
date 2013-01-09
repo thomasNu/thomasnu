@@ -1,0 +1,11 @@
+/* Printer */
+
+hr {	
+	color: white;
+	border: none;
+	}
+.divider {	
+	display: block;
+	page-break-before: always;
+	}
+

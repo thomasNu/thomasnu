@@ -1,0 +1,46 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>Galerie Aktion wählen:</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">Default</numIndex>
+								<numIndex index="1">Gallery->index</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Slideshow</numIndex>
+								<numIndex index="1">Gallery->slideshow</numIndex>
+							</numIndex>
+							<numIndex index="2" type="array">
+								<numIndex index="0">Lightbox</numIndex>
+								<numIndex index="1">Gallery->lightbox</numIndex>
+							</numIndex>
+							<numIndex index="3" type="array">
+								<numIndex index="0">Banner</numIndex>
+								<numIndex index="1">Gallery->banner</numIndex>
+							</numIndex>
+						</items>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</switchableControllerActions>
+			<settings.startPhoto>
+				<TCEforms>
+					<label>Galerie Startfoto:</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</settings.startPhoto>
+		</el>
+	</ROOT>
+</T3DataStructure>
+

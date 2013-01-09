@@ -1,0 +1,207 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:layout name="Default" />
+
+<f:section name="test">
+	<div id="portal-news">
+		<div id="title-news"><a class="quick" target="_top" href="index.php?id=aktuell">Aktuell »</a></div>
+		<tnu:uniqueFor each="{portalNews}" as="uniqueNews" uniqueBy="category:GS" max="7"> 
+			<f:for each="{uniqueNews}" as="news">
+				<div class="news"><f:link.page pageUid="{tnu:newsLink(uri: news.link, mode: 'portal')}"><strong>
+					<f:if condition="{tnu:term(format: 'Ymd', term: news.endterm)} > {tnu:term(format: 'Ymd', term: news.term)}">
+						<f:then>
+							<f:if condition="{tnu:term(format: 'n', term: news.endterm)} == {tnu:term(format: 'n', term: news.term)}">
+								<f:then>
+									<tnu:term format="j.">{news.term}</tnu:term>
+								</f:then>
+								<f:else>
+									<tnu:term format="j. M">{news.term}</tnu:term>
+								</f:else>
+							</f:if> bis <tnu:term format="j. M Y">{news.endterm}</tnu:term>
+						</f:then>
+						<f:else>
+							<tnu:term format="{tnu:newsDateFormat(term: news.term, sort: news.sort, portal: 1)}">{news.term}</tnu:term>
+
+						</f:else>
+					</f:if></strong><br />
+					<span class="nl" onmouseover="this.style.color='#800000'" onmouseout="this.style.color='#050000'">
+						<tnu:wiki>{news.portal}</tnu:wiki>
+					</span>
+				</f:link.page></div>
+			</f:for>
+		</tnu:uniqueFor>
+	</div>
+	<div id="portal-courses">
+		<div id="title-courses"><a class="quick" target="_top" href="index.php?id=weiterbildung">Weiterbildung »</a></div>
+		<tnu:uniqueFor each="{portalCourses}" as="uniqueCourse" uniqueBy="portal" max="7"> 
+			<f:for each="{uniqueCourse}" as="course">
+				<div class="news"><f:link.page pageUid="{tnu:newsLink(uri: course.link)}">
+					<strong><tnu:term format="D2 d.m.Y">{course.term}</tnu:term></strong><br />
+					<span class="nl" onmouseover="this.style.color='#800000'" onmouseout="this.style.color='#050000'">
+						<tnu:wiki>{course.portal}</tnu:wiki>
+					</span>
+				</f:link.page></div>
+			</f:for>
+		</tnu:uniqueFor>
+	</div>
+</f:section>
+
+<f:section name="portal">
+	<div id="news-courses">
+		<div id="portal-news">
+			<div id="title-news"><a class="quick" target="_top" href="index.php?id=aktuell">Aktuell »</a></div>
+			<tnu:uniqueFor each="{portalNews}" as="uniqueNews" uniqueBy="category:GS" max="7"> 
+				<f:for each="{uniqueNews}" as="news">
+					<div class="news"><f:link.page pageUid="{tnu:newsLink(uri: news.link, mode: 'portal')}"><strong>
+						<f:if condition="{tnu:term(format: 'Ymd', term: news.endterm)} > {tnu:term(format: 'Ymd', term: news.term)}">
+							<f:then>
+								<f:if condition="{tnu:term(format: 'n', term: news.endterm)} == {tnu:term(format: 'n', term: news.term)}">
+									<f:then>
+										<tnu:term format="j.">{news.term}</tnu:term>
+									</f:then>
+									<f:else>
+										<tnu:term format="j. M">{news.term}</tnu:term>
+									</f:else>
+								</f:if>
+								bis <tnu:term format="j. M Y">{news.endterm}</tnu:term>
+							</f:then>
+							<f:else>
+								<tnu:term format="{tnu:newsDateFormat(term: news.term, sort: news.sort, portal: 1)}">{news.term}</tnu:term>
+
+							</f:else>
+						</f:if></strong><br />
+						<span class="nl" onmouseover="this.style.color='#800000'" 
+							onmouseout="this.style.color='#050000'"><tnu:wiki>{news.portal}</tnu:wiki></span>
+					</f:link.page></div>
+				</f:for>
+			</tnu:uniqueFor>
+		</div>
+		<div id="portal-courses">
+			<div id="title-courses"><a class="quick" target="_top" href="index.php?id=weiterbildung">Weiterbildung »</a></div>
+			<tnu:uniqueFor each="{portalCourses}" as="uniqueCourse" uniqueBy="portal" max="7"> 
+				<f:for each="{uniqueCourse}" as="course">
+					<div class="news"><f:link.page pageUid="{tnu:newsLink(uri: course.link)}">
+						<strong><tnu:term format="D2 d.m.Y">{course.term}</tnu:term></strong><br />
+						<span class="nl" onmouseover="this.style.color='#800000'" 
+							onmouseout="this.style.color='#050000'"><tnu:wiki>{course.portal}</tnu:wiki></span>
+					</f:link.page></div>
+				</f:for>
+			</tnu:uniqueFor>
+		</div>
+	</div>
+</f:section>
+
+<f:section name="agenda">
+	<table cellspacing="0" cellpadding="2" width="400" border="0">
+		<tnu:groupedFor each="{agendaEntries}" as="entryOfThisDay" groupBy="term:date('ymd', 'value')" groupKey="thisDay"> 
+			<f:for each="{entryOfThisDay}" as="entry" iteration="inDay">
+				<f:if condition="{inDay.isFirst}">
+				 	<tr>
+						<td colspan="2" width="400">
+							<tnu:if condition="'{tnu:term(format: 'W', term: entry.term)}' == '{week}' || '{thisDay}' >= '{today}'">
+								<f:then>
+									<div class="agenda-day"><a name="{thisDay}"><h5><tnu:term format="D, j. M Y">{entry.term}</tnu:term></h5></a></div>
+									<div class="agenda-week"><h5>Woche <tnu:term format="W">{entry.term}</tnu:term></h5></div>
+								</f:then>
+								<f:else>
+									<div class="agenda-day"><a name="{thisDay}"><h5><tnu:term format="j. M">{entry.term}</tnu:term>
+										bis <tnu:term format="D, j. M Y">{entry.endterm}</tnu:term></h5></a></div>
+									<div class="agenda-week"><h5>laufend</h5></div>
+								</f:else>
+							</tnu:if>
+						</td>
+				 	</tr>
+				</f:if>
+			 	<tr>
+					<td class="agenda-hour" width="70" valign="top" bgcolor="#DFEFFF"><b>
+						<f:if condition="{tnu:term(format: 'Hi', term: entry.term)} > 0">
+							<tnu:term format="H.i">{entry.term}</tnu:term>
+							<f:if condition="{tnu:term(format: 'Hi', term: entry.endterm)} > 100">
+								bis <tnu:term format="H.i">{entry.endterm}</tnu:term>
+							</f:if>
+							Uhr
+						</f:if>
+					</b></td>
+					<td class="agenda-entry" width="330" valign="top"
+						<tnu:if condition="'{entry.category}' == '{course0}' || strpos('{entry.category}', '{course}') === false">
+							<f:then>
+								<tnu:if condition="'{entry.category}' == '{group}'">
+									<f:then>
+										bgcolor="#DDEEDD">
+									</f:then>
+									<f:else>
+										bgcolor="#FFDDBB">
+									</f:else>
+								</tnu:if>
+							</f:then>
+							<f:else>
+								bgcolor="#EEEECC">
+							</f:else>
+						</tnu:if>
+					<f:if condition="{entry.link}">
+						<f:then>
+							<f:link.page pageUid="{tnu:newsLink(uri: entry.link)}">
+								<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" align="right" />
+								<tnu:wiki noTags="1"><tnu:agendaEntry thisday="{thisDay}" endterm="{entry.endterm}" subject="{entry.subject}" portal="{entry.portal}" 
+									category="{entry.category}" course="{course}">{entry.agenda}</tnu:agendaEntry></tnu:wiki>
+							</f:link.page>
+						</f:then>
+						<f:else>
+							<tnu:wiki noTags="1"><tnu:agendaEntry thisday="{thisDay}" endterm="{entry.endterm}" subject="{entry.subject}" portal="{entry.portal}" 
+								category="{entry.category}" course="{course}">{entry.agenda}</tnu:agendaEntry></tnu:wiki>
+						</f:else>
+					</f:if></td>
+				</tr>
+			</f:for>
+		</tnu:groupedFor>
+	</table>
+</f:section>
+
+<f:section name="aktuell">
+	<div class="yellowbox1">
+		<f:for each="{newsList}" as="news">
+			<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
+				<f:render partial="NewsTitle" arguments="{news: news}" />
+    		</f:link.page></p>
+		</f:for>
+	</div>
+	<h3>{settings.newsArchive}</h3>
+	<f:for each="{newsArchives}" as="news">
+		<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
+			<f:render partial="NewsTitle" arguments="{news: news}" />
+		</f:link.page></p>
+	</f:for>
+</f:section>
+
+<f:section name="kursdaten">
+	<h3>Daten Wirtefachkurse
+		<f:alias map="{year: '{tnu:term(format: \'Y\', term: firstCourse.term)}', year1: '{tnu:term(format: \'Y\', term: lastCourse.term)}'}">
+			{year}
+			<f:if condition="{year1} > {year}">
+				/ {year1}
+			</f:if>
+		</f:alias></h3>
+	<p>&nbsp;</p>
+    <table border="0" cellspacing="0" cellpadding="2" width="400">
+		<f:for each="{hostCourses}" as="course" iteration="iterator">
+			<f:if condition="{course.endterm} > 0">
+				<f:then>
+				  	<tr>
+						<td width="160" valign="top" bgcolor="#DFEFFF"><b>Wirtefachkurs Nr. {course.subject}</b></td>
+						<td valign="top" bgcolor="#FFDDBB" width="240"><b>
+							<tnu:term format="D, j. M">{course.term}</tnu:term> bis<br />
+							<tnu:term format="D, j. M Y">{course.endterm}</tnu:term></b>
+						</td>
+				  	</tr>
+				</f:then>
+				<f:else>
+					<tr>
+						<td width="160" valign="top">Prüfungen{f:if(condition: iterator.isLast, else: '<br />&nbsp;')}</td>
+						<td valign="top" width="240"><p><tnu:term format="D, j. M Y">{course.term}</tnu:term></p></td>
+				  	</tr>
+				</f:else>
+			</f:if>
+		</f:for>
+    </table>
+</f:section>
+

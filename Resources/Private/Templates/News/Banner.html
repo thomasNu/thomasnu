@@ -1,0 +1,14 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div id="news-banner">
+	<div id="banner-title"><a class="quick" target="_top" title = "Medienkonferenz »" href="index.php?id=infos#landammann">Landammann-Stammtisch »</a></div>
+	<tnu:uniqueFor each="{bannerNews}" as="uniqueNews" uniqueBy="category">
+		<f:for each="{uniqueNews}" as="news">
+			<p><tnu:term format="D, j. M Y, H.i">{news.term}</tnu:term> - <tnu:term format="H.i">{news.endterm}</tnu:term> Uhr<br />{news.subject}</p>
+			<p class="banner-mini">Landammann Urs Hofmann berichtet über die Aargauer Politik und stellt sich den Fragen und Anliegen der Bevölkerung.</p>
+			<p class="banner-mini">Alle sind herzlich eingeladen. {news.margin} und Landammann Urs&nbsp;Hofmann freuen sich auf Ihren Besuch.</p>
+			<p class="banner-image"><f:image src="fileadmin/images/news/landammann.gif" alt="Landammann-Stammtisch" title="Landammann-Stammtisch" width="400" height="103" /></p>
+		</f:for>
+	</tnu:uniqueFor>
+</div>
+

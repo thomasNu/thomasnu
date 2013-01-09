@@ -1,0 +1,108 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+{namespace fed=Tx_Fed_ViewHelpers}
+<fed:jQuery jQueryVersion="1.8.0" jQueryUIVersion="1.8.23" />
+<f:form action="{action}" controller="News" objectName="{objectName}" object="{object}" method="post">
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<h4><f:link.action action="info" arguments="{blog: blog}" title="{tnu:translate(key: 'common.cancel')}">[{tnu:translate(key: 'common.cancel')}]</f:link.action>
+				<tnu:if condition="'{action}' == 'create'">
+					<f:then>
+						<tnu:translate key="news.createHeader" /></h4>
+					</f:then>
+					<f:else>
+						<tnu:translate key="news.editHeader" /></h4>
+					</f:else>
+				</tnu:if>
+				<f:if condition="{blog}">
+					<f:then>
+						<p><b>&nbsp;<tnu:translate key="blog.term" /></b><br />
+						<tnu:eval code="date('d.m.Y H:i', '{term}')" as="date">
+							<f:form.textfield property="term" value="{date}" size="16" style="width: 150px;" />
+						</tnu:eval>
+						<f:form.hidden property="category" value="BLOG" /><br />
+						<b>&nbsp;<tnu:translate key="blog.subject" /></b><br />
+						<f:form.textfield property="subject" value="{author}" size="28" maxlength="256" style="width: 195px;" />
+						<f:form.textfield property="link" value="{email}" size="28" maxlength="256" style="width: 195px;" /><br />
+						<b>&nbsp;<tnu:translate key="blog.title" /></b><br />
+						<f:form.textfield property="title" size="28" maxlength="256" style="width: 395px;" />
+					</f:then>
+					<f:else>
+						<p><b>&nbsp;<tnu:translate key="news.term" /></b><br />
+						<tnu:eval code="date('d.m.Y H:i', '{term}')" as="date">
+							<f:form.textfield property="term" value="{date}" size="16" style="width: 105px;" />
+						<tnu:eval code="date('d.m.Y H:i', '{endterm}')" as="date" />
+							<f:form.textfield property="endterm" value="{f:if(condition: endterm, then: date)}" size="16" style="width: 105px;" />
+						</tnu:eval>
+						<f:form.textfield property="sort" size="3" style="width: 20px;" />
+						<f:form.textfield property="category" size="8" style="width: 60px;" /><br />
+						<b>&nbsp;<tnu:translate key="news.subject" /></b><br />
+						<f:form.textfield property="subject" size="28" maxlength="256" style="width: 240px;" />
+						<f:form.textfield property="link" size="28" maxlength="256" style="width: 150px;" /><br />
+						<b>&nbsp;<tnu:translate key="news.title" /></b><br />
+						<f:form.textfield property="title" size="28" maxlength="256" style="width: 280px;" />
+						<f:form.textfield property="portal" size="28" maxlength="256" style="width: 110px;" /></p>
+					</f:else>
+				</f:if>
+				<fed:jQuery.tab animated="TRUE">
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.wiki')}" active="TRUE">
+						<tnu:wiki>{tnu:translate(key: 'wiki.wiki')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.paragraph')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.paragraph')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.text')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.text')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.image')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.image')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.link')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.link')}</tnu:wiki>			
+					</fed:jQuery.tab>
+					<fed:jQuery.tab title="{tnu:translate(key: 'tab.imageLink')}">
+						<tnu:wiki>{tnu:translate(key: 'wiki.imageLink')}</tnu:wiki>			
+					</fed:jQuery.tab>
+				</fed:jQuery.tab>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<tnu:wiki specialChars="{[}]§°">{tnu:translate(key: 'wiki.help')}</tnu:wiki>			
+			</div>
+		</div>
+	</div>
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<p><b>&nbsp;<tnu:translate key="section.main" /></b><br />
+				<f:form.textarea property="teaser" rows="17" cols="49" style="width: 400px;" /></p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<f:if condition="{blog} != 1">
+				<div class="margin-top">
+					<p><b>&nbsp;<tnu:translate key="section.margin" /></b><br />
+					<f:form.textarea property="margin" rows="{tnu:eval(code: '\'{object.agenda}\' ? 9 :14')}" cols="19" /></p>
+				</div>
+				<div class="margin-bottom">
+					<p><f:form.textarea property="agenda" rows="{tnu:eval(code: '\'{object.agenda}\' ? 6 :1')}" cols="19" /></p>
+				</div>
+			</f:if>
+		</div>
+	</div>
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<p><f:form.submit value="{tnu:translate(key: 'common.save')}" /><p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<f:if condition="{blog} != 1">
+				<div class="margin-top">
+					<p style="margin-top:-4px;"><b>&nbsp;<tnu:translate key="news.agenda" /></b></p>
+				</div>
+			</f:if>
+		</div>
+	</div>
+</f:form>

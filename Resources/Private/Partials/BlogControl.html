@@ -1,0 +1,38 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:security.ifHasRole role="Blog">
+	<div class="main-box" style="width: 38px; {f:if(condition: '{insert} != 0', then: 'display: none;')}">
+		<a id="b{news.uid}" href="#" onmouseover="displayIcons(this.id)" onclick="return false;">&nbsp;</a>
+	</div>
+	<div class="main-right" style="{f:if(condition: '{insert} != 0', then: 'width: 40px;')}">
+		<f:link.action controller="News" action="new" arguments="{newTerm: newTerm}" title="{tnu:translate(key: 'news.new')}">
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'news.new')}" />
+		</f:link.action><br />
+		<f:link.action controller="News" action="edit" arguments="{news: news}" title="{tnu:translate(key: 'news.edit')}">
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/edit.gif" alt="{tnu:translate(key: 'news.edit')}" />
+		</f:link.action>			
+	</div>
+	<div id="s{news.uid}" class="main-over" style="width: 18px; {f:if(condition: '{insert} != 0', then: 'display: block;')}">
+		<a href="{f:uri.action(controller: 'News' action: 'delete' arguments: {news: news})}" title="{tnu:translate(key: 'news.delete')}" 
+				onclick="if (confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
+			<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'news.delete')}" />
+		</a>
+	</div>
+</f:security.ifHasRole>
+<script language="JavaScript">
+	/*<![CDATA[*/
+	<!--
+	var sCurrent = '';
+
+	function displayIcons(current) {
+		current = 's' + current.slice(1);
+		if (current != sCurrent) {
+			if (sCurrent) document.getElementById(sCurrent).style.display = 'none';
+			document.getElementById(current).style.display = 'block';
+			sCurrent = current;
+		}
+	}
+	//-->
+	/*]]>*/
+</script>
+

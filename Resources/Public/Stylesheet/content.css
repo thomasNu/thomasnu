@@ -1,0 +1,172 @@
+/* Page Portal */
+
+#news-courses {	
+	overflow: hidden;
+	width: 398px;
+	border-left: 1px dotted black;
+	border-right: 1px dotted black;
+	}
+#portal-news {	
+	float: left;
+	width: 247px;
+	border-right: 1px dotted black;
+	padding-left: 1px;
+	}
+#portal-courses {
+	margin-left: 248px;
+	padding: 0 1px;
+	}
+#title-news {	
+	background-color: #3E483E; 
+	padding: 0 0 2px 1px;
+	}
+#title-courses {
+	background-color: #003DAE; 
+	padding: 0 0 2px 1px;
+	}
+#news-banner {	
+	width: 400px;
+	font-family: Verdana, Geneva, Arial, Helvetica, sans-serif; 
+	font-size: 11px;
+	line-height: 13px; 
+	text-align: center;
+	color: white; 
+	background-color: #3E483E; 
+	}
+#banner-title {	
+	padding-top: 2px;
+	border-bottom: 1px dotted white;
+	margin-bottom: 4px;
+	}
+.banner-mini { 
+	font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif; 
+	font-size: 10px;
+	line-height: 11px;
+	margin: 0 10px;  
+	}
+.banner-image {
+	padding-bottom: 0;
+	} 
+.agenda-day {	
+	float: left;
+	width: 318px;
+	}
+.agenda-week {
+	float: right;
+	width: 78px;
+	text-align: right;
+	}
+.agenda-entry, .agenda-hour {
+	padding-top: 1px;
+	border-bottom: 1px dotted black; 
+	}
+#thumbnails {
+	width: 160px;
+	text-align: right;
+	margin-left: 415px;
+	}
+.thumbnails-photo {
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:9px; 
+	padding-bottom:0px; 
+	margin-bottom:0px; 
+	}
+.thumbnails-photo img {
+	border:solid 5px;
+	}
+.thumbnails-text {
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:13px; 
+	padding-top:0px; 
+	padding-bottom:6px; 
+	}
+#thumbnails-lightbox {
+	width: 160px;
+	text-align: right;
+	}
+.thumbnails-lightbox-photo {
+	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-size:11px;
+	line-height:9px; 
+	padding-bottom:0px; 
+	margin-bottom:0px; 
+	}
+.thumbnails-lightbox-photo img {
+	border: none;
+	}
+.banner-slide {
+	display: none;
+	}
+.slide {
+	position: fixed;
+	display: none;
+	top: 95px;
+	left: 5px;
+	z-index: 120;
+	background-color: #EEEECC;
+	padding: 5px;
+	border-bottom: 2px solid #666;
+	border-right: 2px solid #666;
+	}
+.slide-photo {
+	border: none;
+	}
+.slide-text {
+	font-family:'Trebuchet MS',Arial,Helvetica,sans-serif; 
+	font-size:13px;
+	line-height:18px;
+	width: 575px; 
+	}
+#slideshow {
+	position: fixed;
+	width: 415px;
+	z-index: 101;
+	left: 190px;
+	top: 15px;
+	}
+#lightbox{
+	background-color:#EEEECC;
+	padding: 5px;
+	border-bottom: 2px solid #666;
+	border-right: 2px solid #666;
+	}
+#lightboxDetails{
+	font-family:'Trebuchet MS',Arial,Helvetica,sans-serif; 
+	font-size:13px;
+	line-height:18px; 
+	}	
+#lightboxCaption{ float: left; }
+#keyboardMsg{ float: right; }
+#closeButton{ top: 5px; right: 5px; }
+
+#lightbox img{ border: none; clear: both;} 
+#overlay img{ border: none; }
+
+#overlay{ background-image: url(overlay.png); }
+
+.f3-widget-paginator {
+	font-weight: bold;
+	padding-left: 0;
+	}
+.f3-widget-paginator li {
+	float: left;
+	display: block;
+	padding: 0px 2px;
+	margin: 2px;
+	border: 1px dotted black;
+	}	 
+/* Test Ehrentafel */
+table.ehrung {
+  width: 200px;
+  margin-top: 20px;
+  border: 1px solid black;
+  text-align: center;
+}
+p.ehrentafel {
+ margin-top: 20px;
+ margin-bottom: 20px; 
+ text-align: center;
+} 
+

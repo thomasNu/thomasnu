@@ -1,0 +1,96 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:if condition="{infos->f:count()} == 0">
+	<f:security.ifHasRole role="{f:if(condition: blog, then: 'Blog', else: 'Editor')}">
+		<tnu:eval code="time()" as="default">
+			<f:link.action action="new" arguments="{newTerm: default}" title="{tnu:translate(key: 'news.new')}">
+				<div class="section"><p class="mark">{tnu:translate(key: 'news.new')} 
+				<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'news.new')}" /></p></div>
+			</f:link.action>
+		</tnu:eval>
+	</f:security.ifHasRole>
+</f:if>
+<tnu:eval code="'5'" as="prevTerm">
+<f:security.ifHasRole role="{f:if(condition: blog, then: 'Blog', else: 'Editor')}">
+	<tnu:eval code="'1000'" as="prevTerm" />
+</f:security.ifHasRole>
+	<f:widget.paginate objects="{infos}" as="paginetedInfos" configuration="{itemsPerPage: '{prevTerm}', insertAbove: 1, insertBelow: 1, maximumNumberOfLinks: 10}">
+		<f:for each="{paginetedInfos}" as="news">
+			<tnu:eval code="'{news.term}' + 86400" as="prevTerm" />
+			<f:if condition="{blog}">
+				<f:then>
+					<div class="section"> 
+						<div class="col-main">
+							<div class="main">
+								<h5><f:link.action action="detail" arguments="{news: news}"
+										additionalAttributes="{name: '{tnu:newsLink(uri: news.link, mode: \'name\', blog: \'{news.term}{news.sort}\')}'}">
+									<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" />
+									<f:render partial="NewsTitle" arguments="{news: news}" />
+								</f:link.action></h5>
+								<tnu:wiki><tnu:newsTeaser teaser="255">{news.teaser}</tnu:newsTeaser></tnu:wiki>
+								<tnu:eval code="time()" as="prevTerm" />
+								<f:render partial="BlogControl" arguments="{news: news, newTerm: prevTerm, insertNews: insertNews, insert: insert}" />
+							</div>
+						</div>
+					</div>
+				</f:then>
+				<f:else>
+					<tnu:if condition="strpos('x{news.category}', str_replace('%', '', '{settings.newsCategory}')) && '{news.teaser}'">
+						<f:then>
+							<div class="section"> 
+								<div class="col-main">
+									<div class="main">
+										<h5><tnu:if condition="strpos('x{news.teaser}', '!') == 1 || strpos('x{news.teaser}', ';') == 1">
+											<f:then>
+												<f:link.action action="detail" arguments="{news: news}"
+														additionalAttributes="{name: '{tnu:newsLink(uri: news.link, mode: \'name\', blog: \'{news.term}{news.sort}\')}'}">
+													<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" />
+													<f:render partial="NewsTitle" arguments="{news: news}" />
+												</f:link.action>
+											</f:then>
+											<f:else>
+												<tnu:if condition="strpos('{news.teaser}', '|page|')">
+													<f:then>
+														<f:link.page pageUid="{tnu:newsLink(uri: news.link, mode: 'news', teaser: news.teaser)}"
+																additionalAttributes="{name: '{tnu:newsLink(uri: news.link, mode: \'name\')}'}">
+															<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" />
+															<f:render partial="NewsTitle" arguments="{news: news}" />
+														</f:link.page>
+													</f:then>
+													<f:else>
+														<tnu:newsLink uri="{news.link}" mode="news" teaser="{news.teaser}"> 
+															<f:render partial="NewsTitle" arguments="{news: news}" />
+														</tnu:newsLink> 
+													</f:else>
+												</tnu:if>
+											</f:else>
+										</tnu:if></h5>
+										<tnu:wiki><tnu:newsTeaser>{news.teaser}</tnu:newsTeaser></tnu:wiki>
+										<f:render partial="NewsControl" arguments="{news: news, newTerm: prevTerm, insertNews: insertNews, insert: insert}" />
+									</div>
+								</div>
+								<div class="col-margin">
+									<div class="margin-top">
+										<tnu:wiki><tnu:newsTeaser>{news.margin}</tnu:newsTeaser></tnu:wiki>			
+									</div>
+								</div>
+							</div>
+						</f:then>
+						<f:else>
+							<div class="section" style="min-height: 60px; background: #CCCCCC;"> 
+								<div class="col-main">
+									<div class="main">
+										<f:render partial="NewsTitle" arguments="{news: news}" />
+										<f:render partial="NewsControl" arguments="{news: news, newTerm: prevTerm, insertNews: insertNews, insert: insert}" />
+									</div>
+								</div>
+							</div>
+						</f:else>
+					</tnu:if>
+				</f:else>
+			</f:if>
+			<tnu:eval code="'{news.term}e{news.endterm}'" as="prevTerm" />
+		</f:for>
+	</f:widget.paginate>
+</tnu:eval>
+

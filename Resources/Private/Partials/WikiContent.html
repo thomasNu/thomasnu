@@ -1,0 +1,158 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<tnu:eval code="'0'" as="newSectionId">
+	<div class="wiki">
+		<f:if condition="{sections->f:count()} == 0">
+			<div class="section"><p class="mark">{tnu:translate(key: 'section.new')}</p></div>
+		</f:if>
+		<tnu:uniqueFor each="{sections}" as="sortedSections" uniqueBy="section:ASC">
+			<f:for each="{sortedSections}" as="section">
+				<f:if condition="{editor}">
+					<f:then>
+						<tnu:eval code="(int)(({newSectionId} + {section.section})/2)" as="newSectionId" />
+						<div class="section" style="min-height: 62px;
+							{tnu:if(condition: 'strpos(\'x{section.name}\', \'+\')', then: ' border-top: #800000 solid 3px;')} 
+							{tnu:if(condition: 'strpos(\'x{section.name}\', \'*\')', then: ' background: #CCCCCC;')}"> 
+					</f:then>
+					<f:else>
+						<tnu:if condition="strpos('x{section.name}', '+')">
+							<div class="divider"><hr /></div>
+						</tnu:if>
+						<div class="section"{tnu:if(condition: 'strpos(\'x{section.name}\', \'*\')', then: ' style="display: none;"')}> 
+					</f:else>
+				</f:if>
+					<div class="col-main">
+						<tnu:eval code="str_replace(array('+', '*'), '', '{section.name}')" as="anchor">
+							<div class="main"{f:if(condition: anchor, then: ' id="{anchor}"')}>
+								<tnu:wiki references="{references}">{section.main}</tnu:wiki>			
+							</div>
+						</tnu:eval>
+						<f:if condition="{editor}">
+							<div class="main-box" style="{f:if(condition: '{insert} != 0', then: 'display: none;')}">
+								<a id="b{section.section}" href="#" title="<!--ref{section.uid}-->" onmouseover="displayIcons(this.id)" onclick="window.alert(this.title); return false;">&nbsp;</a>
+							</div>
+							<div class="main-right" style="{f:if(condition: '{insert} != 0', then: 'width: 40px;')}">
+								<f:if condition="{insert} == 1">
+									<f:link.action controller="Section" action="update" 
+											arguments="{page: page, section: insertSection, modify: '{newSectionId}'}" title="{tnu:translate(key: 'section.paste')}">
+										<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'section.paste')}" />
+									</f:link.action>			
+								</f:if>
+								<f:if condition="{insert} == -1">
+									<f:link.action controller="Section" action="update" 
+											arguments="{page: page, section: insertSection, modify: '-{newSectionId}'}" title="{tnu:translate(key: 'section.move')}">
+										<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'section.move')}" />
+									</f:link.action>			
+								</f:if>
+								<f:link.action controller="Section" action="new" arguments="{page: page, sectionId: newSectionId}" title="{tnu:translate(key: 'section.new')}">
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'section.new')}" />
+								</f:link.action><br />
+								<f:link.action controller="Section" action="edit" arguments="{page: page, section: section, sectionId: section.section}" title="{tnu:translate(key: 'section.edit')}">
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/edit.gif" alt="{tnu:translate(key: 'section.edit')}" />
+								</f:link.action>			
+							</div>
+							<div id="s{section.section}" class="main-over" style="{f:if(condition: '{insert} != 0', then: 'display: block;')}">
+								<a href="{f:uri.action(controller: 'Section' action: 'delete' arguments: {page: page, section: section})}" title="{tnu:translate(key: 'section.delete')}" 
+										onclick="if (window.confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'section.delete')}" />
+								</a>
+								<tnu:if condition="strpos('x{section.name}', '*')">
+									<f:then>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'hide'}" title="{tnu:translate(key: 'section.unhide')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'section.unhide')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'hide'}" title="{tnu:translate(key: 'section.hide')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'section.hide')}" />
+										</f:link.action>			
+									</f:else>
+								</tnu:if>
+								<tnu:if condition="strpos('x{section.name}', '+')">
+									<f:then>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'pager'}" title="{tnu:translate(key: 'section.pager1')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/print.gif" alt="{tnu:translate(key: 'section.pager1')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'pager'}" title="{tnu:translate(key: 'section.pager')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/print.gif" alt="{tnu:translate(key: 'section.pager')}" />
+										</f:link.action>			
+									</f:else>
+								</tnu:if>
+								<tnu:if condition="'{section.section}' == '{insertSection.section}' && '{insert}' == '-1'">
+									<f:then>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'cut1'}" title="{tnu:translate(key: 'section.cut1')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/cut1.gif" alt="{tnu:translate(key: 'section.cut1')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'cut'}" title="{tnu:translate(key: 'section.cut')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/cut.gif" alt="{tnu:translate(key: 'section.cut')}" />
+										</f:link.action>			
+									</f:else>
+								</tnu:if>
+								<tnu:if condition="'{section.section}' == '{insertSection.section}' && '{insert}' == '1'">
+									<f:then>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'copy1'}" title="{tnu:translate(key: 'section.copy1')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/copy1.gif" alt="{tnu:translate(key: 'section.copy1')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Section" action="update" arguments="{page: page, section: section, modify: 'copy'}" title="{tnu:translate(key: 'section.copy')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/copy.gif" alt="{tnu:translate(key: 'section.copy')}" />
+										</f:link.action>			
+									</f:else>
+								</tnu:if>
+							</div>
+						</f:if>
+					</div>
+					<div class="col-margin">
+						<div class="margin-top">
+							<tnu:wiki references="{references}" noTags="2">{section.margin}</tnu:wiki>			
+						</div>
+						<div class="margin-bottom">
+							<tnu:wiki references="{references}" noTags="4">{section.bottom}</tnu:wiki>			
+						</div>
+					</div>
+				</div>
+				<tnu:eval code="{section.section}" as="newSectionId" />
+			</f:for>
+		</tnu:uniqueFor>
+		<f:if condition="{editor}">
+			<tnu:eval code="{newSectionId} ? {newSectionId} * 2 : 67108864" as="newSectionId" />
+			<div class="wiki-bottom" style="{f:if(condition: '{insert} != 0', then: 'width: 40px;')}">
+				<f:if condition="{insert} == 1">
+					<f:link.action controller="Section" action="update" arguments="{page: page, section: insertSection, modify: '{newSectionId}'}" title="{tnu:translate(key: 'section.paste1')}">
+						<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'section.paste1')}" />
+					</f:link.action>			
+				</f:if>
+				<f:if condition="{insert} == -1">
+					<f:link.action controller="Section" action="update" arguments="{page: page, section: insertSection, modify: '-{newSectionId}'}" title="{tnu:translate(key: 'section.move')}">
+						<f:image src="EXT:thomasnu/Resources/Public/Icons/paste.gif" alt="{tnu:translate(key: 'section.move')}" />
+					</f:link.action>			
+				</f:if>
+				<f:link.action controller="Section" action="new" arguments="{page: page, sectionId: newSectionId}" title="{tnu:translate(key: 'section.add')}">
+					<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'section.add')}" />
+				</f:link.action>
+			</div>			
+		</f:if>
+	</div>			
+</tnu:eval>
+<script language="JavaScript">
+	/*<![CDATA[*/
+	<!--
+	var sCurrent = '';
+
+	function displayIcons(current) {
+		current = 's' + current.slice(1);
+		if (current != sCurrent) {
+			if (sCurrent) document.getElementById(sCurrent).style.display = 'none';
+			document.getElementById(current).style.display = 'block';
+			sCurrent = current;
+		}
+	}
+	//-->
+	/*]]>*/
+</script>
+

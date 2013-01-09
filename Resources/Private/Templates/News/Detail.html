@@ -1,0 +1,21 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div class="section"> 
+	<div class="col-main">
+		<div class="main">
+			<h5><f:render partial="NewsTitle" arguments="{news: news, detail: 1}" /></h5>
+			<tnu:wiki>{news.teaser}</tnu:wiki>
+		</div>
+	</div>
+	<div class="col-margin">
+		<div class="margin-top">
+			<h5><f:link.action action="info" arguments="{blog: blog}" title="{tnu:translate(key: 'news.overview')}">{tnu:translate(key: 'news.overview')}</f:link.action></h5>
+			<tnu:wiki>{news.margin}</tnu:wiki>			
+		</div>
+		<div class="margin-bottom">
+			<tnu:wiki><tnu:newsTeaser teaser="/">{news.margin}</tnu:newsTeaser></tnu:wiki>			
+			<p><b><f:link.action action="info" arguments="{blog: blog}" title="{tnu:translate(key: 'news.overview')}">{tnu:translate(key: 'news.overview')}</f:link.action></b></p>
+		</div>
+	</div>
+</div>
+

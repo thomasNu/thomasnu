@@ -1,0 +1,11 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:if condition="{mode} % 10">
+	<f:then>
+		<f:format.html>{content}</f:format.html>
+	</f:then>
+	<f:else>
+		<tnu:wiki>{content}</tnu:wiki>			
+	</f:else>
+</f:if>
+

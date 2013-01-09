@@ -1,0 +1,64 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div id="calendar">
+	<table border="0" cellpadding="0" cellspacing="0" width="160">
+	  <f:groupedFor each="{weeks}" as="weekOfThisFirst" groupBy="first" groupKey="first">
+		  <tr>
+			<td width="160" align="right" bgcolor="#FFDDBB" colspan="8"><b><tnu:term format="M Y">{first}</tnu:term></b></td>
+		  </tr>
+		  <f:for each="{weekOfThisFirst}" as="week" iteration="iter">
+			<f:if condition="{iter.isFirst}">
+			  <tr>
+				<td width="13" class="mini" bgcolor="#EEEECC">&nbsp;</td>
+	  			<f:for each="{0:0, 1:1, 2:2, 3:3, 4:4, 5:5, 6:6}" as="wday">
+				  <td width="21" class="mini" align="right" bgcolor="#EEEECC"><font color="#800000">
+				  <tnu:term format="D2"><tnu:calendarDay add="{wday}">{week.monday}</tnu:calendarDay></tnu:term></font></td>
+				</f:for>
+			  </tr>
+			</f:if>
+			  <tr>
+				<td width="13" align="right" class="mini" bgcolor="#EEEECC"><font color="#800000"><tnu:term format="W">{week.monday}</tnu:term></font></td>
+				<tnu:calendarDay add="0" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="1" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="2" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="3" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="4" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="5" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+				<tnu:calendarDay add="6" month="{week.month}" links="{dayLinks}">{week.monday}</tnu:calendarDay>
+			  </tr>
+		  </f:for>
+		</f:groupedFor>
+	  <tr>
+	    <td width="80" align="right" bgcolor="#FFDDBB" colspan="4"><b>{year}</b></td>
+	    <td width="80" align="right" bgcolor="#FFDDBB" colspan="4"><b>{year1}</b></td>
+	  </tr>
+	  <f:for each="{0:1, 1:4, 2:7, 3:10}" as="month">
+	      <tr>
+			<td width="13" bgcolor="#EEEECC">&nbsp;</td>
+			<td width="21" align="right"><tnu:calendarMonth add="0" year="{year}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+			<td width="21" align="right"><tnu:calendarMonth add="1" year="{year}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+			<td width="21" align="right"><tnu:calendarMonth add="2" year="{year}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+			<td width="21" bgcolor="#EEEECC">&nbsp;</td>
+			<td width="21" align="right"><tnu:calendarMonth add="0" year="{year1}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+			<td width="21" align="right"><tnu:calendarMonth add="1" year="{year1}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+			<td width="21" align="right"><tnu:calendarMonth add="2" year="{year1}" links="{monthLinks}">{month}</tnu:calendarMonth></td>
+	      </tr>
+	  </f:for>
+	  <tr>
+	    <td width="160" align="right" bgcolor="#FFDDBB" colspan="8"><b><a href="#top">Heute</a></b></td>
+	  </tr>
+	  <f:if condition="{firstGroup}">
+		  <tr>
+			<td width="160" align="right" bgcolor="#DDEEDD" colspan="8"><b><a href="javascript:gotoHash('{tnu:term(format: 'ymd', term: firstGroup.term)}')">
+				<f:format.html>{settings.agGroup}</f:format.html></a></b></td>
+		  </tr>
+	  </f:if>
+	  <f:if condition="{firstCourse}">
+		  <tr>
+			<td width="160" align="right" bgcolor="#EEEECC" colspan="8"><b><a href="javascript:gotoHash('{tnu:term(format: 'ymd', term: firstCourse.term)}')">
+				<f:format.html>{settings.agCourse}</f:format.html></a></b></td>
+		  </tr>
+	  </f:if>
+	</table>
+</div>
+
