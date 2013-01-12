@@ -113,6 +113,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	public function detailAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->view->assign('news', $news);
 		$this->view->assign('blog', $this->settings['newsCategory'] == 'BLOG');
+		$infos = $this->newsRepository->findInfos($this->settings['newsCategory'], $news->getUid());
+		$this->view->assign('infos', $infos);
 	}
 	/**
 	 * Displays a form for creating a new news

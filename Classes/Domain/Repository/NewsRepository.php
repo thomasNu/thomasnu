@@ -214,9 +214,10 @@ class Tx_Thomasnu_Domain_Repository_NewsRepository extends Tx_Extbase_Persistenc
 	 * Finds list of infos ordered by term, sort
 	 *
 	 * @param string $category Category of info news e. g. GS%, GA
+	 * @param integer $uid Uid of displayed detail
 	 * @return array List of News ordered
 	 */
-	public function findInfos($category) {
+	public function findInfos($category, $uid = 0) {
 		$query = $this->createQuery();
 		if ($this->frontendUserHasRole('Editor') && $category != 'BLOG') {
 			$query->matching($query->logicalNot($query->equals('category', 'BLOG')));
@@ -224,6 +225,7 @@ class Tx_Thomasnu_Domain_Repository_NewsRepository extends Tx_Extbase_Persistenc
 			$constraints = array();
 			$constraints[] = $query->greaterThan('teaser', '');
 			$constraints[] = $query->like('category', $category);
+			$constraints[] = $query->logicalNot($query->equals('uid', $uid));
 			$query->matching($query->logicalAnd($constraints));
 		}
 		$query->setOrderings(array(

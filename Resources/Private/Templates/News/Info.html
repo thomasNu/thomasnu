@@ -15,7 +15,7 @@
 	<tnu:eval code="'1000'" as="prevTerm" />
 </f:security.ifHasRole>
 	<f:widget.paginate objects="{infos}" as="paginetedInfos" configuration="{itemsPerPage: '{prevTerm}', insertAbove: 1, insertBelow: 1, maximumNumberOfLinks: 10}">
-		<f:for each="{paginetedInfos}" as="news">
+		<f:for each="{paginetedInfos}" as="news" iteration="it">
 			<tnu:eval code="'{news.term}' + 86400" as="prevTerm" />
 			<f:if condition="{blog}">
 				<f:then>
@@ -32,6 +32,13 @@
 								<f:render partial="BlogControl" arguments="{news: news, newTerm: prevTerm, insertNews: insertNews, insert: insert}" />
 							</div>
 						</div>
+			            <f:if condition="{it.isFirst}">
+							<div class="col-margin">
+								<div class="margin-top" style="position: absolute; right: 0px; top: 0px;">
+									<tnu:wiki>{tnu:translate(key: 'blog.welcome')}</tnu:wiki>			
+								</div>
+							</div>
+						</f:if>
 					</div>
 				</f:then>
 				<f:else>

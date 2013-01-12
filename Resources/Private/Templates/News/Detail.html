@@ -9,12 +9,24 @@
 	</div>
 	<div class="col-margin">
 		<div class="margin-top">
-			<h5><f:link.action action="info" arguments="{blog: blog}" title="{tnu:translate(key: 'news.overview')}">{tnu:translate(key: 'news.overview')}</f:link.action></h5>
-			<tnu:wiki>{news.margin}</tnu:wiki>			
+			<f:if condition="{blog}">
+				<tnu:wiki>{tnu:translate(key: 'blog.welcome')}</tnu:wiki>			
+				<p><b>&nbsp;<br /><f:link.action action="info" arguments="{blog: blog}">{tnu:translate(key: 'news.overview')}</f:link.action></b></p>
+				<f:for each="{infos}" as="link">
+					<p><b><f:link.action action="detail" arguments="{news: link}">
+						<tnu:wiki noTags="1">£L{link.title}</tnu:wiki>
+					</f:link.action></b></p>
+				</f:for>
+				<p>&nbsp;</p>
+			</f:if>
+			<f:if condition="{news.margin}">
+				<tnu:wiki>{news.margin}</tnu:wiki>			
+				<p><b>&nbsp;<br /><f:link.action action="info" arguments="{blog: blog}">{tnu:translate(key: 'news.overview')}</f:link.action></b></p>
+			</f:if>
 		</div>
 		<div class="margin-bottom">
 			<tnu:wiki><tnu:newsTeaser teaser="/">{news.margin}</tnu:newsTeaser></tnu:wiki>			
-			<p><b><f:link.action action="info" arguments="{blog: blog}" title="{tnu:translate(key: 'news.overview')}">{tnu:translate(key: 'news.overview')}</f:link.action></b></p>
+			<p><b><f:link.action action="info" arguments="{blog: blog}">{tnu:translate(key: 'news.overview')}</f:link.action></b></p>
 		</div>
 	</div>
 </div>

@@ -160,16 +160,34 @@
 <f:section name="aktuell">
 	<div class="yellowbox1">
 		<f:for each="{newsList}" as="news">
-			<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
-				<f:render partial="NewsTitle" arguments="{news: news}" />
-    		</f:link.page></p>
+			<tnu:if condition="strpos('{news.link}', '@')">
+				<f:then>
+					<p><f:link.action action="detail" pageUid="blog" arguments="{news: news}">
+						<f:render partial="NewsTitle" arguments="{news: news}" />
+					</f:link.action><b></p>
+				</f:then>
+				<f:else>
+					<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
+						<f:render partial="NewsTitle" arguments="{news: news}" />
+					</f:link.page></p>
+				</f:else>
+			</tnu:if>
 		</f:for>
 	</div>
 	<h3>{settings.newsArchive}</h3>
 	<f:for each="{newsArchives}" as="news">
-		<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
-			<f:render partial="NewsTitle" arguments="{news: news}" />
-		</f:link.page></p>
+			<tnu:if condition="strpos('{news.link}', '@')">
+				<f:then>
+					<p><f:link.action action="detail" pageUid="blog" arguments="{news: news}">
+						<f:render partial="NewsTitle" arguments="{news: news}" />
+					</f:link.action><b></p>
+				</f:then>
+				<f:else>
+					<p><f:link.page pageUid="{tnu:newsLink(uri: news.link, blog: '{news.term}{news.sort}')}">
+						<f:render partial="NewsTitle" arguments="{news: news}" />
+					</f:link.page></p>
+				</f:else>
+			</tnu:if>
 	</f:for>
 </f:section>
 
