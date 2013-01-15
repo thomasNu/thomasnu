@@ -27,10 +27,12 @@ config {
   stat_typeNumList = 0,1
   tx_realurl_enable = 1
   tx_extbase.persistence.classes {
-    Tx_Thomasnu_Domain_Model_Content.newRecordStoragePid = {$config.contentStorage}
-    Tx_Thomasnu_Domain_Model_Section.newRecordStoragePid = {$config.contentStorage}  
-    Tx_Thomasnu_Domain_Model_News.newRecordStoragePid = {$config.newsStorage}  
-    }
+	Tx_Thomasnu_Domain_Model_Content.newRecordStoragePid = {$config.contentStorage}
+	Tx_Thomasnu_Domain_Model_Section.newRecordStoragePid = {$config.contentStorage}  
+	Tx_Thomasnu_Domain_Model_News.newRecordStoragePid = {$config.newsStorage}  
+	Tx_Thomasnu_Domain_Model_Email.newRecordStoragePid = {$config.mailStorage}
+	Tx_Thomasnu_Domain_Model_Poster.newRecordStoragePid = {$config.mailStorage}
+	}
   }
 [usergroup = {$content.editorGroup}]
 config.adminPanel = 1

@@ -60,16 +60,31 @@ CREATE TABLE tx_thomasnu_domain_model_mail (
 	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
 	pid int(11) DEFAULT '0' NOT NULL,
 
-	date int(11) unsigned NOT NULL default '0',
-	form int(11) unsigned NOT NULL default '0',
-	gender varchar(16) NOT NULL default '',
-	name varchar(64) NOT NULL default '',
-	address varchar(64) NOT NULL default '',
-	place varchar(64) NOT NULL default '',
-	email varchar(64) NOT NULL default '',
-	remark text NOT NULL,
-	mark int(11) unsigned NOT NULL default '0',
-	phone varchar(64) NOT NULL default '',
+	date int(11) unsigned default '0' NOT NULL,
+	form varchar(16) default '' NOT NULL,
+	hash varchar(64) default '' NOT NULL,
+	subject varchar(64) default '' NOT NULL,
+	content text NOT NULL,
+	poster int(11) unsigned DEFAULT '0' NOT NULL,
+	replies int(11) unsigned DEFAULT '0' NOT NULL,
+	published tinyint(4) unsigned DEFAULT '0' NOT NULL,
+
+	PRIMARY KEY (uid),
+	KEY parent (pid),
+);
+
+#
+# Table structure for table 'tx_thomasnu_domain_model_poster'
+#
+CREATE TABLE tx_thomasnu_domain_model_poster (
+	uid int(11) unsigned DEFAULT '0' NOT NULL auto_increment,
+	pid int(11) DEFAULT '0' NOT NULL,
+
+	name varchar(64) DEFAULT '' NOT NULL,
+	email varchar(64) DEFAULT '' NOT NULL,
+	web varchar(64) DEFAULT '' NOT NULL,
+	subscript varchar(64) DEFAULT '' NOT NULL,
+	identifier varchar(64) DEFAULT '' NOT NULL,
 
 	PRIMARY KEY (uid),
 	KEY parent (pid),

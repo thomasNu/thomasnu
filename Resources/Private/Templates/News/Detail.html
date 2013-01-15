@@ -5,6 +5,9 @@
 		<div class="main">
 			<h5><f:render partial="NewsTitle" arguments="{news: news, detail: 1}" /></h5>
 			<tnu:wiki>{news.teaser}</tnu:wiki>
+			<f:for each="{comments}" as="comment">
+				<p>{comment.poster.name} {comment.content}</p>
+			</f:for>
 		</div>
 	</div>
 	<div class="col-margin">

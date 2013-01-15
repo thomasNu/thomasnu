@@ -33,6 +33,11 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	protected $newsRepository;
 
 	/**
+	 * @var Tx_Thomasnu_Domain_Model_MailRepository
+	 */
+	protected $mailRepository;
+
+	/**
 	 * Dependency injection of the News Repository
 	 *
 	 * @param Tx_Thomasnu_Domain_Repository_NewsRepository $newsRepository
@@ -41,7 +46,15 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	public function injectNewsRepository(Tx_Thomasnu_Domain_Repository_NewsRepository $newsRepository) {
 		$this->newsRepository = $newsRepository;
 	}
-
+	/**
+	 * Dependency injection of the Mail Repository
+	 *
+	 * @param Tx_Thomasnu_Domain_Repository_MailRepository $mailRepository
+	 * @return void
+	 */
+	public function injectMailRepository(Tx_Thomasnu_Domain_Repository_MailRepository $mailRepository) {
+		$this->mailRepository = $mailRepository;
+	}
 	/**
 	 * Index action for this controller. Displays news and courses on portal.
 	 *
@@ -115,6 +128,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$this->view->assign('blog', $this->settings['newsCategory'] == 'BLOG');
 		$infos = $this->newsRepository->findInfos($this->settings['newsCategory'], $news->getUid());
 		$this->view->assign('infos', $infos);
+		$comments = $this->mailRepository->findComments($news->getUid());
+		$this->view->assign('comments', $comments);
 	}
 	/**
 	 * Displays a form for creating a new news

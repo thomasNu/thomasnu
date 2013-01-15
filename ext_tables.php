@@ -14,7 +14,7 @@ $TCA['tx_thomasnu_domain_model_content'] = array (
 		'title' => 'Seiteninhalte',
 		'label' => 'page',
 		'default_sortby' => 'ORDER BY page ASC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/content.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Content.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/content.gif'
 	)
 );
@@ -23,7 +23,7 @@ $TCA['tx_thomasnu_domain_model_section'] = array (
 		'title' => 'Abschnitte',
 		'label' => 'section',
 		'default_sortby' => 'ORDER BY section ASC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/content.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Content.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/section.gif'
 	)
 );
@@ -32,7 +32,7 @@ $TCA['tx_thomasnu_domain_model_news'] = array (
 		'title' => 'News',
 		'label' => 'term',
 		'default_sortby' => 'ORDER BY term DESC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/news.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/News.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/news.gif'
 	)
 );
@@ -41,8 +41,17 @@ $TCA['tx_thomasnu_domain_model_mail'] = array (
 		'title' => 'E-Mails',
 		'label' => 'date',
 		'default_sortby' => 'ORDER BY date DESC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/mail.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Mail.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/email.gif'
+	)
+);
+$TCA['tx_thomasnu_domain_model_poster'] = array (
+	'ctrl' => array (
+		'title' => 'Verfasser',
+		'label' => 'name',
+		'default_sortby' => 'ORDER BY id ASC',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Mail.php',
+		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/user.gif'
 	)
 );
 $TCA['tx_thomasnu_domain_model_gallery'] = array (
@@ -50,7 +59,7 @@ $TCA['tx_thomasnu_domain_model_gallery'] = array (
 		'title' => 'Fotogalerien',
 		'label' => 'header',
 		'default_sortby' => 'ORDER BY header ASC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/gallery.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Gallery.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/gallery.gif'
 	)
 );
@@ -59,7 +68,7 @@ $TCA['tx_thomasnu_domain_model_photo'] = array (
 		'title' => 'Fotos',
 		'label' => 'id',
 		'default_sortby' => 'ORDER BY id ASC',
-		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/gallery.php',
+		'dynamicConfigFile' => t3lib_extMgm::extPath($_EXTKEY) . 'Configuration/TCA/Gallery.php',
 		'iconfile' => t3lib_extMgm::extRelPath($_EXTKEY) . 'Resources/Public/Icons/photo.gif'
 	)
 );

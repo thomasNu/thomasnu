@@ -3,7 +3,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Thomas Nussbaumer <info@thomasnu.ch>
+*  (c) 2013 Thomas Nussbaumer <info@thomasnu.ch>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -34,49 +34,40 @@ class Tx_Thomasnu_Domain_Model_Mail extends Tx_Extbase_DomainObject_AbstractEnti
 	protected $date;
 
 	/**
-	 * @var int
+	 * @var string
 	 */
 	protected $form;
 
 	/**
 	 * @var string
 	 */
-	protected $gender;
+	protected $hash;
 
 	/**
 	 * @var string
 	 */
-	protected $name;
+	protected $subject;
 
 	/**
 	 * @var string
 	 */
-	protected $address;
+	protected $content;
 
 	/**
-	 * @var string
+	 * @var Tx_Thomasnu_Domain_Model_Poster
 	 */
-	protected $place;
+	protected $poster;
 
 	/**
-	 * @var string
+	 * @var  Tx_Extbase_Persistence_ObjectStorage<Tx_Thomasnu_Domain_Model_Mail>
+	 * @lazy
 	 */
-	protected $email;
+	protected $replies;
 
 	/**
-	 * @var string
+	 * @var boolean
 	 */
-	protected $remark;
-
-	/**
-	 * @var int
-	 */
-	protected $mark;
-
-	/**
-	 * @var string
-	 */
-	protected $phone;
+	protected $published;
 
 	/**
 	 * Constructs this mail form
@@ -107,7 +98,7 @@ class Tx_Thomasnu_Domain_Model_Mail extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Setter for selected form
 	 *
-	 * @param int
+	 * @param string
 	 * @return void
 	 */
 	public function setForm($form) {
@@ -117,162 +108,129 @@ class Tx_Thomasnu_Domain_Model_Mail extends Tx_Extbase_DomainObject_AbstractEnti
 	/**
 	 * Getter for form
 	 *
-	 * @return int
+	 * @return string
 	 */
 	public function getForm() {
 		return $this->form;
 	}
 
 	/**
-	 * Sets the senders gender
+	 * Sets the hash
 	 *
 	 * @param string
 	 * @return void
 	 */
-	public function setGender($gender) {
-		$this->gender = $gender;
+	public function setHash($hash) {
+		$this->hash = $hash;
 	}
 
 	/**
-	 * Getter for senders gender
+	 * Getter for hash
 	 *
 	 * @return string
 	 */
-	public function getGender() {
-		return $this->gender;
+	public function getHash() {
+		return $this->hash;
 	}
 
 	/**
-	 * Sets the senders name
+	 * Sets the subject
 	 *
 	 * @param string
 	 * @return void
 	 */
-	public function setName($name) {
-		$this->name = $name;
+	public function setSubject($subject) {
+		$this->subject = $subject;
 	}
 
 	/**
-	 * Getter for senders name
+	 * Getter for subject
 	 *
 	 * @return string
 	 */
-	public function getName() {
-		return $this->name;
+	public function getSubject() {
+		return $this->subject;
 	}
 
 	/**
-	 * Sets the senders address
+	 * Sets the content
 	 *
 	 * @param string
 	 * @return void
 	 */
-	public function setAddress($address) {
-		$this->address = $address;
+	public function setContent($content) {
+		$this->content = $content;
 	}
 
 	/**
-	 * Getter for senders address
+	 * Getter for content
 	 *
 	 * @return string
 	 */
-	public function getAddress() {
-		return $this->address;
+	public function getContent() {
+		return $this->content;
 	}
 
 	/**
-	 * Sets the senders place
+	 * Sets the poster
 	 *
-	 * @param string
+	 * @param Tx_Thomasnu_Domain_Model_Poster $poster
 	 * @return void
 	 */
-	public function setPlace($place) {
-		$this->place = $place;
+	public function setPoster(Tx_Thomasnu_Domain_Model_Poster $poster) {
+		$this->poster = $poster;
 	}
 
 	/**
-	 * Getter for senders place
+	 * Getter for poster
 	 *
-	 * @return string
+	 * @return Tx_Thomasnu_Domain_Model_Poster
 	 */
-	public function getPlace() {
-		return $this->place;
+	public function getPoster() {
+		return $this->poster;
 	}
 
 	/**
-	 * Sets the senders email
+	 * Sets the replies
 	 *
-	 * @param string
+	 * @param Tx_Extbase_Persistence_ObjectStorage<Tx_Thomasnu_Domain_Model_Mail> $replies
 	 * @return void
 	 */
-	public function setEmail($email) {
-		$this->email = $email;
+	public function setReplies(Tx_Extbase_Persistence_ObjectStorage $replies) {
+		$this->replies = $replies;
 	}
 
 	/**
-	 * Getter for senders email
+	 * Returns the replies
 	 *
-	 * @return string
+	 * @return Tx_Extbase_Persistence_ObjectStorage<Tx_Thomasnu_Domain_Model_Mail> $replies
 	 */
-	public function getEmail() {
-		return $this->email;
+	public function getReplies() {
+		$storage = new Tx_Extbase_Persistence_ObjectStorage();
+		foreach ($this->replies as $reply) {
+			if ($reply->getPublished()) {
+				$storage->attach($reply);
+			}
+		}
+		return $this->replies;
 	}
 
 	/**
-	 * Sets the senders remark
+	 * Setter for published
 	 *
-	 * @param string
-	 * @return void
+	 * @param boolean $published
 	 */
-	public function setRemark($remark) {
-		$this->remark = $remark;
+	public function setPublished($published) {
+		$this->published = $published;
 	}
 
 	/**
-	 * Getter for senders remark
+	 * Getter for published
 	 *
-	 * @return string
+	 * @return boolean
 	 */
-	public function getRemark() {
-		return $this->remark;
-	}
-
-	/**
-	 * Setter for marked option
-	 *
-	 * @param int
-	 * @return void
-	 */
-	public function setMark($mark) {
-		$this->mark = $mark;
-	}
-
-	/**
-	 * Getter for option
-	 *
-	 * @return int
-	 */
-	public function getMark() {
-		return $this->mark;
-	}
-
-	/**
-	 * Sets the senders phone
-	 *
-	 * @param string
-	 * @return void
-	 */
-	public function setPhone($phone) {
-		$this->phone = $phone;
-	}
-
-	/**
-	 * Getter for senders phone
-	 *
-	 * @return string
-	 */
-	public function getPhone() {
-		return $this->phone;
+	public function getPublished() {
+		return $this->published;
 	}
 
 }

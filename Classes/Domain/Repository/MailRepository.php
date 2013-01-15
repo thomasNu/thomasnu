@@ -28,6 +28,24 @@
  */
 class Tx_Thomasnu_Domain_Repository_MailRepository extends Tx_Extbase_Persistence_Repository {
 
-	protected $defaultOrderings = array('date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
+	/**
+	 * Finds list of comments ordered by date
+	 *
+	 * @param integer $uid Uid of displayed news detail
+	 * @return array List of comments ordered
+	 */
+	public function findComments($uid) {
+		$query = $this->createQuery();
+		$constraints = array();
+		$constraints[] = $query->equals('form', 'COMMENT');
+		$constraints[] = $query->equals('hash', $uid);
+		$constraints[] = $query->greaterThan('published', 0);
+		$query->matching($query->logicalAnd($constraints));
+		$query->setOrderings(array(
+			'date' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING
+		));
+		return $query->execute();
+	} 
+//	protected $defaultOrderings = array('date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
 }
 ?>
