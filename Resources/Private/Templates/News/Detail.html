@@ -5,9 +5,15 @@
 		<div class="main">
 			<h5><f:render partial="NewsTitle" arguments="{news: news, detail: 1}" /></h5>
 			<tnu:wiki>{news.teaser}</tnu:wiki>
-			<f:for each="{comments}" as="comment">
-				<p>{comment.poster.name} {comment.content}</p>
-			</f:for>
+			<tnu:if condition="strpos('x{settings.newsCategory}', '+')">
+				<h5 class="newslink" style="padding-bottom: 0px;"><tnu:eval code="'{comments->f:count()}' + 1" />. Kommentar schreiben</h5>
+				<ul class="dash" style="padding-bottom: 0px;"> 
+				<f:for each="{comments}" as="comment">
+					<li><h5><tnu:term format="j. M Y">{comment.date}</tnu:term> &ndash; {comment.poster.name}</h5>
+					<tnu:wiki>{comment.content}</tnu:wiki></li>
+				</f:for>
+				</ul>
+			</tnu:if>	
 		</div>
 	</div>
 	<div class="col-margin">

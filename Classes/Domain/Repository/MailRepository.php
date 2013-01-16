@@ -46,6 +46,21 @@ class Tx_Thomasnu_Domain_Repository_MailRepository extends Tx_Extbase_Persistenc
 		));
 		return $query->execute();
 	} 
+	/**
+	 * Counts comments of news detail
+	 *
+	 * @param integer $uid Uid of displayed news detail
+	 * @return integer Count of comments
+	 */
+	public function countComments($uid) {
+		$query = $this->createQuery();
+		$constraints = array();
+		$constraints[] = $query->equals('form', 'COMMENT');
+		$constraints[] = $query->equals('hash', $uid);
+		$constraints[] = $query->greaterThan('published', 0);
+		$query->matching($query->logicalAnd($constraints));
+		return $query->count();
+	} 
 //	protected $defaultOrderings = array('date' => Tx_Extbase_Persistence_QueryInterface::ORDER_DESCENDING);
 }
 ?>

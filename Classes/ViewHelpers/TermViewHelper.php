@@ -31,11 +31,12 @@ class Tx_Thomasnu_ViewHelpers_TermViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 	 * Render the supplied timestamp as formatted string
 	 *
 	 * @param string $format The s+n format
-	 * @param int $term The date value of TYPO3
+	 * @param mixed $term The date value of TYPO3 (integer) or DateTime
 	 * @return string Formatted
 	 */
 	public function render($format = 'd.m.Y', $term = NULL) {
 		if ($term === NULL) $term = $this->renderChildren();
+		if ($term instanceof DateTime) $term = date_timestamp_get($term);
 		if ($format == 'U') return $term; 
 		$en = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun');
 		$loc = array();

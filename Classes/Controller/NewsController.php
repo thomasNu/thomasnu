@@ -38,6 +38,11 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	protected $mailRepository;
 
 	/**
+	 * @var string
+	 */
+	protected $category;
+
+	/**
 	 * Dependency injection of the News Repository
 	 *
 	 * @param Tx_Thomasnu_Domain_Repository_NewsRepository $newsRepository
@@ -54,6 +59,14 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function injectMailRepository(Tx_Thomasnu_Domain_Repository_MailRepository $mailRepository) {
 		$this->mailRepository = $mailRepository;
+	}
+	/**
+	 * Gets category from settings
+	 *
+	 * @return void
+	 */
+	public function initializeAction() {
+		$this->category = str_replace('+', '', $this->settings['newsCategory']);
 	}
 	/**
 	 * Index action for this controller. Displays news and courses on portal.
@@ -108,13 +121,24 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 * @return string The rendered view
 	 */
 	public function infoAction(Tx_Thomasnu_Domain_Model_News $insertNews = NULL, $insert = 0, $blog = FALSE) {
-		$infos = $this->newsRepository->findInfos($this->settings['newsCategory']);
-		$this->view->assign('infos', $infos);
-		$this->view->assign('insertNews', $insertNews);
-		$this->view->assign('insert', $insert);
-		$this->view->assign('blog', $blog);
-		if (count($infos) > 0 && !$blog && $this->settings['newsCategory'] == 'BLOG') {
+		$infos = $this->newsRepository->findInfos($this->category);
+		if (count($infos) > 0 && !$blog && $this->category == 'BLOG') {
 			$this->redirect('detail', NULL, NULL, array('news' => $infos->getFirst()));
+		} else {
+			$this->view->assign('infos', $infos);
+			$this->view->assign('insertNews', $insertNews);
+			$this->view->assign('insert', $insert);
+			$this->view->assign('blog', $blog);
+			$comments = array();
+			if (strpos($this->settings['newsCategory'], '+') !== FALSE) {
+				foreach ($infos as $news) {
+					$count = $this->mailRepository->countComments($news->getUid());
+					if ($count > 0) {
+						$comments[] = array('hash' => $news->getUid(), 'count' => $count);
+					}
+				}
+				$this->view->assign('comments', $comments);
+			}
 		}
 	}
 	/**
@@ -125,11 +149,13 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function detailAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->view->assign('news', $news);
-		$this->view->assign('blog', $this->settings['newsCategory'] == 'BLOG');
-		$infos = $this->newsRepository->findInfos($this->settings['newsCategory'], $news->getUid());
+		$this->view->assign('blog', $this->category == 'BLOG');
+		$infos = $this->newsRepository->findInfos($this->category, $news->getUid());
 		$this->view->assign('infos', $infos);
-		$comments = $this->mailRepository->findComments($news->getUid());
-		$this->view->assign('comments', $comments);
+		if (strpos($this->settings['newsCategory'], '+') !== FALSE) {
+			$comments = $this->mailRepository->findComments($news->getUid());
+			$this->view->assign('comments', $comments);
+		}
 	}
 	/**
 	 * Displays a form for creating a new news
@@ -142,8 +168,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	public function newAction($newTerm, Tx_Thomasnu_Domain_Model_News $newNews = NULL) {
 		$this->view->assign('newTerm', $newTerm);
 		$this->view->assign('newNews', $newNews);
-		$this->view->assign('blog', $this->settings['newsCategory'] == 'BLOG');
-		if ($this->settings['newsCategory'] == 'BLOG') {
+		$this->view->assign('blog', $this->category == 'BLOG');
+		if ($this->category == 'BLOG') {
 			$userInfos = $GLOBALS['TSFE']->fe_user->user;
 			$this->view->assign('author', $userInfos[name]);
 			$this->view->assign('email', $userInfos[email]);
@@ -157,7 +183,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function createAction(Tx_Thomasnu_Domain_Model_News $newNews) {
 		$this->newsRepository->add($newNews);
-		$this->redirect('info', NULL, NULL, array('blog' => $this->settings['newsCategory'] == 'BLOG'));
+		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**
 	 * Displays a form to edit an existing news
@@ -168,7 +194,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function editAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->view->assign('news', $news);
-		$this->view->assign('blog', $this->settings['newsCategory'] == 'BLOG');
+		$this->view->assign('blog', $this->category == 'BLOG');
 	}
 	/**
 	 * Updates an existing news
@@ -214,7 +240,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 					break;
 			}
 		}
-		$this->redirect('info', NULL, NULL, array('insertNews' => $news, 'insert' => $insert, 'blog' => $this->settings['newsCategory'] == 'BLOG'));
+		$this->redirect('info', NULL, NULL, array('insertNews' => $news, 'insert' => $insert, 'blog' => $this->category == 'BLOG'));
 	}
 	/**
 	 * Deletes an existing news
@@ -224,7 +250,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function deleteAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->newsRepository->remove($news);
-		$this->redirect('info', NULL, NULL, array('blog' => $this->settings['newsCategory'] == 'BLOG'));
+		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**
 	 * Banner action for this controller. Displays news on banner.

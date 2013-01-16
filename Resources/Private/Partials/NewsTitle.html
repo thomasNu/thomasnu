@@ -32,6 +32,11 @@
 		<f:else>
 			<tnu:eval code="str_replace('++', '', str_replace('2 T.', '', '{news.subject}'))" as="subject">
 				<f:if condition="{subject}"> &ndash; {subject}</f:if>
+				<f:if condition="{comments}">
+					<f:for each="{comments}" as="comment">
+						<f:if condition="{comment.hash} == {news.uid}"> [{comment.count}]</f:if>
+					</f:for>	
+				</f:if>
 			</tnu:eval>
 		</f:else>
 	</tnu:if>

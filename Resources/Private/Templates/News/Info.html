@@ -24,8 +24,8 @@
 							<div class="main">
 								<h5><f:link.action action="detail" arguments="{news: news}"
 										additionalAttributes="{name: '{tnu:newsLink(uri: news.link, mode: \'name\', blog: \'{news.term}{news.sort}\')}'}">
-									<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" />
-									<f:render partial="NewsTitle" arguments="{news: news}" />
+									<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/blog.gif" width="16" height="16" />
+									<f:render partial="NewsTitle" arguments="{news: news, comments: comments}" />
 								</f:link.action></h5>
 								<tnu:wiki><tnu:newsTeaser teaser="255">{news.teaser}</tnu:newsTeaser></tnu:wiki>
 								<tnu:eval code="time()" as="prevTerm" />
@@ -42,7 +42,7 @@
 					</div>
 				</f:then>
 				<f:else>
-					<tnu:if condition="strpos('x{news.category}', str_replace('%', '', '{settings.newsCategory}')) && '{news.teaser}'">
+					<tnu:if condition="strpos('x{news.category}', str_replace('%', '', str_replace('+', '', '{settings.newsCategory}'))) && '{news.teaser}'">
 						<f:then>
 							<div class="section"> 
 								<div class="col-main">
@@ -52,7 +52,7 @@
 												<f:link.action action="detail" arguments="{news: news}"
 														additionalAttributes="{name: '{tnu:newsLink(uri: news.link, mode: \'name\', blog: \'{news.term}{news.sort}\')}'}">
 													<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/html.gif" width="16" height="16" />
-													<f:render partial="NewsTitle" arguments="{news: news}" />
+													<f:render partial="NewsTitle" arguments="{news: news, comments: comments}" />
 												</f:link.action>
 											</f:then>
 											<f:else>
