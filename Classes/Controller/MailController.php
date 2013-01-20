@@ -32,16 +32,6 @@ class Tx_Thomasnu_Controller_MailController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	protected $mailRepository;
 
-    /**
-    * @var Tx_Extbase_Persistence_Manager
-    */
-    protected $persistanceManager;
- 
- 	/**
-	 * @var Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
-	 */
-	protected $configurationManager;
-   
 	/**
 	 * Dependency injection of the Mail Repository
 	 *
@@ -52,34 +42,16 @@ class Tx_Thomasnu_Controller_MailController extends Tx_Extbase_MVC_Controller_Ac
 		$this->mailRepository = $mailRepository;
 	}
 	/**
-	 * Dependency injection of the Persistence Manager
-	 *
-     * @param Tx_Extbase_Persistence_Manager $persistanceManager
-     * @return void
-     */
-    public function injectPersistanceManager(Tx_Extbase_Persistence_Manager $persistanceManager) {
-      $this->persistanceManager = $persistanceManager;
-    }
-	/**
-	 * @param Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager
-	 */
-	public function injectConfigurationManager(Tx_Extbase_Configuration_ConfigurationManagerInterface $configurationManager) {
-		$this->configurationManager = $configurationManager;
-	}
-	/**
 	 * Displays a form for creating a new mail
 	 *
+	 * @param Tx_Thomasnu_Domain_Model_News $news The news the mail belogs to
 	 * @param Tx_Thomasnu_Domain_Model_Mail $newMail A fresh mail object taken as a basis for the rendering
      * @return void
 	 * @dontvalidate $newMail
 	 */
-	public function newAction(Tx_Thomasnu_Domain_Model_Mail $newMail = NULL) {
-		$page = $GLOBALS['TSFE']->page;
-//		$configuration = $GLOBALS['TYPO3_CONF_VARS']['EXTCONF']['extbase']['extensions']['Thomasnu']['plugins']['Mail']['controllers'];
-//		$configuration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$this->view->assign('page', $page);
-		$this->view->assign('debug', $configuration);
+	public function newAction(Tx_Thomasnu_Domain_Model_News $news, Tx_Thomasnu_Domain_Model_Mail $newMail = NULL) {
 		$this->view->assign('newMail', $newMail);
+		$this->view->assign('news', $news);
 	}
 	/**
 	 * Creates a new mail
@@ -89,59 +61,7 @@ class Tx_Thomasnu_Controller_MailController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function createAction(Tx_Thomasnu_Domain_Model_Mail $newMail) {
 		$this->mailRepository->add($newMail);
-		$this->persistanceManager->persistAll();
 		$this->redirect('show', 'Mail', NULL, array('mail' => $newMail->getUid()));
-	}
-	/**
-	 * Displays a single mail
-	 *
-	 * @param Tx_Thomasnu_Domain_Model_Mail $mail The mail to display
-	 * @return void
-	 */
-	public function showAction(Tx_Thomasnu_Domain_Model_Mail $mail) {
-		$page = $GLOBALS['TSFE']->page;
-	//	$this->sendTemplateEmail(array('info@thomasnu.ch' => 'Thomas Nussbaumer'), array('sender@domain.tld' => 'Sender Name', 'Email Subject', 'TemplateName', array('mail' => $mail));
-		$this->view->assign('page', $page);
-		$this->view->assign('mail', $mail);
-	}
-	/**
-	 * Fluid Standalone view to render template based emails
-	 *
-	 * @param array $recipient recipient of the email in the format array('recipient@domain.tld' => 'Recipient Name')
-	 * @param array $sender sender of the email in the format array('sender@domain.tld' => 'Sender Name')
-	 * @param string $subject subject of the email
-	 * @param string $templateName template name (UpperCamelCase)
-	 * @param array $variables variables to be passed to the Fluid view
-	 * @return boolean TRUE on success, otherwise false
-	 */
-	protected function sendTemplateEmail(array $recipient, array $sender, $subject, $templateName, array $variables = array()) {
-		$emailView = $this->objectManager->create('Tx_Fluid_View_StandaloneView');
-		$emailView->setFormat('html');
-		$extbaseFrameworkConfiguration = $this->configurationManager->getConfiguration(Tx_Extbase_Configuration_ConfigurationManagerInterface::CONFIGURATION_TYPE_FRAMEWORK);
-		$templateRootPath = t3lib_div::getFileAbsFileName($extbaseFrameworkConfiguration['view']['templateRootPath']);
-		$templatePathAndFilename = $templateRootPath . 'Email/' . $templateName . '.html';
-		$emailView->setTemplatePathAndFilename($templatePathAndFilename);
-		$emailView->assignMultiple($variables);
-		$emailBody = $emailView->render();
-
-		$message = t3lib_div::makeInstance('t3lib_mail_Message');
-		$message->setTo($recipient)
-			  ->setFrom($sender)
-			  ->setSubject($subject);
-
-		// Possible attachments here
-		//foreach ($attachments as $attachment) {
-		//	$message->attach($attachment);
-		//}
-
-		// Plain text example
-		$message->setBody($emailBody, 'text/plain');
-
-		// HTML Email
-		#$message->setBody($emailBody, 'text/html');
-
-		$message->send();
-		return $message->isSent();
 	}
 }
 ?>

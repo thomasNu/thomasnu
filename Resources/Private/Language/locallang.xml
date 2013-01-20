@@ -12,7 +12,6 @@
 			<label index="publishedOn">published on</label>
 			<label index="by">by</label>
 			<label index="postedOn">posted on</label>
-			<label index="blog.header">Welcome to the Blog Example!</label>
 			<label index="blog.introduction">This extension serves as a demonstration for basic development techniques used in Extbase/FLOW3 applications.</label>
 			<label index="blog.list">Here is a list of %d blogs</label>
 			<label index="blog.numberOfPosts">%d posts</label>
@@ -79,8 +78,8 @@
 			<label index="error.code.1238108069">The given &lt;strong&gt;%s&lt;/strong&gt; is too long</label>
 			<label index="error.code.1221559976">The given &lt;strong&gt;%s&lt;/strong&gt; is not a valid email address</label>
 			<label index="error.code.1221560718">The &lt;strong&gt;%s&lt;/strong&gt; must not be empty</label>
-			<label index="section.editHeader">Edit section "%s"</label>
 			<label index="section.createHeader">Create new section</label>
+			<label index="section.editHeader">Edit section "%s"</label>
 			<label index="section.new">Insert new section here</label>
 			<label index="section.paste">Insert copy of section here</label>
 			<label index="section.paste1">Add copy of section here</label>
@@ -100,8 +99,8 @@
 			<label index="section.main">Main content</label>
 			<label index="section.margin">Top margin</label>
 			<label index="section.bottom">Bottom margin</label>
-			<label index="news.editHeader">Edit article</label>
 			<label index="news.createHeader">Create new article</label>
+			<label index="news.editHeader">Edit article</label>
 			<label index="news.overview">« Overview of articles</label>
 			<label index="news.new">Insert new article</label>
 			<label index="news.paste">Insert copy of article</label>
@@ -119,12 +118,21 @@
 			<label index="blog.term">Published (default: now)</label>
 			<label index="blog.subject">Author - Email (default: registered user)</label>
 			<label index="blog.title">Subject (titel of the artikels)</label>
+			<label index="comment.createHeader">Write a new comment</label>
+			<label index="comment.editHeader">Edit comment</label>
+			<label index="comment.write">Leave comment #%s</label>
+			<label index="comment.content">Your comment</label>
+			<label index="poster.email">Email address</label>
+			<label index="poster.name">Full name</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Paragraph</label>
 			<label index="tab.text">Text</label>
 			<label index="tab.image">Image</label>
 			<label index="tab.link">Link</label>
 			<label index="tab.imageLink">Imagelink</label>
+<label index="blog.welcome">=Velkommen til bloggen
+Der er nye tider på vej for alternativ behandling udført på højt niveau
+Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>
 <label index="wiki.wiki">
  Details zu Wiki-Eingabe unter entsprechendem Reiter</label>
 <label index="wiki.paragraph">
@@ -176,8 +184,8 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="back">Zurück</label>
 			<label index="submit">Abschicken</label>
 			<label index="logInToCreateBlogs">Melden Sie sich mit einem Websitenbenutzer aus der Benutzergruppe #%d (konfigurierbar) ein, um Blogs und Beiträge im FE Modus hinzuzufügen/zu editieren!</label>
-			<label index="section.editHeader">Abschnitt "%s" bearbeiten</label>
 			<label index="section.createHeader">Neuen Abschnitt erstellen</label>
+			<label index="section.editHeader">Abschnitt "%s" bearbeiten</label>
 			<label index="section.new">Neuen Abschnitt hier einfügen</label>
 			<label index="section.paste">Kopie des Abschnitts hier einfügen</label>
 			<label index="section.paste1">Kopie des Abschnitts anfügen</label>
@@ -197,8 +205,8 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="section.main">Hauptinhalt</label>
 			<label index="section.margin">Marginale oben</label>
 			<label index="section.bottom">Marginale unten</label>
-			<label index="news.editHeader">Artikel bearbeiten</label>
 			<label index="news.createHeader">Neuen Artikel erstellen</label>
+			<label index="news.editHeader">Artikel bearbeiten</label>
 			<label index="news.overview">« Artikelübersicht</label>
 			<label index="news.new">Neuen Artikel einfügen</label>
 			<label index="news.paste">Kopie des Artikels einfügen</label>
@@ -216,12 +224,21 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="blog.term">Publiziert (default: jetzt)</label>
 			<label index="blog.subject">Autor - E-Mail (default: angemeldeter Benutzer)</label>
 			<label index="blog.title">Betreff (Titel des Artikels)</label>
+			<label index="comment.createHeader">Neuen Kommentar schreiben</label>
+			<label index="comment.editHeader">Kommentar bearbeiten</label>
+			<label index="comment.write">%s. Kommentar schreiben</label>
+			<label index="comment.content">Ihr Kommentar</label>
+			<label index="poster.email">Ihre E-Mail-Adresse</label>
+			<label index="poster.name">Vorname Nachname</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Absatz</label>
 			<label index="tab.text">Text</label>
 			<label index="tab.image">Bild</label>
 			<label index="tab.link">Link</label>
 			<label index="tab.imageLink">Bildlink</label>
+<label index="blog.welcome">=Velkommen til bloggen
+Der er nye tider på vej for alternativ behandling udført på højt niveau
+Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>
 <label index="wiki.wiki">
  Details zu Wiki-Eingabe unter entsprechendem Reiter</label>
 <label index="wiki.paragraph">
@@ -341,6 +358,9 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 		</languageKey>
 		<languageKey index="da" type="array">
 			<label index="news.overview">« Oversigt indlæg</label>
+<label index="blog.welcome">=Velkommen til bloggen
+Der er nye tider på vej for alternativ behandling udført på højt niveau
+Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>
 			<label index="date.formatMD">januar,februar,marts,april,maj,juni,juli,august,september,oktober,november,december,mandag,tirsdag,onsdag,torsdag,fredag,lørdag,søndag</label>
 			<label index="date.formatM3D2">jan,feb,marts,april,maj,juni,juli,aug,sep,okt,nov,dec,ma,ti,on,to,fr,lø,sø</label>
 		</languageKey>

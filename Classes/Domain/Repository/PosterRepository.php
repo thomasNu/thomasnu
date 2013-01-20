@@ -29,5 +29,32 @@
 class Tx_Thomasnu_Domain_Repository_PosterRepository extends Tx_Extbase_Persistence_Repository {
 
 	protected $defaultOrderings = array('name' => Tx_Extbase_Persistence_QueryInterface::ORDER_ASCENDING);
+
+	/**
+	 * Gets the current user's Poster entity or create
+	 * a new Poster entity for a logged in user. If no
+	 * user is logged in, NULL is returned.
+	 *
+	 * @param boolean $autoAddIfFrontendUserLoggedIn
+	 * @return Tx_Thomasnu_Domain_Model_Poster | NULL
+	 */
+	public function getOrCreatePoster($autoAddIfFrontendUserLoggedIn = FALSE) {
+		$poster = NULL;
+		if ($_SESSION['thomasnu_poster_identifier'] != '' || $_COOKIE['thomasnu_poster_identifier'] != '') {
+			$poster = $this->findOneByIdentifier($_COOKIE['thomasnu_poster_identifier'] ? $_COOKIE['thomasnu_poster_identifier'] : $_SESSION['thomasnu_poster_identifier']);
+		} elseif ($GLOBALS['TSFE']->fe_user->user) {
+			$userRecord = $GLOBALS['TSFE']->fe_user->user;
+			$poster = $this->findOneByEmail($userRecord['email']);
+			if (!$poster) {
+				$poster = $this->objectManager->create('Tx_Thomasnu_Domain_Model_Poster');
+				$poster->setName($userRecord['name']);
+				$poster->setEmail($userRecord['email']);
+				if ($autoAddIfFrontendUserLoggedIn === TRUE) {
+					$this->add($poster);
+				}
+			}
+		}
+		return $poster;
+	}
 }
 ?>

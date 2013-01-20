@@ -6,7 +6,11 @@
 			<h5><f:render partial="NewsTitle" arguments="{news: news, detail: 1}" /></h5>
 			<tnu:wiki>{news.teaser}</tnu:wiki>
 			<tnu:if condition="strpos('x{settings.newsCategory}', '+')">
-				<h5 class="newslink" style="padding-bottom: 0px;"><tnu:eval code="'{comments->f:count()}' + 1" />. Kommentar schreiben</h5>
+				<h5 class="newslink" style="padding-bottom: 0px;"><f:link.action action="new" controller="Mail" arguments="{news: news}">
+					<tnu:eval code="'{comments->f:count()}' + 1" as="count">
+						<tnu:translate key="comment.write" arguments="{0: count}" /></h4>
+					</tnu:eval>
+				</f:link.action></h5>
 				<ul class="dash" style="padding-bottom: 0px;"> 
 				<f:for each="{comments}" as="comment">
 					<li><h5><tnu:term format="j. M Y">{comment.date}</tnu:term> &ndash; {comment.poster.name}</h5>

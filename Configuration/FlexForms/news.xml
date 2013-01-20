@@ -18,7 +18,7 @@
 							</numIndex>
 							<numIndex index="2" type="array">
 								<numIndex index="0">Infos</numIndex>
-								<numIndex index="1">News->info;News->detail;News->edit;News->update;News->new;News->create;News->delete</numIndex>
+								<numIndex index="1">News->info;News->detail;News->edit;News->update;News->new;News->create;News->delete;Mail->edit;Mail->update;Mail->new;Mail->create;Mail->delete</numIndex>
 							</numIndex>
 						</items>
 						<maxitems>1</maxitems>

@@ -19,13 +19,15 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY, 'News', 
 	array(
-		'News' => 'index, banner, calendar, info, detail, edit, update, new, create, delete'
+		'News' => 'index, banner, calendar, info, detail, edit, update, new, create, delete',
+		'Mail' => 'index, edit, update, new, create, delete'
 	),
 	array(
-		'News' => 'edit, update, new, create, delete'
+		'News' => 'edit, update, new, create, delete',
+		'Mail' => 'index, edit, update, new, create, delete'
 	)
 );
-Tx_Extbase_Utility_Extension::configurePlugin(
+/* Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY, 'Mail', 
 	array(
 		'Mail' => 'new, create, show'
@@ -33,7 +35,7 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 	array(
 		'Mail' => 'new, show'
 	)
-);
+); */
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY, 'Gallery', 
 	array(
