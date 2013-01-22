@@ -21,9 +21,9 @@
 						<div class="section"{tnu:if(condition: 'strpos(\'x{section.name}\', \'*\')', then: ' style="display: none;"')}> 
 					</f:else>
 				</f:if>
-					<div class="col-main">
-						<tnu:eval code="str_replace(array('+', '*'), '', '{section.name}')" as="anchor">
-							<div class="main"{f:if(condition: anchor, then: ' id="{anchor}"')}>
+					<div class="col-main"{tnu:if(condition: 'strpos(\'x{section.name}\', \'/\')', then: ' style="float: none; width: 575px;"')}>
+						<tnu:eval code="str_replace(array('/', '*', '+'), '', '{section.name}')" as="anchor">
+							<div class="main"{f:if(condition: anchor, then: ' id="{anchor}"')}{tnu:if(condition: 'strpos(\'x{section.name}\', \'/\')', then: ' style="width: 575px;"')}>
 								<tnu:wiki references="{references}">{section.main}</tnu:wiki>			
 							</div>
 						</tnu:eval>
@@ -107,14 +107,16 @@
 							</div>
 						</f:if>
 					</div>
-					<div class="col-margin">
-						<div class="margin-top">
-							<tnu:wiki references="{references}" noTags="2">{section.margin}</tnu:wiki>			
+					<tnu:if condition="strpos('x{section.name}', '/') < 1">
+						<div class="col-margin">
+							<div class="margin-top">
+								<tnu:wiki references="{references}" noTags="2">{section.margin}</tnu:wiki>			
+							</div>
+							<div class="margin-bottom">
+								<tnu:wiki references="{references}" noTags="4">{section.bottom}</tnu:wiki>			
+							</div>
 						</div>
-						<div class="margin-bottom">
-							<tnu:wiki references="{references}" noTags="4">{section.bottom}</tnu:wiki>			
-						</div>
-					</div>
+					</tnu:if>
 				</div>
 				<tnu:eval code="{section.section}" as="newSectionId" />
 			</f:for>
