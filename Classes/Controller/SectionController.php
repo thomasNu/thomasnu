@@ -70,7 +70,9 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 					$references[$parts[1]] = $this->makeSectionLink($ref); 
 				}
 			}
-			if (preg_match('%<!--ref(\d+)-->%', $section->getMargin(), $parts)) {
+			if (trim($section->getMargin()) == '/') {
+				$section->setName('/' . str_replace('/', '', $section->getName()));
+			} else if (preg_match('%<!--ref(\d+)-->%', $section->getMargin(), $parts)) {
 				$ref = $this->sectionRepository->findByUid($parts[1]);
 				if ($ref !== NULL && $ref->getMargin() != '') {
 					$references[20000 + $parts[1]] = $this->makeSectionLink($ref); 

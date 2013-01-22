@@ -1,0 +1,38 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:render partial="FormErrors" />
+<f:form action="{action}" arguments="{news: news}" objectName="{objectName}" object="{object}" method="post">
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<h4><f:link.action action="detail" controller="News" arguments="{news: news}" title="{tnu:translate(key: 'common.cancel')}">[{tnu:translate(key: 'common.cancel')}]</f:link.action>
+				<tnu:if condition="'{action}' == 'create'">
+					<f:then>
+						<tnu:translate key="comment.createHeader" /></h4>
+					</f:then>
+					<f:else>
+						<tnu:translate key="comment.editHeader" /></h4>
+					</f:else>
+				</tnu:if>
+				<h5><f:render partial="NewsTitle" arguments="{news: news}" /></h5>
+				<tnu:wiki><tnu:newsTeaser teaser="255">{news.teaser}</tnu:newsTeaser></tnu:wiki>
+				<f:form.hidden property="form" value="COMMENT" />
+				<f:form.hidden property="hash" value="{news.uid}" />
+				<f:form.hidden property="subject" value="Re: {news.title}" />
+				<p><b>&nbsp;<tnu:translate key="poster.email" /></b><br />
+				<f:form.textfield property="poster.email" value="{poster.email}" size="28" maxlength="256" /></p>
+				<p><b>&nbsp;<tnu:translate key="poster.name" /></b><br />
+				<f:form.textfield property="poster.name" value="{poster.name}" size="28" maxlength="256" /></p>
+				<p><b>&nbsp;<tnu:translate key="comment.content" /></b><br />
+				<f:form.textarea property="content" rows="17" cols="49" style="width: 400px;" /></p>
+				<p><f:form.submit value="{tnu:translate(key: 'common.submit')}" /><p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<tnu:wiki specialChars="{[§°}]">{tnu:translate(key: 'wiki.help')}</tnu:wiki>			
+			</div>
+		</div>
+	</div>
+	</div>
+</f:form>

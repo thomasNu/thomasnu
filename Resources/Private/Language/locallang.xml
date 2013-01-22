@@ -95,7 +95,7 @@
 			<label index="section.cut1">Disable cut</label>
 			<label index="section.delete">Delete this section permanently</label>
 			<label index="section.add">Add new section</label>
-			<label index="section.name">Name ([*][+]anchor)</label>
+			<label index="section.name">Name ([/][*][+]anchor)</label>
 			<label index="section.main">Main content</label>
 			<label index="section.margin">Top margin</label>
 			<label index="section.bottom">Bottom margin</label>
@@ -201,7 +201,7 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="section.cut1">Ausschneiden deaktivieren</label>
 			<label index="section.delete">Abschnitt unwiderruflich löschen</label>
 			<label index="section.add">Neuen Abschnitt anfügen</label>
-			<label index="section.name">Name ([*][+]Anker)</label>
+			<label index="section.name">Name ([/][*][+]Anker)</label>
 			<label index="section.main">Hauptinhalt</label>
 			<label index="section.margin">Marginale oben</label>
 			<label index="section.bottom">Marginale unten</label>

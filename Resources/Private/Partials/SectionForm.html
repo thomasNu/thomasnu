@@ -12,7 +12,7 @@
 						<tnu:translate key="section.createHeader" /></h4>
 					</f:then>
 					<f:else>
-						<tnu:eval code="str_replace(array('+', '*'), '', '{object.name}')" as="header">
+						<tnu:eval code="str_replace(array('/', '*', '+'), '', '{object.name}')" as="header">
 							<tnu:translate key="section.editHeader" arguments="{0: header}" /></h4>
 						</tnu:eval>
 					</f:else>
