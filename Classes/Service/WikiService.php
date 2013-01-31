@@ -84,7 +84,7 @@ class Tx_Thomasnu_Service_WikiService implements t3lib_Singleton {
 					. ' src=\"fileadmin/images/news/{$a[0]}\" alt=\"{$a[1]}\" title=\"{$a[1]}\" />',
 			'imgr' => '<img style=\"float: right; padding-left: 5px; padding-bottom: 5px;\" width=\"{$a[2]}\" height=\"{$a[3]}\"' 
 					. ' src=\"fileadmin/images/news/{$a[0]}\" alt=\"{$a[1]}\" title=\"{$a[1]}\" />',
-			'gal' => '<b><a href=\"index.php?id=gallery&tx_thomasnu_gallery[start]={$a[0]}' 
+			'gal' => '<b><a href=\"http://' . t3lib_div::getIndpEnv('TYPO3_HOST_ONLY') . '/gallery.html?tx_thomasnu_gallery[start]={$a[0]}' 
 					. '&tx_thomasnu_gallery[back]=' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL') 
 					. '&tx_thomasnu_gallery[action]=slideshow&tx_thomasnu_gallery[controller]=Gallery&no_cache=1\">{$a[1]}</a></b>',
 			'lbox' => '<b><a href=\"fileadmin/images/{$a[0]}\" rel=\"lightbox\" title=\"{$a[1]}\">{$a[2]}</a></b>',

@@ -48,8 +48,8 @@ class Tx_Thomasnu_ViewHelpers_NewsLinkViewHelper extends Tx_Fluid_Core_ViewHelpe
 						. '<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/pdf.gif" width="18" height="16" />'
 						. $this->renderChildren() . '</a>';
 				} elseif ($link[1] == 'gallery') { 
-					return '<a name="' . $parts[1]
-						. '" href="index.php?id=gallery&tx_thomasnu_gallery[start]=' . $link[2] . '&tx_thomasnu_gallery[back]=' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL') 
+					return '<a name="' . $parts[1] . '" href="http://' . t3lib_div::getIndpEnv('TYPO3_HOST_ONLY') . '/gallery.html?tx_thomasnu_gallery[start]='
+						. $link[2] . '&tx_thomasnu_gallery[back]=' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL') 
 						. '&tx_thomasnu_gallery[action]=slideshow&tx_thomasnu_gallery[controller]=Gallery&no_cache=1">'
 						. '<img border="0" src="typo3conf/ext/thomasnu/Resources/Public/Icons/images.gif" width="16" height="16" />'
 						. $this->renderChildren() . '</a>';

@@ -126,33 +126,16 @@ lib.portal.1 {
   # Quick menu
 lib.quick = COA
 lib.quick {
-  # Graphic menu in sidebar
-  20 = HMENU
-  20 {
-    special = list
-    special.value = {$content.idImageLink}
+  # Sidebare image with link
+  25 = IMAGE
+  25.file = {$content.sidebarImage}
+  25.altText = {$content.imageLink}
+  25.titleText = {$content.imageLink}
+  25.params = {$content.paramsImageLink}
+  25.stdWrap.typolink {
+    parameter = {$content.idImageLink}
     }
-  20.1 = GMENU
-  20.1 {
-    noBlur = 1
-    NO {
-      XY = [10.w], [10.h]
-      10 = IMAGE
-      10.file {
-        import = uploads/media/
-        import.data = levelmedia: -1, slide
-        import.listNum = 0
-        width = 160
-        }
-      ATagTitle.field = title
-      ATagTitle.noTrimWrap = | | » |
-      allWrap =  <div class="image"> | </div>
-      }
-    }
-  20.if {
-    value = {$content.imageLinkPages}
-    isInList.data = page:uid
-    }
+  25.wrap = <div class="image"> | </div>
   # Search box
   40 = COA
   40.10 < plugin.tx_macinasearchbox_pi1

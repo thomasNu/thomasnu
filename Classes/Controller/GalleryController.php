@@ -128,7 +128,8 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 		$this->view->assign('groupCount', $groupCount);
 		$this->view->assign('gallery', $gallery);
 		$this->view->assign('back', $back);
-		$print = 'index.php?id=album&tx_thomasnu_gallery[start]=' . $start . '&tx_thomasnu_gallery[back]=' . $back . '&tx_thomasnu_gallery[action]=index&tx_thomasnu_gallery[controller]=Gallery&print=1&no_cache=1';
+		$print = 'http://' . t3lib_div::getIndpEnv('TYPO3_HOST_ONLY') . '/album.html?tx_thomasnu_gallery[start]=' . $start
+			. '&tx_thomasnu_gallery[back]=' . $back . '&tx_thomasnu_gallery[action]=index&tx_thomasnu_gallery[controller]=Gallery&print=1&no_cache=1';
 		$this->view->assign('print', $print);
 	}
 	/**

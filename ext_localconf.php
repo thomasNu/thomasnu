@@ -60,8 +60,9 @@ $TYPO3_CONF_VARS['SYS']['sitename'] = t3lib_div::getIndpEnv('TYPO3_HOST_ONLY');
 /**
 * Set templateRootPath of paginateWidget in extension thomasnu for this plugin
 */
+$path = t3lib_utility_VersionNumber::convertVersionNumberToInteger(TYPO3_version) >= 6000000 ? 'TYPO3\\CMS\\Fluid\\ViewHelpers\\Widget\\' : 'Tx_Fluid_ViewHelpers_Widget_';
 t3lib_extMgm::addTypoScriptSetup('
-	plugin.tx_' . $_EXTKEY . '.view.widget.Tx_Fluid_ViewHelpers_Widget_PaginateViewHelper.templateRootPath = EXT:thomasnu/Resources/Private/Templates/
+	plugin.tx_' . $_EXTKEY . '.view.widget.' . $path . 'PaginateViewHelper.templateRootPath = EXT:thomasnu/Resources/Private/Templates/
 ');
 
 /**
