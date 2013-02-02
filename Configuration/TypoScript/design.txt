@@ -199,10 +199,6 @@ lib.banner.2 {
     subst_elementUid = 1
     }
   }
-  # If acces to usergrup
-[usergroup = {$content.userGroup}]
-lib.quick.20.if.negate = 1
-[GLOBAL]
   # Add menu admin
 [loginUser = {$content.adminUser}]
 lib.menu.1.maxItems = {$content.maxMenuItems1}
@@ -211,7 +207,7 @@ lib.banner.1.begin = {$content.menuBanner1}
 [GLOBAL]
   # No quick (only Search box)
 [globalVar = LIT:99 < {$content.menuQuick}]
-lib.quick.20 >
+lib.quick.25 >
 lib.quick.60 >
 lib.quick.75 >
 [GLOBAL]

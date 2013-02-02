@@ -1,6 +1,4 @@
 {namespace tnu=Tx_Thomasnu_ViewHelpers}
-{namespace fed=Tx_Fed_ViewHelpers}
-<fed:jQuery jQueryVersion="1.8.0" jQueryUIVersion="1.8.23" />
 <f:form action="{action}" controller="News" objectName="{objectName}" object="{object}" method="post">
 	<div class="section"> 
 		<div class="col-main">
@@ -44,26 +42,26 @@
 						<f:form.textfield property="portal" size="28" maxlength="256" style="width: 110px;" /></p>
 					</f:else>
 				</f:if>
-				<fed:jQuery.tab animated="TRUE">
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.wiki')}" active="TRUE">
+				<tnu:jQuery.tab animated="TRUE">
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.wiki')}" active="TRUE">
 						<tnu:wiki>{tnu:translate(key: 'wiki.wiki')}</tnu:wiki>			
-					</fed:jQuery.tab>
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.paragraph')}">
+					</tnu:jQuery.tab>
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.paragraph')}">
 						<tnu:wiki>{tnu:translate(key: 'wiki.paragraph')}</tnu:wiki>			
-					</fed:jQuery.tab>
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.text')}">
+					</tnu:jQuery.tab>
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.text')}">
 						<tnu:wiki>{tnu:translate(key: 'wiki.text')}</tnu:wiki>			
-					</fed:jQuery.tab>
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.image')}">
+					</tnu:jQuery.tab>
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.image')}">
 						<tnu:wiki>{tnu:translate(key: 'wiki.image')}</tnu:wiki>			
-					</fed:jQuery.tab>
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.link')}">
+					</tnu:jQuery.tab>
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.link')}">
 						<tnu:wiki>{tnu:translate(key: 'wiki.link')}</tnu:wiki>			
-					</fed:jQuery.tab>
-					<fed:jQuery.tab title="{tnu:translate(key: 'tab.imageLink')}">
+					</tnu:jQuery.tab>
+					<tnu:jQuery.tab title="{tnu:translate(key: 'tab.imageLink')}">
 						<tnu:wiki>{tnu:translate(key: 'wiki.imageLink')}</tnu:wiki>			
-					</fed:jQuery.tab>
-				</fed:jQuery.tab>
+					</tnu:jQuery.tab>
+				</tnu:jQuery.tab>
 			</div>
 		</div>
 		<div class="col-margin">
