@@ -1,7 +1,7 @@
 {namespace tnu=Tx_Thomasnu_ViewHelpers}
 
 <table style="margin-bottom: 6px;" cellspacing="0" cellpadding="1" width="400" border="0">
-	<f:for each="{input->snu:explode(glue: 'constant:LF')}" as="code" iteration="lineIterator">
+	<f:for each="{input->tnu:explode(glue: 'constant:LF')}" as="code" iteration="lineIterator">
 	 	<tr>
 			<td class="agenda-hour" width="22" valign="top" align="right" {f:if(condition: '{lineIterator.isOdd}' then: 'bgcolor="#DFEFFF"')}>
 				<code>{lineIterator.cycle}&nbsp;</code>

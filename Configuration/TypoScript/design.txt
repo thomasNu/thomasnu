@@ -302,6 +302,7 @@ lib.gototop = COA
 lib.gototop.10 = TEXT
 lib.gototop.10 {
   value = &uarr; {$content.goToTop}
+  typolink.addQueryString = 1
   typolink.parameter = #top
   }
   # Tools: Links zu Druckversion, Suchen, Anmelden
@@ -385,7 +386,7 @@ lib.tools.if {
   isInList.data = page:uid
   negate = 1
   } 
-  # Build sidebare
+  # Build sidebar
 lib.sidebar = COA
 lib.sidebar {
   10 < lib.home

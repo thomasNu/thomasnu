@@ -95,10 +95,12 @@
 			<label index="section.cut1">Disable cut</label>
 			<label index="section.delete">Delete this section permanently</label>
 			<label index="section.add">Add new section</label>
-			<label index="section.name">Name ([/][*][+]anchor)</label>
+			<label index="section.name">Name ([!][/][*][+]anchor)</label>
 			<label index="section.main">Main content</label>
 			<label index="section.margin">Top margin</label>
 			<label index="section.bottom">Bottom margin</label>
+			<label index="section.wikiDemo">The following Wiki entry formatted the text above</label>
+			<label index="section.wikiDemo1">The following Wiki entry formats the adjacent text</label>
 			<label index="news.createHeader">Create new article</label>
 			<label index="news.editHeader">Edit article</label>
 			<label index="news.overview">« Overview of articles</label>
@@ -148,7 +150,7 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
  [n:Notiz]     [mini:mini] [u:unterstrichen]
  [m:markiert]  roterText   [r:rot]
  [mb:markiert] blauerText                    zwingender¬
- [a:zitiert]   «zitiert»                        Umbruch</label>
+ [a:zitiert]   «zitiert»   x²: x[sup:2]         Umbruch</label>
 <label index="wiki.image">
  [imgx:Dat.jpg|T|B|H]     Bild mit Text in Zeile
  [imgy:Ord/Dat.jpg|T|B|H]   in anderem Ordner als /news/
@@ -173,9 +175,9 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
      -- Aufruf Fotogalerie</label>
 <label index="wiki.help">
 [:Eingabezeile = Absatz]
-_[m:_]Kein neuer Absatz¬[m:_§]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung
+_[m:_]Kein neuer Absatz¬[m:_\°]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung
 [:Textauszeichnung]
-_Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv][m:}] [m:{n:][n:notiz][m:}] [m:{mini:][mini:mini][m:}]¬[m:{r:][r:rot][m:}] [m:{m:][m:markiert rot][m:}]
+_Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:kursiv][m:\]] [m:\[n:][n:notiz][m:\]] [m:\[mini:][mini:mini][m:\]]¬[m:\[r:][r:rot][m:\]] [m:\[m:][m:markiert rot][m:\]]
 [http:nu.thomasnu.ch/webdesign/editoren/wiki-eingabe.html|Details Wiki-Eingabe|nu.thomasnu.ch]</label>
 			<label index="date.formatMD">January,February,March,April,May,June,July,August,September,October,November,December,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday</label>
 			<label index="date.formatM3D2">Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,Mon,Tue,Wed,Thu,Fri,Sat,Sun</label>
@@ -201,10 +203,12 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="section.cut1">Ausschneiden deaktivieren</label>
 			<label index="section.delete">Abschnitt unwiderruflich löschen</label>
 			<label index="section.add">Neuen Abschnitt anfügen</label>
-			<label index="section.name">Name ([/][*][+]Anker)</label>
+			<label index="section.name">Name ([!][/][*][+]Anker)</label>
 			<label index="section.main">Hauptinhalt</label>
 			<label index="section.margin">Marginale oben</label>
 			<label index="section.bottom">Marginale unten</label>
+			<label index="section.wikiDemo">Folgende Wiki Eingabe formatiert den obenstehenden Text</label>
+			<label index="section.wikiDemo1">Folgende Wiki Eingabe formatiert den nebenstehenden Text</label>
 			<label index="news.createHeader">Neuen Artikel erstellen</label>
 			<label index="news.editHeader">Artikel bearbeiten</label>
 			<label index="news.overview">« Artikelübersicht</label>
@@ -236,9 +240,6 @@ _Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv]
 			<label index="tab.image">Bild</label>
 			<label index="tab.link">Link</label>
 			<label index="tab.imageLink">Bildlink</label>
-<label index="blog.welcome">=Velkommen til bloggen
-Der er nye tider på vej for alternativ behandling udført på højt niveau
-Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>
 <label index="wiki.wiki">
  Details zu Wiki-Eingabe unter entsprechendem Reiter</label>
 <label index="wiki.paragraph">
@@ -254,7 +255,7 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
  [n:Notiz]     [mini:mini] [u:unterstrichen]
  [m:markiert]  roterText   [r:rot]
  [mb:markiert] blauerText                    zwingender¬
- [a:zitiert]   «zitiert»                        Umbruch</label>
+ [a:zitiert]   «zitiert»   x²: x[sup:2]         Umbruch</label>
 <label index="wiki.image">
  [imgx:Dat.jpg|T|B|H]     Bild mit Text in Zeile
  [imgy:Ord/Dat.jpg|T|B|H]   in anderem Ordner als /news/
@@ -279,9 +280,9 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
      -- Aufruf Fotogalerie</label>
 <label index="wiki.help">
 [:Eingabezeile = Absatz]
-_[m:_]Kein neuer Absatz¬[m:_§]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung
+_[m:_]Kein neuer Absatz¬[m:_\°]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung
 [:Textauszeichnung]
-_Kein[m:§]Umbruch[m:§§§]Abstand Schrift [m:{:][:fett][m:}] [m:{i:][i:kursiv][m:}] [m:{n:][n:notiz][m:}] [m:{mini:][mini:mini][m:}]¬[m:{r:][r:rot][m:}] [m:{m:][m:markiert rot][m:}]
+_Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:kursiv][m:\]] [m:\[n:][n:notiz][m:\]] [m:\[mini:][mini:mini][m:\]]¬[m:\[r:][r:rot][m:\]] [m:\[m:][m:markiert rot][m:\]]
 [http:nu.thomasnu.ch/webdesign/editoren/wiki-eingabe.html|Details Wiki-Eingabe|nu.thomasnu.ch]</label>
 			<label index="date.formatMD">Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag,Sonntag</label>
 			<label index="date.formatM3D2">Jan,Feb,März,April,Mai,Juni,Juli,Aug,Sep,Okt,Nov,Dez,Mo,Di,Mi,Do,Fr,Sa,So</label>

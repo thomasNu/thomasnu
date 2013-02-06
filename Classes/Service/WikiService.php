@@ -34,7 +34,7 @@ class Tx_Thomasnu_Service_WikiService implements t3lib_Singleton {
 	 * @param string $specialChars To find and replace (fx '{[}]')
 	 * @return string Rendered string
 	 */
-	public static function render($text, $specialChars = '') {
+	public static function render($text) {
 		$para = array();
 		$find = array(
 			'¬',      '°',      '~',        ' - ',        ' / ', '&lt;&lt;', '&gt;&gt;',
@@ -107,14 +107,8 @@ class Tx_Thomasnu_Service_WikiService implements t3lib_Singleton {
 			'sup' => '<sup>{$a[0]}</sup>',
 			'u' => '<u>{$a[0]}</u>'
 			);
-		$txt = str_replace("\n_", '¬', preg_replace('/&lt;!--.*--&gt;/sU', '', preg_replace('/<!--.*-->/sU', '', $text)));
-		if ($specialChars != '') {
-			preg_match_all('%.%u', $specialChars, $chars);
-			for ($j = 0; $j < count($chars[0]); ++$j) {
-				array_push($find, $chars[0][$j]);
-				array_push($repl, $chars[0][++$j]);
-				}
-			}
+		$txt = preg_replace('%&lt;!--.*--&gt;%sU', '', preg_replace('%<!--.*-->%sU', '', $text));
+		$txt = str_replace(array('\°', '\¬', '\£', '\[', '\|', '\]', "\n_"), array('&#176;', '&#172;', '&#163;', '&#91;', '&#124;', '&#93;', '¬'), $txt);
 		$firstChars = '';
 		foreach ($tags as $key => $val) {
 			if ($key == '' || substr($key, 0, 1) == '=' || substr($key, 0, 1) == ';' || substr($key, 0, 1) == '!') continue;

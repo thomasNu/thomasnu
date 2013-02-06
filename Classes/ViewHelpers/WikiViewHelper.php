@@ -31,12 +31,11 @@ class Tx_Thomasnu_ViewHelpers_WikiViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 	 * Render the text (Code from class parser of s+n wiki).
 	 *
 	 * @param int $noTags 1: $tags["+"] = "IT"; 2: section.margin; 4: section.bottom
-	 * @param string $specialChars To find and replace (fx '{[§°}]')
 	 * @param array $references References to sections
 	 * @param string $text The text to parse
 	 * @return string Rendered string
 	 */
-	public function render($noTags = 0, $specialChars = '', $references = NULL, $text = NULL) {
+	public function render($noTags = 0, $references = NULL, $text = NULL) {
 		if ($text === NULL) $text = $this->renderChildren(); 
 		if ($noTags == 1) $text = '+' . $text;
 		if ($references !== NULL) { 
@@ -44,7 +43,7 @@ class Tx_Thomasnu_ViewHelpers_WikiViewHelper extends Tx_Fluid_Core_ViewHelper_Ab
 				$text = $references[10000 * $noTags + $parts[1]];
 			}
 		}
-		return Tx_Thomasnu_Service_WikiService::render($text, $specialChars);
+		return Tx_Thomasnu_Service_WikiService::render($text);
 		}
 	}
 ?>

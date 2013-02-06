@@ -22,11 +22,30 @@
 					</f:else>
 				</f:if>
 					<div class="col-main"{tnu:if(condition: 'strpos(\'x{section.name}\', \'/\')', then: ' style="float: none; width: 575px;"')}>
-						<tnu:eval code="str_replace(array('/', '*', '+'), '', '{section.name}')" as="anchor">
-							<div class="main"{f:if(condition: anchor, then: ' id="{anchor}"')}{tnu:if(condition: 'strpos(\'x{section.name}\', \'/\')', then: ' style="width: 575px;"')}>
-								<tnu:wiki references="{references}">{section.main}</tnu:wiki>			
-							</div>
-						</tnu:eval>
+						<tnu:if condition="strpos('x{section.name}', '!')">
+							<f:then>
+								<tnu:wikiDemo code="{section.main}" as="demo" name="{section.name}">
+									<div class="main"{f:if(condition: anchor, then: ' id="{demo.anchor}"')}>
+										<tnu:wiki>{demo.header}</tnu:wiki>			
+										<f:if condition="{demo.main}">
+											<div class="greenbox1">
+												<tnu:wiki>{demo.main}</tnu:wiki>
+											</div>			
+										</f:if>
+										<h5><tnu:translate key="section.wikiDemo{f:if(condition: '{demo.margin}', then: '1')}" /></h5>
+										<f:render partial="WikiCode" arguments="{input: demo.code}" />
+										<tnu:wiki>{demo.remark}</tnu:wiki>			
+									</div>
+								</tnu:wikiDemo>
+							</f:then>
+							<f:else>
+								<tnu:eval code="str_replace(array('!', '/', '*', '+'), '', '{section.name}')" as="anchor">
+									<div class="main"{f:if(condition: anchor, then: ' id="{anchor}"')}{tnu:if(condition: 'strpos(\'x{section.name}\', \'/\')', then: ' style="width: 575px;"')}>
+										<tnu:wiki references="{references}">{section.main}</tnu:wiki>			
+									</div>
+								</tnu:eval>
+							</f:else>
+						</tnu:if>
 						<f:if condition="{editor}">
 							<div class="main-box" style="{f:if(condition: '{insert} != 0', then: 'display: none;')}">
 								<a id="b{section.section}" href="#" title="<!--ref{section.uid}-->" onmouseover="displayIcons(this.id)" onclick="window.alert(this.title); return false;">&nbsp;</a>
@@ -110,7 +129,16 @@
 					<tnu:if condition="strpos('x{section.name}', '/') < 1">
 						<div class="col-margin">
 							<div class="margin-top">
-								<tnu:wiki references="{references}" noTags="2">{section.margin}</tnu:wiki>			
+								<tnu:if condition="strpos('x{section.name}', '!')">
+									<f:then>
+										<tnu:wikiDemo code="{section.main}" as="demo">
+											<tnu:wiki>{f:if(condition: '{demo.margin}', then: '{demo.margin}', else: '{section.margin}')}</tnu:wiki>
+										</tnu:wikiDemo>
+									</f:then>
+									<f:else>
+										<tnu:wiki references="{references}" noTags="2">{section.margin}</tnu:wiki>			
+									</f:else>
+								</tnu:if>
 							</div>
 							<div class="margin-bottom">
 								<tnu:wiki references="{references}" noTags="4">{section.bottom}</tnu:wiki>			

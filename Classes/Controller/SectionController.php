@@ -69,6 +69,8 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 				if ($ref !== NULL && $ref->getMain() != '') {
 					$references[$parts[1]] = $this->makeSectionLink($ref); 
 				}
+			} else if (preg_match('%<!--demo-(.+)-(main|margin)-->%s', $section->getMain())) {
+				$section->setName('!' . str_replace('!', '', $section->getName()));
 			}
 			if (trim($section->getMargin()) == '/') {
 				$section->setName('/' . str_replace('/', '', $section->getName()));
@@ -101,7 +103,7 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 		foreach ($rootLine as $row) {
 			$sectionPath .= ' /' . $row['title'];
 		}
-		$sectionName = str_replace('*', '', str_replace('+', '', $ref->getName()));
+		$sectionName = str_replace(array('!', '/', '*', '+'), '', $ref->getName());
 		$sectionPath .= $sectionName ? ' #' . $sectionName : '';
 		return '[ref:' . $refPage->getPage() . ':' . $refPage->getUid() . ':' . $ref->getUid() . ':' . $ref->getSection() 
 			. '|' . $sectionPath . '|' . Tx_Extbase_Utility_Localization::translate('LLL:EXT:lang/locallang_common.xml:edit', '') . ']';

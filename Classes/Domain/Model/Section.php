@@ -124,7 +124,7 @@ class Tx_Thomasnu_Domain_Model_Section extends Tx_Extbase_DomainObject_AbstractE
 	 */
 	public function setName($name) {
 		$name = $GLOBALS['TSFE']->csConvObj->specCharsToASCII($GLOBALS['TSFE']->defaultCharSet, $name);
-		$this->name = strtolower(preg_replace('%[^a-z0-9*+/]%i', '-', $name));
+		$this->name = strtolower(preg_replace('%[^a-z0-9*+/!]%i', '-', $name));
 	}
 
 	/**
