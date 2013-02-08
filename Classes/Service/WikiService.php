@@ -31,7 +31,6 @@ class Tx_Thomasnu_Service_WikiService implements t3lib_Singleton {
 	 * Render the text (Code from class parser of s+n wiki).
 	 *
 	 * @param string $text The text to parse
-	 * @param string $specialChars To find and replace (fx '{[}]')
 	 * @return string Rendered string
 	 */
 	public static function render($text) {
