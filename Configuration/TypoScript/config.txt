@@ -60,15 +60,6 @@ page {
   10 = USER
   10.userFunc = tx_templavoila_pi1->main_page
   }
-plugin.tx_fed.fce.fed >
-plugin.tx_fed.fce.thomasnu {
-  label = Fluid Content Elements
-  templateRootPath = EXT:thomasnu/Resources/Private/Elements/
-  partialRootPath = EXT:thomasnu/Resources/Private/Partials/
-  layoutRootPath = EXT:thomasnu/Resources/Private/Layouts/
-  }
-plugin.tx_flux.settings.flexform.rteDefaults = richtext[]:rte_transform[mode=ts_css]
-
 tt_content.stdWrap.editPanel = 0
 tt_content.stdWrap.editPanel {
   allow = {$config.editPanel}
