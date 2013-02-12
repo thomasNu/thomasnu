@@ -13,8 +13,10 @@
 	<tnu:eval code="'0'" as="printPager">
 		<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
 			<f:for each="{photosOfThisGroupe}" as="photo">
-		  		<tnu:if condition="{printPager} && !({printPager} % 3)">
-		  			<tr><td width="575" valign="top" colspan="3"><div class="divider"><hr /></div></td></tr>
+		  		<tnu:if condition="{printPager} && !({printPager} % {numberPerPage})">
+					</table>
+		  			<div class="divider"><hr /></div>
+					<table border="0" cellspacing="0" cellpadding="0" width="575">
 				</tnu:if>
 				<tr>
 					<td width="400" valign="top">

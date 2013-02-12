@@ -67,6 +67,8 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 	public function indexAction($start, $back) {
 		$startPhoto = $this->photoRepository->findOneById($start);
 		$gallery = Tx_Extbase_Reflection_ObjectAccess::getProperty($startPhoto, 'gallery');
+		$numberPerPage = (int)$gallery->getLink();
+		$numberPerPage = $numberPerPage >= 1 && $numberPerPage <= 5 ? $numberPerPage : 3;
 		$images = array();
 		foreach (Tx_Extbase_Reflection_ObjectAccess::getProperty($gallery, 'photos') as $img) {
 			$text = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'text');
@@ -89,6 +91,7 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 		$this->view->assign('firstPhoto', $photos[0]);
 		$this->view->assign('lastPhoto', $photo);
 		$this->view->assign('gallery', $gallery);
+		$this->view->assign('numberPerPage', $numberPerPage);
 		$this->view->assign('back', $back);
 	}
 	/**

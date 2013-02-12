@@ -15,7 +15,7 @@ $TCA['tx_thomasnu_domain_model_gallery'] = array(
 			)
 		),
 		'link' => array(
-			'label' => 'Link',
+			'label' => 'Drucken: Fotos pro Seite (default = 3)',
 			'config' => array(
 				'type' => 'input',
 				'eval' => 'trim'
