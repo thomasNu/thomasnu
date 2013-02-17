@@ -171,8 +171,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$this->view->assign('blog', $this->category == 'BLOG');
 		if ($this->category == 'BLOG') {
 			$userInfos = $GLOBALS['TSFE']->fe_user->user;
-			$this->view->assign('author', $userInfos[name]);
-			$this->view->assign('email', $userInfos[email]);
+			$this->view->assign('author', $userInfos['name']);
+			$this->view->assign('email', $userInfos['email']);
 		}
 	}
 	/**
@@ -183,7 +183,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function createAction(Tx_Thomasnu_Domain_Model_News $newNews) {
 		$this->newsRepository->add($newNews);
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$page = $GLOBALS['TSFE']->page;
+		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
 		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**
@@ -241,7 +242,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 					break;
 			}
 		}
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$page = $GLOBALS['TSFE']->page;
+		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
 		$this->redirect('info', NULL, NULL, array('insertNews' => $news, 'insert' => $insert, 'blog' => $this->category == 'BLOG'));
 	}
 	/**
@@ -252,7 +254,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function deleteAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->newsRepository->remove($news);
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$page = $GLOBALS['TSFE']->page;
+		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
 		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**

@@ -30,7 +30,7 @@ class Tx_Thomasnu_ViewHelpers_UniqueForViewHelper extends Tx_Fluid_Core_ViewHelp
 	 *
 	 * @param array $each The array or SplObjectStorage to iterated over
 	 * @param string $as The name of the iteration variable
-	 * @param string $uniqueBy Unique (or sort) by this property (field[:value]|field:ASC|field:DESC|)
+	 * @param string $uniqueBy Unique (or sort, toSring for nummeric field) by this property (field[:value]|field:ASC[:toString]|field:DESC[:toString]|)
 	 * @param string $uniqueKey The name of the variable to store the current unique key
 	 * @param int $max Maximal count of iterations
 	 * @return string Rendered string
@@ -59,9 +59,13 @@ class Tx_Thomasnu_ViewHelpers_UniqueForViewHelper extends Tx_Fluid_Core_ViewHelp
 			} else {
 				throw new Tx_Fluid_Core_ViewHelper_Exception('UniqueForViewHelper only supports multi-dimensional arrays and objects' , 1253120365);
 			}
-			if (in_array($currentUniqueKey, $uniqueKeys)) continue;
-			if ($parts[1] && $currentUniqueKey != $parts[1]) {
-				$currentUniqueKey .= $count;
+			if ($parts[1] != 'ASC' && $parts[1] != 'DESC') {
+				if (in_array($currentUniqueKey, $uniqueKeys)) continue;
+				if ($parts[1] && $currentUniqueKey != $parts[1]) {
+					$currentUniqueKey .= $count;
+				}
+			} else if ($parts[2]) {
+				$currentUniqueKey = sprintf($parts[2], $currentUniqueKey);
 			}
 			$uniques[$currentUniqueKey][$keyValue] = $singleElement;
 			$uniqueKeys[] = $currentUniqueKey;

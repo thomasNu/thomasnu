@@ -132,7 +132,7 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 	public function createAction(Tx_Thomasnu_Domain_Model_Content $page, Tx_Thomasnu_Domain_Model_Section $newSection) {
 		$page->addSection($newSection);
 		$newSection->setPage($page);
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$GLOBALS['TSFE']->clearPageCacheContent($page->getPage());
 		$this->redirect('index', NULL, NULL, array('page' => $page));
 	}
 	/**
@@ -191,7 +191,7 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 					break;
 			}
 		}
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$GLOBALS['TSFE']->clearPageCacheContent($page->getPage());
 		$this->redirect('index', NULL, NULL, array('page' => $page, 'insertSection' => $section, 'insert' => $insert));
 	}
 	/**
@@ -203,7 +203,7 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 	 */
 	public function deleteAction(Tx_Thomasnu_Domain_Model_Content $page, Tx_Thomasnu_Domain_Model_Section $section) {
 		$this->sectionRepository->remove($section);
-		$GLOBALS['TSFE']->clearPageCacheContent();
+		$GLOBALS['TSFE']->clearPageCacheContent($page->getPage());
 		$this->redirect('index', NULL, NULL, array('page' => $page));
 	}
 }

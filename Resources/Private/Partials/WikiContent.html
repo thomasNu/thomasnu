@@ -5,7 +5,7 @@
 		<f:if condition="{sections->f:count()} == 0">
 			<div class="section"><p class="mark">{tnu:translate(key: 'section.new')}</p></div>
 		</f:if>
-		<tnu:uniqueFor each="{sections}" as="sortedSections" uniqueBy="section:ASC">
+		<tnu:uniqueFor each="{sections}" as="sortedSections" uniqueBy="section:ASC:s%010s">
 			<f:for each="{sortedSections}" as="section">
 				<f:if condition="{editor}">
 					<f:then>
@@ -150,7 +150,7 @@
 			</f:for>
 		</tnu:uniqueFor>
 		<f:if condition="{editor}">
-			<tnu:eval code="{newSectionId} ? {newSectionId} * 2 : 67108864" as="newSectionId" />
+			<tnu:eval code="{newSectionId} + 33554432" as="newSectionId" />
 			<div class="wiki-bottom" style="{f:if(condition: '{insert} != 0', then: 'width: 40px;')}">
 				<f:if condition="{insert} == 1">
 					<f:link.action controller="Section" action="update" arguments="{page: page, section: insertSection, modify: '{newSectionId}'}" title="{tnu:translate(key: 'section.paste1')}">
