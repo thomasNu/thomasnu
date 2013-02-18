@@ -81,6 +81,7 @@
 			<label index="section.createHeader">Create new section</label>
 			<label index="section.editHeader">Edit section "%s"</label>
 			<label index="section.new">Insert new section here</label>
+			<label index="section.new0">Insert is not possible</label>
 			<label index="section.paste">Insert copy of section here</label>
 			<label index="section.paste1">Add copy of section here</label>
 			<label index="section.move">Move section to here</label>
@@ -95,6 +96,7 @@
 			<label index="section.cut1">Disable cut</label>
 			<label index="section.delete">Delete this section permanently</label>
 			<label index="section.add">Add new section</label>
+			<label index="section.add0">Append is not possible</label>
 			<label index="section.name">Name ([!][/][*][+]anchor)</label>
 			<label index="section.main">Main content</label>
 			<label index="section.margin">Top margin</label>
@@ -189,6 +191,7 @@ _Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:
 			<label index="section.createHeader">Neuen Abschnitt erstellen</label>
 			<label index="section.editHeader">Abschnitt "%s" bearbeiten</label>
 			<label index="section.new">Neuen Abschnitt hier einfügen</label>
+			<label index="section.new0">Einfügen ist nicht möglich</label>
 			<label index="section.paste">Kopie des Abschnitts hier einfügen</label>
 			<label index="section.paste1">Kopie des Abschnitts anfügen</label>
 			<label index="section.move">Abschnitt nach hier verschieben</label>
@@ -203,6 +206,7 @@ _Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:
 			<label index="section.cut1">Ausschneiden deaktivieren</label>
 			<label index="section.delete">Abschnitt unwiderruflich löschen</label>
 			<label index="section.add">Neuen Abschnitt anfügen</label>
+			<label index="section.add0">Anfügen ist nicht möglich</label>
 			<label index="section.name">Name ([!][/][*][+]Anker)</label>
 			<label index="section.main">Hauptinhalt</label>
 			<label index="section.margin">Marginale oben</label>
