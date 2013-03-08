@@ -81,6 +81,7 @@ class Tx_Thomasnu_Controller_ContentController extends Tx_Extbase_MVC_Controller
 			$this->persistanceManager->persistAll();
 			}
 		$this->view->assign('page', $pageContent);
+		$this->view->assign('print', t3lib_div::_GP('print'));
 		$sections = $pageContent->getSections();
 		$this->view->assign('sections', $sections);
 		$references = array();

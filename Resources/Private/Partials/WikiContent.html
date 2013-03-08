@@ -2,8 +2,11 @@
 
 <tnu:eval code="'0'" as="newSectionId">
 	<div class="wiki">
-		<f:if condition="{sections->f:count()} == 0">
-			<div class="section"><p class="mark">{tnu:translate(key: 'section.new')}</p></div>
+		<![CDATA[<!--TYPO3SEARCH_begin-->]]>
+		<f:if condition="{editor}">
+			<f:if condition="{sections->f:count()} == 0">
+				<div class="section"><p class="mark">{tnu:translate(key: 'section.new')}</p></div>
+			</f:if>
 		</f:if>
 		<tnu:uniqueFor each="{sections}" as="sortedSections" uniqueBy="section:ASC:s%010s">
 			<f:for each="{sortedSections}" as="section">
@@ -185,11 +188,11 @@
 				</f:else>
 			</f:if>
 		</f:if>
+		<![CDATA[<!--TYPO3SEARCH_end-->]]>
 	</div>			
 </tnu:eval>
 <script language="JavaScript">
-	/*<![CDATA[*/
-	<!--
+	<![CDATA[<!--
 	var sCurrent = '';
 
 	function displayIcons(current) {
@@ -200,7 +203,6 @@
 			sCurrent = current;
 		}
 	}
-	//-->
-	/*]]>*/
+	//-->]]>
 </script>
 

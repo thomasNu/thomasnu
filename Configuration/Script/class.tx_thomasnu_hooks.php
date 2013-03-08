@@ -33,12 +33,17 @@ class tx_thomasnu_hooks {
      */
     public function substituteMarkers($_params, $feObj) {
         $conf = $feObj->tmpl->setup['tx_thomasnu.'];
-
         if (isset($conf['markers.']) && is_array($conf['markers.'])) {
+        	$wikiContent = $feObj->cObj->cObjGetSingle($conf['markers.']['wiki'], $conf['markers.']['wiki.']);
+            if (t3lib_div::_GP('print')) {
+				$feObj->content = str_replace('<div id="prt-content">', '<div id="prt-content">' . $wikiContent, $feObj->content); 
+            } else {
+				$feObj->content = str_replace('<div id="content">', '<div id="content">' . $wikiContent, $feObj->content); 
+            }
             $usedMarkers = $this->getMarkersInContent($feObj->content);
             foreach( $usedMarkers as $markername) {
                 $confname = str_replace('£', '', $markername);
-                $markercontent = $feObj->cObj->cObjGetSingle($conf['markers.'][$confname], $conf['markers.'][$confname.'.']);
+                $markercontent = $feObj->cObj->cObjGetSingle($conf['markers.'][$confname], $conf['markers.'][$confname . '.']);
                 $feObj->content = str_replace($markername, $markercontent, str_replace('<p>' . $markername . '</p>', $markercontent, $feObj->content));
             }
         }

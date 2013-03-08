@@ -1,8 +1,15 @@
-<f:security.ifHasRole role="Editor">
+<f:if condition="{print}">
 	<f:then>
-		<f:render partial="WikiContent" arguments="{sections: sections, page: page, references: references, insertSection: NULL, insert: 0, editor: 1}" />
+		<f:render partial="WikiContent" arguments="{sections: sections, page: page, references: references, insertSection: NULL, insert: 0, editor: 0}" />
 	</f:then>
 	<f:else>
-		<f:render partial="WikiContent" arguments="{sections: sections, page: page, references: references, insertSection: NULL, insert: 0, editor: 0}" />
+		<f:security.ifHasRole role="Editor">
+			<f:then>
+				<f:render partial="WikiContent" arguments="{sections: sections, page: page, references: references, insertSection: NULL, insert: 0, editor: 1}" />
+			</f:then>
+			<f:else>
+				<f:render partial="WikiContent" arguments="{sections: sections, page: page, references: references, insertSection: NULL, insert: 0, editor: 0}" />
+			</f:else>
+		</f:security.ifHasRole>	
 	</f:else>
-</f:security.ifHasRole>
+</f:if>
