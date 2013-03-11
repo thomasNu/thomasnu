@@ -34,11 +34,13 @@ class tx_thomasnu_hooks {
     public function substituteMarkers($_params, $feObj) {
         $conf = $feObj->tmpl->setup['tx_thomasnu.'];
         if (isset($conf['markers.']) && is_array($conf['markers.'])) {
-        	$wikiContent = $feObj->cObj->cObjGetSingle($conf['markers.']['wiki'], $conf['markers.']['wiki.']);
-            if (t3lib_div::_GP('print')) {
-				$feObj->content = str_replace('<div id="prt-content">', '<div id="prt-content">' . $wikiContent, $feObj->content); 
-            } else {
-				$feObj->content = str_replace('<div id="content">', '<div id="content">' . $wikiContent, $feObj->content); 
+        	if (!t3lib_div::inList($feObj->cObj->cObjGetSingle($conf['markers.']['noWiki'], $conf['markers.']['noWiki.']), $GLOBALS['TSFE']->id)) {
+		    	$wikiContent = $feObj->cObj->cObjGetSingle($conf['markers.']['wiki'], $conf['markers.']['wiki.']);
+		        if (t3lib_div::_GP('print')) {
+					$feObj->content = str_replace('<div id="prt-content">', '<div id="prt-content">' . $wikiContent, $feObj->content); 
+		        } else {
+					$feObj->content = str_replace('<div id="content">', '<div id="content">' . $wikiContent, $feObj->content); 
+		        }
             }
             $usedMarkers = $this->getMarkersInContent($feObj->content);
             foreach( $usedMarkers as $markername) {

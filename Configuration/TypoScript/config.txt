@@ -34,42 +34,34 @@ config {
 	Tx_Thomasnu_Domain_Model_Poster.newRecordStoragePid = {$config.mailStorage}
 	}
   }
-[usergroup = {$content.editorGroup}]
-config.adminPanel = 1
-[global]
   # Default PAGE object:
 page = PAGE
 page {
   typeNum = 0
   shortcutIcon = fileadmin/images/design/fav.ico
-  includeJS {
-    file0 = EXT:thomasnu/Resources/Public/Javascript/design.js
-    file0.type = text/javascript
-    file10 = EXT:thomasnu/Resources/Public/Javascript/lightbox.js
-    file10.type = text/javascript
+  includeCSS {
+    basics = EXT:thomasnu/Resources/Public/Stylesheet/basics.css
+    navigate = EXT:thomasnu/Resources/Public/Stylesheet/navigate.css
+    content = EXT:thomasnu/Resources/Public/Stylesheet/content.css
+    screen = EXT:thomasnu/Resources/Public/Stylesheet/screen.css
+    typo3 = EXT:thomasnu/Resources/Public/Stylesheet/typo3.css
+    jquery = EXT:thomasnu/Resources/Public/Stylesheet/jquery.css
+    print = EXT:thomasnu/Resources/Public/Stylesheet/print.css
+    print.media = print
     }
-  stylesheet = EXT:thomasnu/Resources/Public/Stylesheet/design.css
   CSS_inlineStyle (
     {$content.menuBack}
     {$content.menu2Back}
     {$content.menuLogo}
     {$content.homeText}
     )
-  headerData.10 < plugin.tx_simulatebe_pi1
+  includeJS {
+    design = EXT:thomasnu/Resources/Public/Javascript/design.js
+    file10 = EXT:thomasnu/Resources/Public/Javascript/lightbox.js
+    }
   headerData.20 < temp.titletag
   10 = USER
   10.userFunc = tx_templavoila_pi1->main_page
   }
-tt_content.stdWrap.editPanel = 0
-tt_content.stdWrap.editPanel {
-  allow = {$config.editPanel}
-  line = 1
-  }
-[usergroup = {$content.editorGroup}]
-tt_content.stdWrap.editPanel = 1
-[global]
-[PIDinRootline = {$content.noEditPanel}]
-tt_content.stdWrap.editPanel = 0
-[global]
 includeLibs.user_my = EXT:thomasnu/Configuration/Script/user.php
   

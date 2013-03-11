@@ -23,6 +23,8 @@ tx_thomasnu.markers {
 	banner.10 < lib.gallery
 	wiki = COA
 	wiki.10 < lib.wiki
+	noWiki = TEXT
+	noWiki.value = {$content.noWikiPages}
 }
   # Remove
 tx_thomasnu.remove {

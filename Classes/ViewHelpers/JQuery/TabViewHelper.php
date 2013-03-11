@@ -118,7 +118,9 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 		$tabSelector = $this->renderTabSelector();
 		$tabs = $this->renderTabs();
 		$html = ($tabSelector . LF . $tabs . LF . $content . LF);
-		$this->addScript();
+//		$this->addScript();
+		$html .= '<script type="text/javascript">' . LF . '/*<![CDATA[*/' . LF;
+		$html .= $this->addScript() . LF . '/*]]>*/' . LF . '</script>' . LF;
 		$this->tag->setContent($html);
 		$this->tag->addAttribute('class', 'tnu-tab-group');
 		$this->tag->addAttribute('id', $this->uniqId);
@@ -198,7 +200,8 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 		}
 		$json = json_encode($options);
 		$script = 'jQuery(document).ready(function($) { $("#' . $this->uniqId . '").tabs(' . $json . '); });';
-		$this->documentHead->includeHeader($script, 'js');
+		return $script;
+//		$this->documentHead->includeHeader($script, 'js');
 	}
 
 }
