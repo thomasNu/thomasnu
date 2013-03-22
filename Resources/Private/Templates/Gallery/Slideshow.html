@@ -6,19 +6,47 @@
 		var Groups = new Array({groups});
 	</script>
 
-	<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+	<f:groupedFor each="{groupedPhotos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
 		<tnu:if condition="ord('{groupText}') == ord('*')">
 			<p  class="thumbnails-text" style="padding-bottom:2px"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
 		</tnu:if>
-		<f:for each="{photosOfThisGroupe}" as="photo">
-			<p class="thumbnails-photo"><a name="a{photo.id}" href="javascript:ShowPhoto('{photo.id}')" title="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}">
-			<tnu:if condition="'{photo.id}' == '{firstPhoto.id}'">
-				<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
-			</tnu:if>
-			<f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="100m" />
-			<tnu:if condition="'{photo.id}' == '{lastPhoto.id}'">
-				<br /><strong>{settings.clickPhoto}</strong>
-			</tnu:if></a></p>
+		<f:for each="{photosOfThisGroupe}" as="image">
+			<div class="thumbnail">
+				<p class="thumbnails-photo"><a name="a{image.id}" href="javascript:ShowPhoto('{image.id}')" title="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}">
+				<tnu:if condition="'{image.id}' == '{firstPhoto.id}'">
+					<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
+				</tnu:if>
+				<f:image src="fileadmin/images/gallery/{image.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}" width="100m" />
+				<tnu:if condition="'{image.id}' == '{lastPhoto.id}'">
+					<br /><strong>{settings.clickPhoto}</strong>
+				</tnu:if></a>
+				<f:security.ifHasRole role="Editor">
+					<f:for each="{gallery.photos}" as="photo">
+						<tnu:if condition="'{image.id}' == '{photo.id}'">
+							<div class="thumbnails-box">
+								<a id="b{image.id}" href="#" onmouseover="displayIcons0(this.id)" onclick="return false;">&nbsp;</a>
+							</div>
+							<div class="thumbnails-left">
+								<f:link.action controller="Photo" action="create" arguments="{gallery: gallery, newPhoto: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.new')}">
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'photo.new')}" />
+								</f:link.action><br />
+								<f:link.action controller="Photo" action="edit" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.edit')}">
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/edit.gif" alt="{tnu:translate(key: 'photo.edit')}" />
+								</f:link.action><br /><b><tnu:eval code="substr('{image.id}', -2, 2)" /></b>			
+							</div>
+							<div id="s{image.id}" class="thumbnails-over">
+								<f:link.action controller="Photo" action="update" arguments="{page: page, section: section, modify: 'hide'}" title="{tnu:translate(key: 'photo.unhide')}">
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'photo.unhide')}" />
+								</f:link.action>			
+								<a href="{f:uri.action(controller: 'Photo' action: 'delete' arguments: {news: news})}" title="{tnu:translate(key: 'photo.delete')}" 
+										onclick="if (confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
+									<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'photo.delete')}" />
+								</a>
+							</div></p>
+						</tnu:if>
+					</f:for>
+				</f:security.ifHasRole>
+			</div>
 		</f:for>
 		<tnu:if condition="ord('{groupText}') != ord('*') && {groupCount} > 1">
 			<p class="thumbnails-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
@@ -26,12 +54,12 @@
 	</f:groupedFor> 
 </div>
 
-<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
-	<f:for each="{photosOfThisGroupe}" as="photo">
-		<div id="{photo.id}" class="slide">
-			<p class="slide-photo"><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}"
-				title="{tnu:gallery(mode: 'alt', caption: photo.caption, text: photo.text)}" width="575m" /></p>
-			<p class="slide-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'slide', caption: photo.caption, text: photo.text)}</tnu:wiki>
+<f:groupedFor each="{groupedPhotos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
+	<f:for each="{photosOfThisGroupe}" as="image">
+		<div id="{image.id}" class="slide">
+			<p class="slide-photo"><f:image src="fileadmin/images/gallery/{image.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}"
+				title="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}" width="575m" /></p>
+			<p class="slide-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'slide', caption: image.caption, text: image.text)}</tnu:wiki>
 		</div>
 	</f:for>
 </f:groupedFor> 
@@ -51,17 +79,20 @@
 		</b>| <a href="{back}">{settings.fgBack}</a>
 	</p>
 </div>
+<script language="JavaScript">
+	/*<![CDATA[*/
+	<!--
+	var sCurrent = '';
 
-<!-- [CDATA[
-plugin.tx_thomasnu.settings {
-	fgTitle = Fotogalerie
-	fgLinks = Galerie:
-	fgPrev = Vorheriges Bild
-	fgInterval = s Interval
-	fgPause = Pause
-	fgNext = Nächstes Bild
-	fgPrint = Album drucken
-	fgBack = Zurück zur Seite
+	function displayIcons(current) {
+		current = 's' + current.slice(1);
+		if (current != sCurrent) {
+			if (sCurrent) document.getElementById(sCurrent).style.display = 'none';
+			document.getElementById(current).style.display = 'block';
+			sCurrent = current;
+		}
 	}
-]] -->
+	//-->
+	/*]]>*/
+</script>
 

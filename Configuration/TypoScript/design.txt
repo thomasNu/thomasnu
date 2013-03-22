@@ -316,6 +316,11 @@ lib.tools {
     parameter = #
     additionalParams = &print=1&no_cache=1
     }
+  15.if {
+    value = {$content.noPrint}
+    isInList.data = page:uid
+    negate = 1
+    } 
 //  40 = TEXT
 //  40.value = index.php?id=63
 //  40.htmlSpecialChars = 1

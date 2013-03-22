@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2011 Thomas Nussbaumer <info@thomasnu.ch>
+*  (c) 2013 Thomas Nussbaumer <info@thomasnu.ch>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is

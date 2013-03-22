@@ -39,9 +39,11 @@ Tx_Extbase_Utility_Extension::configurePlugin(
 Tx_Extbase_Utility_Extension::configurePlugin(
 	$_EXTKEY, 'Gallery', 
 	array(
-		'Gallery' => 'index, slideshow, lightbox, banner'
+		'Gallery' => 'index, slideshow, lightbox, banner',
+		'Photo' => 'edit, update, new, create, delete'
 	),
 	array(
+		'Photo' => 'edit, update, new, create, delete'
 	)
 );
 $TYPO3_CONF_VARS['FE']['addRootLineFields'] .= ',subtitle';

@@ -123,7 +123,7 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 			}
 			$photos[] = $photo;
 		}
-		$this->view->assign('photos', $photos);
+		$this->view->assign('groupedPhotos', $photos);
 		$this->view->assign('startPhoto', $startPhoto);
 		$this->view->assign('firstPhoto', $photos[0]);
 		$this->view->assign('lastPhoto', $photo);

@@ -14,7 +14,7 @@
 							</numIndex>
 							<numIndex index="1" type="array">
 								<numIndex index="0">Slideshow</numIndex>
-								<numIndex index="1">Gallery->slideshow</numIndex>
+								<numIndex index="1">Gallery->slideshow;Photo->edit;Photo->update;Photo->new;Photo->create;Photo->delete</numIndex>
 							</numIndex>
 							<numIndex index="2" type="array">
 								<numIndex index="0">Lightbox</numIndex>

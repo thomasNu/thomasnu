@@ -1,0 +1,36 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<f:form action="{action}" arguments="{start: start, back: back}" objectName="{objectName}" object="{object}" method="post">
+	<div class="section"> 
+		<div class="col-main">
+			<div class="main">
+				<h4><f:link.action controller="Gallery" action="slideshow" 
+						arguments="{start: start, back: back}" title="{tnu:translate(key: 'common.cancel')}">[{tnu:translate(key: 'common.cancel')}]</f:link.action>
+				<tnu:if condition="'{action}' == 'create'">
+					<f:then>
+						<tnu:translate key="photo.createHeader" /></h4>
+					</f:then>
+					<f:else>
+						<tnu:translate key="photo.editHeader" /></h4>
+					</f:else>
+				</tnu:if>
+				<p><b>&nbsp;<tnu:translate key="photo.id" /></b><br />
+				<f:form.textfield property="id" size="28" maxlength="256" /></p>
+				<p><b>&nbsp;<tnu:translate key="photo.thumbnail" /></b><br />
+				<f:form.textarea property="text" rows="5" cols="49" style="width: 400px;" /></p>
+				<p><b>&nbsp;<tnu:translate key="photo.caption" /></b><br />
+				<f:form.textarea property="caption" rows="5" cols="49" style="width: 400px;" /></p>
+				<p><f:form.submit value="{tnu:translate(key: 'common.save')}" /><p>
+			</div>
+		</div>
+		<div class="col-margin">
+			<div class="margin-top">
+				<f:image src="fileadmin/images/gallery/{id}.jpg" alt="{id}" width="160m" />
+				<tnu:wiki>{tnu:translate(key: 'gallery.help')}</tnu:wiki>			
+			</div>
+		</div>
+	</div>
+</f:form>
+<div id = "slideshow">
+	<h2>{settings.fgTitle} {gallery.header}</h2>
+</div>

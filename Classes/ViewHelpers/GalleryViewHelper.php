@@ -60,11 +60,11 @@ class Tx_Thomasnu_ViewHelpers_GalleryViewHelper extends Tx_Fluid_Core_ViewHelper
 		}
 		if ($alt == '') $alt = $descr;
 		if ($mode == 'alt') {
-			return str_replace(array('°', '{', '}'), array(' ', '', ''), $alt);
+			return str_replace(array('°', '¬', '{', '}'), array(' ', ' ', '', ''), $alt);
 		} elseif ($mode == 'lightbox') {
-			return str_replace(array('°', '[', ']', '{', '}'), array(' ', '', '', '', ''), $descr);
+			return str_replace(array('°', '¬', '[', ']', '{', '}'), array(' ', ' ', '', '', '', ''), $descr);
 		} else {
-			return str_replace(array('[', ']', '{', '}'), '', $descr);
+			return str_replace(array( '¬','[', ']', '{', '}'), array(' ', '', '', '', ''), $descr);
 		}
 	}
 }
