@@ -84,17 +84,21 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 		$this->view->assign('back', $back);
 	}
 	/**
-	 * Updates an existing section
+	 * Updates an existing photo
 	 *
+	 * @param Tx_Thomasnu_Domain_Model_Gallery $gallery The gallery the photo belogs to
 	 * @param Tx_Thomasnu_Domain_Model_Photo $photo A clone of the original photo with the updated values already applied
 	 * @param string $start Id startphoto
 	 * @param string $back Back to page
 	 * @param string $modify  The case of modifikation
 	 * @return void
 	 */
-	public function updateAction(Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $modify = NULL) {
+	public function updateAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $modify = NULL) {
 		if ($modify == NULL) {
 			$this->photoRepository->update($photo);
+			$galleryProperties = $this->request->getArgument('galleryProperties');
+    		$gallery->setHeader($galleryProperties['header']);
+    		$gallery->setLink($galleryProperties['link']);
 		} else {
 			switch ($modify) {
 				case 'pager':

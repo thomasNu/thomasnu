@@ -1,6 +1,6 @@
 {namespace tnu=Tx_Thomasnu_ViewHelpers}
 
-<f:form action="{action}" arguments="{start: start, back: back}" objectName="{objectName}" object="{object}" method="post">
+<f:form action="{action}" arguments="{gallery: gallery, start: start, back: back}" objectName="{objectName}" object="{object}" method="post">
 	<div class="section"> 
 		<div class="col-main">
 			<div class="main">
@@ -14,6 +14,10 @@
 						<tnu:translate key="photo.editHeader" /></h4>
 					</f:else>
 				</tnu:if>
+				<p><b>&nbsp;<tnu:translate key="gallery.header" /></b><br />
+				<f:form.textfield name="galleryProperties[header]" value="{gallery.header}" size="28" maxlength="256" /></p>
+				<p><b>&nbsp;<tnu:translate key="gallery.link" /></b><br />
+				<f:form.textfield name="galleryProperties[link]" value="{gallery.link}" size="28" maxlength="256" /></p>
 				<p><b>&nbsp;<tnu:translate key="photo.id" /></b><br />
 				<f:form.textfield property="id" size="28" maxlength="256" /></p>
 				<p><b>&nbsp;<tnu:translate key="photo.thumbnail" /></b><br />
