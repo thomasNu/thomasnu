@@ -28,7 +28,7 @@
 class Tx_Thomasnu_ViewHelpers_GalleryViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 
 	/**
-	 * Render the gallery description with supplied content.
+	 * Render the gallery descriptions with supplied content.
 	 *
 	 * @param string $mode
 	 * @param string $caption 
@@ -37,18 +37,17 @@ class Tx_Thomasnu_ViewHelpers_GalleryViewHelper extends Tx_Fluid_Core_ViewHelper
 	 */
 	public function render($mode, $caption, $text = NULL) {
 		if ($text === NULL) $text = $this->renderChildren(); 
-		$descr = ltrim($text, '*');
 		if ($mode == 'thumbnails') {
 			$pattern = "/\{(.*)\}/U";
-			preg_match_all($pattern, $descr, $arr, PREG_PATTERN_ORDER);
+			preg_match_all($pattern, $text, $arr, PREG_PATTERN_ORDER);
 			foreach ($arr[0] as $value) {
-				$descr = str_replace($value, '', $descr);
+				$text = str_replace($value, '', $text);
 			}
-			return str_replace(array('[', ']', ','), '', $descr);
+			return str_replace(array('[', ']', ','), '', $text);
 		}
-		if ($caption > '') $descr = $caption;
+		if ($caption > '') $text = $caption;
 		$pattern = "/\[(.*)\]/U";
-		preg_match_all($pattern, $descr, $arr, PREG_PATTERN_ORDER);
+		preg_match_all($pattern, $text, $arr, PREG_PATTERN_ORDER);
 		$alt = '';
 		foreach ($arr[1] as $value) {
 			$alt .= $value;
@@ -56,15 +55,15 @@ class Tx_Thomasnu_ViewHelpers_GalleryViewHelper extends Tx_Fluid_Core_ViewHelper
 		$pattern = "/\{(.*)\}/U";
 		preg_match_all($pattern, $alt, $arr, PREG_PATTERN_ORDER);
 		foreach ($arr[0] as $value) {
-			$descr = str_replace($value, '', $descr);
+			$text = str_replace($value, '', $text);
 		}
-		if ($alt == '') $alt = $descr;
+		if ($alt == '') $alt = $text;
 		if ($mode == 'alt') {
 			return str_replace(array('°', '¬', '{', '}'), array(' ', ' ', '', ''), $alt);
 		} elseif ($mode == 'lightbox') {
-			return str_replace(array('°', '¬', '[', ']', '{', '}'), array(' ', ' ', '', '', '', ''), $descr);
+			return str_replace(array('°', '¬', '[', ']', '{', '}'), array(' ', ' ', '', '', '', ''), $text);
 		} else {
-			return str_replace(array( '¬','[', ']', '{', '}'), array(' ', '', '', '', ''), $descr);
+			return str_replace(array( '¬','[', ']', '{', '}'), array(' ', '', '', '', ''), $text);
 		}
 	}
 }

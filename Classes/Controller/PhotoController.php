@@ -102,12 +102,12 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 		} else {
 			switch ($modify) {
 				case 'pager':
-					$id = $photo->getId();
-					$photo->setId(strpos($id, '+') === FALSE ? '+' . $id : str_replace('+', '', $id));
+					$text = $photo->getText();
+					$photo->setText(strpos($text, '+') === FALSE ? '+' . $text : str_replace('+', '', $text));
 					break;
 				case 'hide':
-					$id = $photo->getId();
-					$photo->setId(strpos($id, '*') === FALSE ? '*' . $id : str_replace('*', '', $id));
+					$text = $photo->getText();
+					$photo->setText(strpos($text, '*') === FALSE ? '*' . $text : str_replace('*', '', $text));
 					break;
 			}
 		}

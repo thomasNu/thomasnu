@@ -3,34 +3,29 @@
 <table border="0" cellspacing="0" cellpadding="0" width="575">
 	<tr>
 		<td width="400" valign="top">
-			<h2 style="margin-bottom:22px;">{settings.fgTitle} {gallery.header}</h2>
+			<h2 style="margin-bottom:22px;">{settings.albumTitle} {gallery.header}</h2>
 		</td>
 		<td width="15"></td>
 		<td width="160" align="right" valign="bottom" class="note">
-			<p>{settings.fgPrint}&nbsp;&#124;&nbsp;<strong><a href="{back}">« {settings.fgBack}</a></strong></p>
+			<p>{settings.printer}&nbsp;&#124;&nbsp;<strong><a href="{back}">{settings.back}</a></strong></p>
 		</td>
 	</tr>
-	<tnu:eval code="'0'" as="printPager">
-		<f:groupedFor each="{photos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
-			<f:for each="{photosOfThisGroupe}" as="photo">
-		  		<tnu:if condition="{printPager} && !({printPager} % {numberPerPage})">
-					</table>
-		  			<div class="divider"><hr /></div>
-					<table border="0" cellspacing="0" cellpadding="0" width="575">
-				</tnu:if>
-				<tr>
-					<td width="400" valign="top">
-						<p><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="" width="400m" /></p>
-					</td>
-					<td width="15"></td>
-					<td width="160" valign="bottom" class="note">
-						<tnu:wiki>{tnu:gallery(mode: 'lightbox', caption: photo.caption, text: photo.text)}</tnu:wiki>
-					</td>
-				</tr>
-				<tnu:eval code="{printPager} + 1" as="printPager" />
-			</f:for>
-		</f:groupedFor>
-	</tnu:eval> 
+	<f:for each="{photos}" as="photo">
+  		<f:if condition="{photo.pager}">
+			</table>
+  			<div class="divider"><hr /></div>
+			<table border="0" cellspacing="0" cellpadding="0" width="575">
+		</f:if>
+		<tr>
+			<td width="400" valign="top">
+				<p><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="" width="400m" /></p>
+			</td>
+			<td width="15"></td>
+			<td width="160" valign="bottom" class="note">
+				<tnu:wiki>{tnu:gallery(mode: 'lightbox', caption: photo.caption, text: photo.text)}</tnu:wiki>
+			</td>
+		</tr>
+	</f:for>
 </table>
 
 <!-- [CDATA[

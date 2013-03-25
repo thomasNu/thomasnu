@@ -27,5 +27,17 @@
  * A repository for Photos
  */
 class Tx_Thomasnu_Domain_Repository_PhotoRepository extends Tx_Extbase_Persistence_Repository {
+
+	/**
+	 * Finds a photo
+	 *
+	 * @param string $id 
+	 * @return array Photo
+	 */
+	public function findPhoto($id) {
+		$query = $this->createQuery();
+		$query->matching($query->like('id', '%' . str_replace(array('+', '*'), '', $id)));
+		return $query->execute();
+	} 
 }
 ?>

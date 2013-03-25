@@ -131,11 +131,23 @@
 			<label index="photo.editHeader">Edit image of gallery</label>
 			<label index="photo.new">Insert new image (Not yet implemented)</label>
 			<label index="photo.edit">Edit this image</label>
+			<label index="photo.pager">Print image individually always on a new page</label>
+			<label index="photo.pager1">No mandatory page break when printing</label>
+			<label index="photo.hide">Disable this image</label>
+			<label index="photo.unhide">Enable this image</label>
+			<label index="photo.delete">Delete this image permanently</label>
 			<label index="photo.id">Name of image (do not change!)</label>
-			<label index="photo.thumbnail">Caption of thumbnail (specifically: Wiki ° ¬ and *text)</label>
+			<label index="photo.thumbnail">[+][*]Caption of thumbnail (specifically: Wiki ° ¬ and *text)</label>
 			<label index="photo.caption">Caption of large image</label>
 			<label index="gallery.header">Gallery title</label>
 			<label index="gallery.link">Print album: Number of images per page (default: 3)</label>
+			<label index="slideshow.control">Show:</label>
+			<label index="slideshow.previous">Previous image</label>
+			<label index="slideshow.interval">s. per image</label>
+			<label index="slideshow.pause">Pause</label>
+			<label index="slideshow.next">Next image</label>
+			<label index="slideshow.print">Print album</label>
+			<label index="slideshow.back">Back to page</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Paragraph</label>
 			<label index="tab.text">Text</label>
@@ -196,6 +208,13 @@ _Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:
 So ist es am Einfachsten Weitere Kombinationen sind vorhanden
 =Speziell bei Vorschaubild
 Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:*]Beschriftung¬= letzte Beschriftung</label>
+<label index="gallery.help">
+=Name des Bildes
+[mb:Name Galerie] und [m:nn]¬[m:nn] = Nummer (01 - 99) dient zum Sortieren
+=Bildbeschriftungen
+So ist es am Einfachsten Weitere Kombinationen sind vorhanden
+=Speziell bei Vorschaubild
+Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Seite drucken¬[m:*]Beschriftung¬= Bild deaktiviert</label>
 			<label index="date.formatMD">January,February,March,April,May,June,July,August,September,October,November,December,Monday,Tuesday,Wednesday,Thursday,Friday,Saturday,Sunday</label>
 			<label index="date.formatM3D2">Jan,Feb,Mar,Apr,May,Jun,Jul,Aug,Sep,Oct,Nov,Dec,Mon,Tue,Wed,Thu,Fri,Sat,Sun</label>
 		</languageKey>
@@ -256,11 +275,23 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:*]Beschriftung¬= letzte Besch
 			<label index="photo.editHeader">Bild der Galerie bearbeiten</label>
 			<label index="photo.new">Neues Bild einfügen (Noch nicht verfügbar)</label>
 			<label index="photo.edit">Bild bearbeiten</label>
+			<label index="photo.pager">Bild individuell immer auf neuer Seite drucken</label>
+			<label index="photo.pager1">Kein zwingender Druckseitenumbruch</label>
+			<label index="photo.hide">Bild deaktivieren</label>
+			<label index="photo.unhide">Bild aktivieren</label>
+			<label index="photo.delete">Bild unwiderruflich löschen</label>
 			<label index="photo.id">Name des Bildes (nicht ändern!)</label>
-			<label index="photo.thumbnail">Beschriftung Vorschaubild (speziell: Wiki ° ¬ und *Text)</label>
+			<label index="photo.thumbnail">[+][*]Beschriftung Vorschaubild (speziell: Wiki ° ¬ und *Text)</label>
 			<label index="photo.caption">Beschriftung grosses Bild</label>
 			<label index="gallery.header">Galerietitel</label>
 			<label index="gallery.link">Album drucken: Anzahl Bilder pro Seite (default: 3)</label>
+			<label index="slideshow.control">Show:</label>
+			<label index="slideshow.previous">Vorheriges Bild</label>
+			<label index="slideshow.interval">Sek. pro Bild</label>
+			<label index="slideshow.pause">Pause</label>
+			<label index="slideshow.next">Nächstes Bild</label>
+			<label index="slideshow.print">Album drucken</label>
+			<label index="slideshow.back">Zurück zur Seite</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Absatz</label>
 			<label index="tab.text">Text</label>
@@ -317,7 +348,7 @@ _Kein[m:\°]Umbruch[m:\°\°\°]Abstand Schrift [m:\[:][:fett][m:\]] [m:\[i:][i:
 =Bildbeschriftungen
 So ist es am Einfachsten Weitere Kombinationen sind vorhanden
 =Speziell bei Vorschaubild
-Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:*]Beschriftung¬= letzte Beschriftung</label>
+Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Seite drucken¬[m:*]Beschriftung¬= Bild deaktiviert</label>
 			<label index="date.formatMD">Januar,Februar,März,April,Mai,Juni,Juli,August,September,Oktober,November,Dezember,Montag,Dienstag,Mittwoch,Donnerstag,Freitag,Samstag,Sonntag</label>
 			<label index="date.formatM3D2">Jan,Feb,März,April,Mai,Juni,Juli,Aug,Sep,Okt,Nov,Dez,Mo,Di,Mi,Do,Fr,Sa,So</label>
 			<label index="publishedOn">veröffentlicht am</label>
@@ -393,7 +424,14 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:*]Beschriftung¬= letzte Besch
 		</languageKey>
 		<languageKey index="da" type="array">
 			<label index="news.overview">« Oversigt indlæg</label>
-<label index="blog.welcome">=Velkommen til bloggen
+			<label index="slideshow.control">Show:</label>
+			<label index="slideshow.previous">Forrige billede</label>
+			<label index="slideshow.interval">sek per billede</label>
+			<label index="slideshow.pause">Pause</label>
+			<label index="slideshow.next">Næste billede</label>
+			<label index="slideshow.print">Album print</label>
+			<label index="slideshow.back">Tilbage til siden</label>
+			<label index="blog.welcome">=Velkommen til bloggen
 Der er nye tider på vej for alternativ behandling udført på højt niveau
 Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>
 			<label index="date.formatMD">januar,februar,marts,april,maj,juni,juli,august,september,oktober,november,december,mandag,tirsdag,onsdag,torsdag,fredag,lørdag,søndag</label>

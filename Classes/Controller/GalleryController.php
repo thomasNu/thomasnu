@@ -66,15 +66,16 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 	 */
 	public function indexAction($start, $back) {
 		$startPhoto = $this->photoRepository->findOneById($start);
-		$gallery = Tx_Extbase_Reflection_ObjectAccess::getProperty($startPhoto, 'gallery');
+		$gallery = $startPhoto->getGallery();
 		$numberPerPage = (int)$gallery->getLink();
 		$numberPerPage = $numberPerPage >= 1 && $numberPerPage <= 5 ? $numberPerPage : 3;
 		$images = array();
-		foreach (Tx_Extbase_Reflection_ObjectAccess::getProperty($gallery, 'photos') as $img) {
-			$text = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'text');
-			$caption = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'caption');
-			$id = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'id');
-			$images[$id] = array('text' => $text, 'caption' => $caption, 'id' => $id);
+		foreach ($gallery->getPhotos() as $img) {
+			$text = $img->getText();
+			$caption = $img->getCaption();
+			$id = $img->getId();
+			$images[$id] = array('text' => ltrim($text, '+*'), 'caption' => $caption, 'id' => $id,
+				'pager' => (strpos($text, '+') === FALSE) ? 0 : 1, 'hide' => strpos($text, '*') === FALSE ? 0 : 1);
 		}
 		ksort($images);
 		$photos = array();
@@ -84,14 +85,17 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 			} else {
 				$groupText = $photo['text'];
 			}
-			$photos[] = $photo;
+			if (!$photo['hide']) $photos[] = $photo;
+		}
+		for ($i = 0; $i < count($photos); ++$i) {
+			++$j;
+			if ($j > $numberPerPage || $photos[$i]['pager']) {
+				$photos[$i]['pager'] = 1;
+				$j = 1;
+			}
 		}
 		$this->view->assign('photos', $photos);
-		$this->view->assign('startPhoto', $startPhoto);
-		$this->view->assign('firstPhoto', $photos[0]);
-		$this->view->assign('lastPhoto', $photo);
 		$this->view->assign('gallery', $gallery);
-		$this->view->assign('numberPerPage', $numberPerPage);
 		$this->view->assign('back', $back);
 	}
 	/**
@@ -103,13 +107,14 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 	 */
 	public function slideshowAction($start, $back) {
 		$startPhoto = $this->photoRepository->findOneById($start);
-		$gallery = Tx_Extbase_Reflection_ObjectAccess::getProperty($startPhoto, 'gallery');
+		$gallery = $startPhoto->getGallery();
 		$images = array();
-		foreach (Tx_Extbase_Reflection_ObjectAccess::getProperty($gallery, 'photos') as $img) {
-			$text = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'text');
-			$caption = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'caption');
-			$id = Tx_Extbase_Reflection_ObjectAccess::getProperty($img, 'id');
-			$images[$id] = array('text' => $text, 'caption' => $caption, 'id' => $id);
+		foreach ($gallery->getPhotos() as $img) {
+			$text = $img->getText();
+			$caption = $img->getCaption();
+			$id = $img->getId();
+			$images[$id] = array('text' => ltrim($text, '+*'), 'caption' => $caption, 'id' => $id,
+				'pager' => (!$this->frontendUserHasRole('Editor') || strpos($text, '+') === FALSE) ? 0 : 1, 'hide' => strpos($text, '*') === FALSE ? 0 : 1);
 		}
 		ksort($images);
 		$photos = array();
@@ -121,12 +126,13 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 				$groups .= ",'" . $photo['id'] . "'";
 				++$groupCount;
 			}
-			$photos[] = $photo;
+			if ($this->frontendUserHasRole('Editor') || !$photo['hide']) $photos[] = $photo;
 		}
 		$this->view->assign('groupedPhotos', $photos);
 		$this->view->assign('startPhoto', $startPhoto);
 		$this->view->assign('firstPhoto', $photos[0]);
 		$this->view->assign('lastPhoto', $photo);
+		$this->view->assign('lastText', $groupText);
 		$this->view->assign('groups', substr($groups, 1));
 		$this->view->assign('groupCount', $groupCount);
 		$this->view->assign('gallery', $gallery);
@@ -190,6 +196,22 @@ class Tx_Thomasnu_Controller_GalleryController extends Tx_Extbase_MVC_Controller
 		}
 		$this->view->assign('photos', $photos);
 		$this->view->assign('firstPhoto', $photos[0]);
+	}
+	/**
+	 * Determines whether the currently logged in FE user belongs to the specified usergroup
+	 *
+	 * @param string $role The usergroup (either the usergroup uid or its title)
+	 * @return boolean TRUE if the currently logged in FE user belongs to $role
+	 */
+	protected function frontendUserHasRole($role) {
+		if (!isset($GLOBALS['TSFE']) || !$GLOBALS['TSFE']->loginUser) {
+			return FALSE;
+		}
+		if (is_numeric($role)) {
+			return (is_array($GLOBALS['TSFE']->fe_user->groupData['uid']) && in_array($role, $GLOBALS['TSFE']->fe_user->groupData['uid']));
+		} else {
+			return (is_array($GLOBALS['TSFE']->fe_user->groupData['title']) && in_array($role, $GLOBALS['TSFE']->fe_user->groupData['title']));
+		}
 	}
 }
 ?>

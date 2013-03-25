@@ -7,11 +7,11 @@
 	</script>
 
 	<f:groupedFor each="{groupedPhotos}" as="photosOfThisGroupe" groupBy="text" groupKey="groupText"> 
-		<tnu:if condition="ord('{groupText}') == ord('*')">
+		<tnu:if condition="'{groupText}' == '{lastText}'">
 			<p  class="thumbnails-text" style="padding-bottom:2px"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
 		</tnu:if>
 		<f:for each="{photosOfThisGroupe}" as="image">
-			<div class="thumbnail">
+			<div class="thumbnail" style="{f:if(condition: image.pager, then: ' border-top: #800000 solid 5px;')}{f:if(condition: image.hide, then: ' background: #CCCCCC;')}"> 
 				<p class="thumbnails-photo"><a name="a{image.id}" href="javascript:ShowPhoto('{image.id}')" title="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}">
 				<tnu:if condition="'{image.id}' == '{firstPhoto.id}'">
 					<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
@@ -24,7 +24,7 @@
 					<f:for each="{gallery.photos}" as="photo">
 						<tnu:if condition="'{image.id}' == '{photo.id}'">
 							<div class="thumbnails-box">
-								<a id="b{image.id}" href="#" onmouseover="displayIcons0(this.id)" onclick="return false;">&nbsp;</a>
+								<a id="b{image.id}" href="#" onmouseover="displayIcons(this.id)" onclick="return false;">&nbsp;</a>
 							</div>
 							<div class="thumbnails-left">
 								<f:link.action controller="Photo" action="create" arguments="{gallery: gallery, newPhoto: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.new')}">
@@ -35,20 +35,47 @@
 								</f:link.action><br /><b><tnu:eval code="substr('{image.id}', -2, 2)" /></b>			
 							</div>
 							<div id="s{image.id}" class="thumbnails-over">
-								<f:link.action controller="Photo" action="update" arguments="{page: page, section: section, modify: 'hide'}" title="{tnu:translate(key: 'photo.unhide')}">
-									<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'photo.unhide')}" />
-								</f:link.action>			
-								<a href="{f:uri.action(controller: 'Photo' action: 'delete' arguments: {news: news})}" title="{tnu:translate(key: 'photo.delete')}" 
-										onclick="if (confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
-									<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'photo.delete')}" />
-								</a>
+								<f:if condition="{image.pager}">
+									<f:then>
+										<f:link.action controller="Photo" action="update" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back, modify: 'pager'}"
+												title="{tnu:translate(key: 'photo.pager1')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/print.gif" alt="{tnu:translate(key: 'photo.pager1')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Photo" action="update" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back, modify: 'pager'}"
+												title="{tnu:translate(key: 'photo.pager')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/print.gif" alt="{tnu:translate(key: 'photo.pager')}" />
+										</f:link.action>			
+									</f:else>
+								</f:if>
+								<f:if condition="{image.hide}">
+									<f:then>
+										<f:link.action controller="Photo" action="update" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back, modify: 'hide'}"
+												title="{tnu:translate(key: 'photo.unhide')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'photo.unhide')}" />
+										</f:link.action>			
+									</f:then>
+									<f:else>
+										<f:link.action controller="Photo" action="update" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back, modify: 'hide'}"
+												title="{tnu:translate(key: 'photo.hide')}">
+											<f:image src="EXT:thomasnu/Resources/Public/Icons/unhide.gif" alt="{tnu:translate(key: 'photo.hide')}" />
+										</f:link.action>			
+									</f:else>
+								</f:if>
+								<f:security.ifHasRole role="Admin">
+									<a href="{f:uri.action(controller: 'Photo' action: 'delete' arguments: {photo: photo, start: photo.id, back: back})}" title="{tnu:translate(key: 'photo.delete')}" 
+											onclick="if (confirm(this.title+'?')) {window.location.href=this.href;} return false;">			
+										<f:image src="EXT:thomasnu/Resources/Public/Icons/delete.gif" alt="{tnu:translate(key: 'photo.delete')}" />
+									</a>
+								</f:security.ifHasRole>
 							</div></p>
 						</tnu:if>
 					</f:for>
 				</f:security.ifHasRole>
 			</div>
 		</f:for>
-		<tnu:if condition="ord('{groupText}') != ord('*') && {groupCount} > 1">
+		<tnu:if condition="'{groupText}' != '{lastText}' && {groupCount} > 1">
 			<p class="thumbnails-text"><tnu:wiki noTags="1">{tnu:gallery(mode: 'thumbnails', caption: '', text: groupText)}</tnu:wiki></p>
 		</tnu:if>
 	</f:groupedFor> 
@@ -65,18 +92,18 @@
 </f:groupedFor> 
 
 <div id = "slideshow">
-	<h2>{settings.fgTitle} {gallery.header}</h2>
-	<p class="navlinks"><b>{settings.fgLinks}<span class="navlink">
-		<a title="{settings.fgPrev}" href="javascript:NextPhoto(-1)"><font color="#800000">&nbsp;<<&nbsp;</font></a></span>
-		<span class="navlink"><a title="1 {settings.fgInterval}" href="javascript:PlayPhotos(1)"><font color="#800000">&nbsp;&gt;1&nbsp;</font></a></span>
-		<span class="navlink"><a title="2 {settings.fgInterval}" href="javascript:PlayPhotos(2)"><font color="#800000">&nbsp;&gt;2&nbsp;</font></a></span>
-		<span class="navlink"><a title="4 {settings.fgInterval}" href="javascript:PlayPhotos(4)"><font color="#800000">&nbsp;&gt;4&nbsp;</font></a></span>
-		<span class="navlink"><a title="8 {settings.fgInterval}" href="javascript:PlayPhotos(8)"><font color="#800000">&nbsp;&gt;8&nbsp;</font></a></span>
-		<span class="navlink"><a title="16 {settings.fgInterval}" href="javascript:PlayPhotos(16)"><font color="#800000">&nbsp;&gt;16&nbsp;</font></a></span>
-		<span class="navlink"><a title="{settings.fgPause}" href="javascript:PausePhotos()"><font color="#800000">&nbsp;III&nbsp;</font></a></span>
-		<span class="navlink"><a title="{settings.fgNext}" href="javascript:NextPhoto(1)"><font color="#800000">>>&nbsp;</font></a></span>
-		<span class="navlink"><a title="{settings.fgPrint}" href="{print}"><font color="#800000">⎙&nbsp;</font></a></span>
-		</b>| <a href="{back}">{settings.fgBack}</a>
+	<h2>{settings.galleryTitle} {gallery.header}</h2>
+	<p class="navlinks"><b>{tnu:translate(key: 'slideshow.control')}
+		<span class="navlink"><a title="{tnu:translate(key: 'slideshow.previous')}" href="javascript:NextPhoto(-1)"><font color="#800000">&nbsp;<<&nbsp;</font></a></span>
+		<span class="navlink"><a title="1 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(1)"><font color="#800000">&nbsp;&gt;1&nbsp;</font></a></span>
+		<span class="navlink"><a title="2 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(2)"><font color="#800000">&nbsp;&gt;2&nbsp;</font></a></span>
+		<span class="navlink"><a title="4 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(4)"><font color="#800000">&nbsp;&gt;4&nbsp;</font></a></span>
+		<span class="navlink"><a title="8 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(8)"><font color="#800000">&nbsp;&gt;8&nbsp;</font></a></span>
+		<span class="navlink"><a title="16 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(16)"><font color="#800000">&nbsp;&gt;16&nbsp;</font></a></span>
+		<span class="navlink"><a title="{tnu:translate(key: 'slideshow.pause')}" href="javascript:PausePhotos()"><font color="#800000">&nbsp;III&nbsp;</font></a></span>
+		<span class="navlink"><a title="{tnu:translate(key: 'slideshow.next')}" href="javascript:NextPhoto(1)"><font color="#800000">>>&nbsp;</font></a></span>
+		<span class="navlink"><a title="{tnu:translate(key: 'slideshow.print')}" href="{print}"><font color="#800000">⎙&nbsp;</font></a></span>
+		</b>| <a href="{back}">{tnu:translate(key: 'slideshow.back')}</a>
 	</p>
 </div>
 <script language="JavaScript">

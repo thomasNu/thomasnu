@@ -67,17 +67,4 @@ t3lib_extMgm::addTypoScriptSetup('
 	plugin.tx_' . $_EXTKEY . '.view.widget.' . $path . 'PaginateViewHelper.templateRootPath = EXT:thomasnu/Resources/Private/Templates/
 ');
 
-/**
-* Adding the admin panel to users by default and forcing the display of the edit-panels
-*/
-t3lib_extMgm::addUserTSConfig('
-	admPanel {
-		enable.edit = 1
-		module.edit.forceNoPopup = 1
-		module.edit.forceDisplayFieldIcons = 0
-		module.edit.forceDisplayIcons = 1
-		hide = 1
-	}
-');
-
 ?>

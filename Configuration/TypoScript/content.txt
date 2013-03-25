@@ -31,6 +31,13 @@ tx_thomasnu.remove {
 	emptyLinks = TEXT
 	emptyLinks.value = %<[hp][3456]?><a></a>.*</[hp][3456]?>%Us
 }
+plugin.tx_thomasnu.settings {
+	galleryTitle = {$content.galleryTitle}
+	clickPhoto = {$content.clickPhoto}
+	albumTitle = {$content.albumTitle}
+	printer = {$content.printer}
+	back = {$content.back}
+}
   # Extended Links
 // tt_content.text.20.parseFunc.tags.link.postUserFunc = user_my->modifyLink
 // tt_content.text.20.parseFunc.tags.typolist.default.parseFunc.tags.link.postUserFunc = user_my->modifyLink
