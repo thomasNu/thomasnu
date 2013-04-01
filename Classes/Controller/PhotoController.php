@@ -82,19 +82,26 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 		$this->view->assign('photo', $photo);
 		$this->view->assign('start', $start);
 		$this->view->assign('back', $back);
+//		$this->view->assign('debug', t3lib_div::getFileAbsFileName('fileadmin/images/gallery/ko223.jpg'));
 	}
 	/**
 	 * Updates an existing photo
 	 *
 	 * @param Tx_Thomasnu_Domain_Model_Gallery $gallery The gallery the photo belogs to
 	 * @param Tx_Thomasnu_Domain_Model_Photo $photo A clone of the original photo with the updated values already applied
+	 * @param string $oldId Old id of photo
 	 * @param string $start Id startphoto
 	 * @param string $back Back to page
 	 * @param string $modify  The case of modifikation
 	 * @return void
 	 */
-	public function updateAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $modify = NULL) {
-		if ($modify == NULL) {
+	public function updateAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $oldId = '', $modify = '') {
+		if ($modify === '') {
+			if ($photo->getId() != $oldId) {
+				$start = $photo->getId();
+//				$path = t3lib_div::getFileAbsFileName(''); 
+//				rename('http://nu60.thomasnu.ch/fileadmin/images/gallery/' . $oldId . '.jpg', 'http://nu60.thomasnu.ch/fileadmin/images/gallery/' . $start . '.jpg');
+			}
 			$this->photoRepository->update($photo);
 			$galleryProperties = $this->request->getArgument('galleryProperties');
     		$gallery->setHeader($galleryProperties['header']);
