@@ -128,7 +128,7 @@
 			<label index="comment.content">Your comment</label>
 			<label index="poster.email">Email address</label>
 			<label index="poster.name">Full name</label>
-			<label index="photo.editHeader">Edit image of gallery</label>
+			<label index="photo.editHeader">Edit image in gallery "%s"</label>
 			<label index="photo.new">Insert new image (Not yet implemented)</label>
 			<label index="photo.edit">Edit this image</label>
 			<label index="photo.pager">Print image individually always on a new page</label>
@@ -136,8 +136,10 @@
 			<label index="photo.hide">Disable this image</label>
 			<label index="photo.unhide">Enable this image</label>
 			<label index="photo.delete">Delete this image permanently</label>
-			<label index="photo.id">Name of image (do not change!)</label>
-			<label index="photo.thumbnail">[+][*]Caption of thumbnail (specifically: Wiki ° ¬ and *text)</label>
+			<label index="photo.id">Name[nn] of the image (Change nn to move)</label>
+			<label index="photo.error">Not changed: image "%s" already exists!</label>
+			<label index="photo.error1">Not changed: image name %s is invalid!</label>
+			<label index="photo.thumbnail">[+][*]Caption of thumbnail</label>
 			<label index="photo.caption">Caption of large image</label>
 			<label index="gallery.header">Gallery title</label>
 			<label index="gallery.link">Print album: Number of images per page (default: 3)</label>
@@ -180,7 +182,9 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
  [imgl:Dat.jpg|T|B|H]     Bild linksbündig im Absatz
  [imgr:Dat.jpg|T|B|H]     Bild rechtsbündig im Absatz</label>
 <label index="wiki.link">
- [link:Adresse|Text|Titel]      Interner Link
+ [link:Adresse|Text|Titel]      Interner Link			<label index="photo.error">Nicht geändert: Bild "%s" schon vorhanden!</label>
+			<label index="photo.error1">Nicht geändert: Bildname %s ungültig!</label>
+
  [http:Adresse|Text|Titel]      Externer Link
  [mail:Adresse|Text]            E-Mail senden
  [mailx:Adresse|Text|Betreff]     mit Betreff
@@ -272,7 +276,7 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="comment.content">Ihr Kommentar</label>
 			<label index="poster.email">Ihre E-Mail-Adresse</label>
 			<label index="poster.name">Vorname Nachname</label>
-			<label index="photo.editHeader">Bild der Galerie bearbeiten</label>
+			<label index="photo.editHeader">Bild in Galerie "%s" bearbeiten</label>
 			<label index="photo.new">Neues Bild einfügen (Noch nicht verfügbar)</label>
 			<label index="photo.edit">Bild bearbeiten</label>
 			<label index="photo.pager">Bild individuell immer auf neuer Seite drucken</label>
@@ -280,8 +284,10 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="photo.hide">Bild deaktivieren</label>
 			<label index="photo.unhide">Bild aktivieren</label>
 			<label index="photo.delete">Bild unwiderruflich löschen</label>
-			<label index="photo.id">Name des Bildes (nicht ändern!)</label>
-			<label index="photo.thumbnail">[+][*]Beschriftung Vorschaubild (speziell: Wiki ° ¬ und *Text)</label>
+			<label index="photo.id">Name[nn] des Bildes (nn zum Verschieben ändern)</label>
+			<label index="photo.error">Nicht geändert: Bild "%s" schon vorhanden!</label>
+			<label index="photo.error1">Nicht geändert: Bildname %s ungültig!</label>
+			<label index="photo.thumbnail">[+][*]Beschriftung Vorschaubild</label>
 			<label index="photo.caption">Beschriftung grosses Bild</label>
 			<label index="gallery.header">Galerietitel</label>
 			<label index="gallery.link">Album drucken: Anzahl Bilder pro Seite (default: 3)</label>

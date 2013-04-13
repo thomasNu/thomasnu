@@ -74,15 +74,16 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 	 * @param Tx_Thomasnu_Domain_Model_Photo $photo The original photo
 	 * @param string $start Startphoto
 	 * @param string $back Back to page
+	 * @param string $error Error on photo id
 	 * @return void
 	 * @dontvalidate $photo
 	 */
-	public function editAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back) {
+	public function editAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $error = '') {
 		$this->view->assign('gallery', $gallery);
 		$this->view->assign('photo', $photo);
 		$this->view->assign('start', $start);
 		$this->view->assign('back', $back);
-//		$this->view->assign('debug', t3lib_div::getFileAbsFileName('fileadmin/images/gallery/ko223.jpg'));
+		$this->view->assign('error', $error);
 	}
 	/**
 	 * Updates an existing photo
@@ -98,9 +99,18 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 	public function updateAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $photo, $start, $back, $oldId = '', $modify = '') {
 		if ($modify === '') {
 			if ($photo->getId() != $oldId) {
-				$start = $photo->getId();
-//				$path = t3lib_div::getFileAbsFileName(''); 
-//				rename('http://nu60.thomasnu.ch/fileadmin/images/gallery/' . $oldId . '.jpg', 'http://nu60.thomasnu.ch/fileadmin/images/gallery/' . $start . '.jpg');
+				if (substr($photo->getId(), 0, -2) != substr($oldId, 0, -2)) {
+					$error = '** ' . $photo->getId() . ' **';
+					$photo->setId($oldId);
+				}
+				else if (in_array($photo->getId() . '.jpg', t3lib_div::getFilesInDir('fileadmin/images/gallery/', 'jpg'))) {
+					$error = $photo->getId();
+					$photo->setId($oldId);
+				} else {
+					$start = $photo->getId();
+					$path = t3lib_div::getFileAbsFileName('fileadmin/images/gallery/'); 
+					rename($path . $oldId . '.jpg', $path . $start . '.jpg');
+				}
 			}
 			$this->photoRepository->update($photo);
 			$galleryProperties = $this->request->getArgument('galleryProperties');
@@ -118,7 +128,12 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 					break;
 			}
 		}
-		$this->redirect('slideshow', 'Gallery', NULL, array('start' => $start, 'back' => $back));
+		if ($error) {
+			$this->redirect('edit', NULL, NULL, array('gallery' => $gallery, 'photo' => $photo, 'start' => $start, 'back' => $back, 'error' => $error));
+		}
+		else {
+			$this->redirect('slideshow', 'Gallery', NULL, array('start' => $start, 'back' => $back));
+		}
 	}
 	/**
 	 * Deletes an existing photo

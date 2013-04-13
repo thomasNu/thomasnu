@@ -189,6 +189,7 @@
 #overlay{ background-image: url(overlay.png); }
 
 .f3-widget-paginator {
+	color: #800000;
 	font-weight: bold;
 	padding-left: 0;
 	}

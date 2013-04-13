@@ -6,20 +6,32 @@
 			<div class="main">
 				<h4><f:link.action controller="Gallery" action="slideshow" 
 						arguments="{start: start, back: back}" title="{tnu:translate(key: 'common.cancel')}">[{tnu:translate(key: 'common.cancel')}]</f:link.action>
-				<tnu:if condition="'{action}' == 'create'">
-					<f:then>
-						<tnu:translate key="photo.createHeader" /></h4>
-					</f:then>
-					<f:else>
-						<tnu:translate key="photo.editHeader" /></h4>
-					</f:else>
-				</tnu:if>
+				<tnu:eval code="substr('{start}', 0, -2)" as="galleryId">
+					<tnu:if condition="'{action}' == 'create'">
+						<f:then>
+							<tnu:translate key="photo.createHeader" /></h4>
+						</f:then>
+						<f:else>
+							<tnu:translate key="photo.editHeader" arguments="{0: galleryId}" /></h4>
+						</f:else>
+					</tnu:if>
+				</tnu:eval>
 				<p><b>&nbsp;<tnu:translate key="gallery.header" /></b><br />
 				<f:form.textfield name="galleryProperties[header]" value="{gallery.header}" size="28" maxlength="256" /></p>
 				<p><b>&nbsp;<tnu:translate key="gallery.link" /></b><br />
-				<f:form.textfield name="galleryProperties[link]" value="{gallery.link}" size="28" maxlength="256" /></p>
+				<f:form.textfield name="galleryProperties[link]" value="{gallery.link}" size="3" style="width: 60px;" /></p>
 				<p><b>&nbsp;<tnu:translate key="photo.id" /></b><br />
-				<f:form.textfield property="id" size="28" maxlength="256" /></p>
+				<f:form.textfield property="id" size="16" style="width: 60px;" />
+				<f:if condition="{error}">
+					<tnu:if condition="strlen('{error}') == strlen('{id}')">
+						<f:then>
+							<span class="mark"><tnu:translate key="photo.error"" /></span>
+						</f:then>
+						<f:else>
+							<span class="mark"><tnu:translate key="photo.error1" arguments="{0: error}" /></span>
+						</f:else>
+					</tnu:if>
+				</f:if></p>
 				<p><b>&nbsp;<tnu:translate key="photo.thumbnail" /></b><br />
 				<f:form.textarea property="text" rows="5" cols="49" style="width: 400px;" /></p>
 				<p><b>&nbsp;<tnu:translate key="photo.caption" /></b><br />

@@ -58,7 +58,7 @@ page {
   includeJS {
     design = EXT:thomasnu/Resources/Public/Javascript/design.js
     file10 = EXT:thomasnu/Resources/Public/Javascript/lightbox.js
-    analytics = fileadmin/templates/analytics.js
+//  analytics = fileadmin/templates/analytics.js
     }
   headerData.20 < temp.titletag
   10 = USER

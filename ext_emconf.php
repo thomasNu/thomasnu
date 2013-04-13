@@ -36,14 +36,14 @@ $EM_CONF[$_EXTKEY] = array (
 	array (
 		'depends' => 
 		array (
-			'php' => '5.3.0-0.0.0',
+			'php' => '5.3.7-5.4.99',
 			'typo3' => '6.0.0-6.0.99',
 			'extbase' => '6.0.0-6.0.99',
 			'fluid' => '6.0.0-6.0.99',
 		),
-		'conflicts' => '',
-		'suggests' => 
-		array (
+		'conflicts' => array(
+		),
+		'suggests' => array(
 		),
 	),
 );
