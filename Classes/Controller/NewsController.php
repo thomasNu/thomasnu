@@ -191,12 +191,14 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 * Displays a form to edit an existing news
 	 *
 	 * @param Tx_Thomasnu_Domain_Model_News $news The original news
+	 * @param string $error
 	 * @return void
 	 * @dontvalidate $news
 	 */
-	public function editAction(Tx_Thomasnu_Domain_Model_News $news) {
+	public function editAction(Tx_Thomasnu_Domain_Model_News $news, $error = '') {
 		$this->view->assign('news', $news);
 		$this->view->assign('blog', $this->category == 'BLOG');
+		$this->view->assign('error', $error);
 	}
 	/**
 	 * Updates an existing news
@@ -209,7 +211,29 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$insert = 0;
 		if ($modify == NULL) {
 			$this->newsRepository->update($news);
-		}  else if (is_numeric($modify)) {
+			if ($imageFile = $this->request->getArgument('imageFile')) {
+				if ($imageFile['type'] == 'image/jpeg') {
+					$imageProperties = $this->request->getArgument('imageProperties');
+					$imageName = $imageProperties['name'] ? $imageProperties['name'] : $imageFile['name'];
+					$parts = explode('.', $imageName);
+					$imageName = strtolower(preg_replace('%[^a-z0-9]%i', '-', 
+						$GLOBALS['TSFE']->csConvObj->specCharsToASCII($GLOBALS['TSFE']->defaultCharSet, str_replace(' ', '', $parts[0])))) . '.jpg';
+					$tempFile = t3lib_div::getFileAbsFileName('fileadmin/user_upload/' . $imageName);
+					t3lib_div::upload_copy_move($imageFile['tmp_name'], $tempFile);
+					$imageTag = t3lib_div::makeInstance('tslib_cObj')->IMAGE(array('file' => 'fileadmin/user_upload/' . $imageName, 'file.' => array('width' => $imageProperties['width'])));
+					preg_match('%src="(.+)".+width="(.+)"%U', $imageTag, $imageParams);
+					if ($imageProperties['overwrite'] || !in_array($imageName, t3lib_div::getFilesInDir('fileadmin/images/news/', 'jpg'))) {
+						@copy(t3lib_div::getFileAbsFileName($imageParams[1]), t3lib_div::getFileAbsFileName('fileadmin/images/news/' . $imageName));
+						$error = 'news/' . $imageName . '(' . $imageParams[2] . 'px)';
+					} else {
+						$error = 'news/' . $imageName;
+					}
+					@unlink($tempFile);
+				} else {
+					$error = $imageFile['type'];
+				}
+			}
+		} else if (is_numeric($modify)) {
 			$term = (integer)$modify;
 			$delta = $news->getEndterm() - $news->getTerm();
 			$newTerm = date('d.m.Y ', abs($term)) . date('H:i', $news->getTerm());
@@ -244,7 +268,11 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		}
 		$page = $GLOBALS['TSFE']->page;
 		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
-		$this->redirect('info', NULL, NULL, array('insertNews' => $news, 'insert' => $insert, 'blog' => $this->category == 'BLOG'));
+		if ($error) {
+			$this->redirect('edit', NULL, NULL, array('news' => $news, 'error' => $error));
+		} else {
+			$this->redirect('info', NULL, NULL, array('insertNews' => $news, 'insert' => $insert, 'blog' => $this->category == 'BLOG'));
+		}
 	}
 	/**
 	 * Deletes an existing news

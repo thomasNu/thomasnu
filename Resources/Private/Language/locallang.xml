@@ -150,6 +150,10 @@
 			<label index="slideshow.next">Next image</label>
 			<label index="slideshow.print">Print album</label>
 			<label index="slideshow.back">Back to page</label>
+			<label index="upload.image">Image(.jpg) upload: overriding? - new name - new width</label>
+			<label index="upload.ok">To "%s" uploaded</label>
+			<label index="upload.error">Not uploaded: image "%s" already exists!</label>
+			<label index="upload.error1">Not uploaded: image type "%s" invalid!</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Paragraph</label>
 			<label index="tab.text">Text</label>
@@ -182,9 +186,7 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
  [imgl:Dat.jpg|T|B|H]     Bild linksbündig im Absatz
  [imgr:Dat.jpg|T|B|H]     Bild rechtsbündig im Absatz</label>
 <label index="wiki.link">
- [link:Adresse|Text|Titel]      Interner Link			<label index="photo.error">Nicht geändert: Bild "%s" schon vorhanden!</label>
-			<label index="photo.error1">Nicht geändert: Bildname %s ungültig!</label>
-
+ [link:Adresse|Text|Titel]      Interner Link
  [http:Adresse|Text|Titel]      Externer Link
  [mail:Adresse|Text]            E-Mail senden
  [mailx:Adresse|Text|Betreff]     mit Betreff
@@ -194,11 +196,11 @@ Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig 
 <label index="wiki.imageLink">
  [linkx:Adresse|[imgx:Dat.jpg|T|B|H]£LTxt|Tit]
  [httpx:Adresse|[imgx:Dat.jpg|T|B|H]£WTxt|Tit]
-     -- Interner und externer Bildlink
+   -- Interner und externer Bildlink
  [lbox:Ord/Dat.jpg|Tit|Txt[imgy:Ord/Dat.jpg|T|B|H]Txt]
-     -- Bild mit Klickvergrösserung 
+   -- Bild mit Klickvergrösserung (auch imgx:Dat.jpg|..)
  [gal:Start|Txt[imgy:gallery/Dat.jpg|T|B|H]Txt]
-     -- Aufruf Fotogalerie</label>
+   -- Aufruf Fotogalerie</label>
 <label index="wiki.help">
 [:Eingabezeile = Absatz]
 _[m:_]Kein neuer Absatz¬[m:_\°]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung
@@ -286,7 +288,7 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="photo.delete">Bild unwiderruflich löschen</label>
 			<label index="photo.id">Name[nn] des Bildes (nn zum Verschieben ändern)</label>
 			<label index="photo.error">Nicht geändert: Bild "%s" schon vorhanden!</label>
-			<label index="photo.error1">Nicht geändert: Bildname %s ungültig!</label>
+			<label index="photo.error1">Nicht geändert: Bildname "%s" ungültig!</label>
 			<label index="photo.thumbnail">[+][*]Beschriftung Vorschaubild</label>
 			<label index="photo.caption">Beschriftung grosses Bild</label>
 			<label index="gallery.header">Galerietitel</label>
@@ -298,6 +300,10 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="slideshow.next">Nächstes Bild</label>
 			<label index="slideshow.print">Album drucken</label>
 			<label index="slideshow.back">Zurück zur Seite</label>
+			<label index="upload.image">Bild(.jpg) hochladen: Überschreiben? - Name neu - Breite neu</label>
+			<label index="upload.ok">Nach "%s" hochgeladen</label>
+			<label index="upload.error">Nicht hochgeladen: "%s" bereits vorhanden!</label>
+			<label index="upload.error1">Nicht hochgeladen: Bildtyp "%s" ungültig!</label>
 			<label index="tab.wiki">Wiki</label>
 			<label index="tab.paragraph">Absatz</label>
 			<label index="tab.text">Text</label>
@@ -337,11 +343,11 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 <label index="wiki.imageLink">
  [linkx:Adresse|[imgx:Dat.jpg|T|B|H]£LTxt|Tit]
  [httpx:Adresse|[imgx:Dat.jpg|T|B|H]£WTxt|Tit]
-     -- Interner und externer Bildlink
+   -- Interner und externer Bildlink
  [lbox:Ord/Dat.jpg|Tit|Txt[imgy:Ord/Dat.jpg|T|B|H]Txt]
-     -- Bild mit Klickvergrösserung 
+   -- Bild mit Klickvergrösserung (auch imgx:Dat.jpg|..)
  [gal:Start|Txt[imgy:gallery/Dat.jpg|T|B|H]Txt]
-     -- Aufruf Fotogalerie</label>
+   -- Aufruf Fotogalerie</label>
 <label index="wiki.help">
 [:Eingabezeile = Absatz]
 _[m:_]Kein neuer Absatz¬[m:_\°]°°°°°°°(Leerzeile)¬[m:=]Titel 5 ([m:==]T 4, [m:===]T 3)¬[m:*]Aufzählung ([m:#]nummer.)¬[m::]Einzug wie Aufzählung

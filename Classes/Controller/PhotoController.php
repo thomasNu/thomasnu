@@ -109,7 +109,7 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 				} else {
 					$start = $photo->getId();
 					$path = t3lib_div::getFileAbsFileName('fileadmin/images/gallery/'); 
-					rename($path . $oldId . '.jpg', $path . $start . '.jpg');
+					@rename($path . $oldId . '.jpg', $path . $start . '.jpg');
 				}
 			}
 			$this->photoRepository->update($photo);
@@ -130,8 +130,7 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 		}
 		if ($error) {
 			$this->redirect('edit', NULL, NULL, array('gallery' => $gallery, 'photo' => $photo, 'start' => $start, 'back' => $back, 'error' => $error));
-		}
-		else {
+		} else {
 			$this->redirect('slideshow', 'Gallery', NULL, array('start' => $start, 'back' => $back));
 		}
 	}

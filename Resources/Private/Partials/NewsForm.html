@@ -1,5 +1,5 @@
 {namespace tnu=Tx_Thomasnu_ViewHelpers}
-<f:form action="{action}" controller="News" objectName="{objectName}" object="{object}" method="post">
+<f:form action="{action}" controller="News" objectName="{objectName}" object="{object}" method="post" enctype="multipart/form-data">
 	<div class="section"> 
 		<div class="col-main">
 			<div class="main">
@@ -33,13 +33,37 @@
 							<f:form.textfield property="endterm" value="{f:if(condition: endterm, then: date)}" size="16" style="width: 105px;" />
 						</tnu:eval>
 						<f:form.textfield property="sort" size="3" style="width: 20px;" />
-						<f:form.textfield property="category" size="8" style="width: 60px;" /><br />
-						<b>&nbsp;<tnu:translate key="news.subject" /></b><br />
+						<f:form.textfield property="category" size="8" style="width: 60px;" /></p>
+						<P><b>&nbsp;<tnu:translate key="news.subject" /></b><br />
 						<f:form.textfield property="subject" size="28" maxlength="256" style="width: 240px;" />
-						<f:form.textfield property="link" size="28" maxlength="256" style="width: 150px;" /><br />
-						<b>&nbsp;<tnu:translate key="news.title" /></b><br />
+						<f:form.textfield property="link" size="28" maxlength="256" style="width: 150px;" /></p>
+						<p><b>&nbsp;<tnu:translate key="news.title" /></b><br />
 						<f:form.textfield property="title" size="28" maxlength="256" style="width: 280px;" />
 						<f:form.textfield property="portal" size="28" maxlength="256" style="width: 110px;" /></p>
+						<tnu:if condition="'{action}' == 'update'">
+							<p><b>&nbsp;<tnu:translate key="upload.image" /></b><br />
+							<f:form.upload name="imageFile" style="width: 235px; font-size: 11px;" />
+							<f:form.checkbox name="imageProperties[overwrite]" value="yes" style="vertical-align: text-top;" />
+							<f:form.textfield name="imageProperties[name]" style="width: 100px;" />
+							<f:form.textfield name="imageProperties[width]" value="575" style="width: 30px;" /><br />
+							<f:if condition="{error}">
+								<tnu:if condition="strpos('{error}', '.jpg')">
+									<f:then>
+										<tnu:if condition="strpos('{error}', 'px)')">
+											<f:then>
+												<span class="mark"><tnu:translate key="upload.ok" arguments="{0: error}" /></span>
+											</f:then>
+											<f:else>
+												<span class="mark"><tnu:translate key="upload.error" arguments="{0: error}" /></span>
+											</f:else>
+										</tnu:if>
+									</f:then>
+									<f:else>
+										<span class="mark"><tnu:translate key="upload.error1" arguments="{0: error}" /></span>
+									</f:else>
+								</tnu:if>
+							</f:if></p>
+						</tnu:if>
 					</f:else>
 				</f:if>
 				<tnu:jQuery.tab animated="TRUE">

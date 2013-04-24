@@ -23,7 +23,7 @@
 ***************************************************************/
 
 /**
- * View helper with evaluation of PHP code.
+ * View helper with evaluation of associative arrays.
  */
 class Tx_Thomasnu_ViewHelpers_ValueViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
 	/**
@@ -50,16 +50,16 @@ class Tx_Thomasnu_ViewHelpers_ValueViewHelper extends Tx_Fluid_Core_ViewHelper_A
 		if (array_key_exists($key, $array)) {
 			$value = $array[$key];
 		}
-		if ($this->arguments['as']) {
-			if ($this->templateVariableContainer->exists($this->arguments['as'])) {
-				$this->templateVariableContainer->remove($this->arguments['as']);
+		if ($as = $this->arguments['as']) {
+			if ($this->templateVariableContainer->exists($as)) {
+				$this->templateVariableContainer->remove($as);
 			}
-			$this->templateVariableContainer->add($this->arguments['as'], $value);
+			$this->templateVariableContainer->add($as, $value);
 			$content = '';
 			if ($codeWasSource === FALSE) {
 				$content = $this->renderChildren();
 				if ($content) {
-					$this->templateVariableContainer->remove($this->arguments['as']);
+					$this->templateVariableContainer->remove($as);
 				}
 			return $content;
 			}

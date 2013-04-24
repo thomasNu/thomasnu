@@ -25,7 +25,7 @@
 				<f:if condition="{error}">
 					<tnu:if condition="strlen('{error}') == strlen('{id}')">
 						<f:then>
-							<span class="mark"><tnu:translate key="photo.error"" /></span>
+							<span class="mark"><tnu:translate key="photo.error" arguments="{0: error}" /></span>
 						</f:then>
 						<f:else>
 							<span class="mark"><tnu:translate key="photo.error1" arguments="{0: error}" /></span>

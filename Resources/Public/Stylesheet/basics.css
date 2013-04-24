@@ -186,7 +186,7 @@ h6 {
 	line-height:20px; 
 	color:#063055;
 	}
-input[type="text"], input[type="password"], textarea {
+input[type="text"], input[type="password"], input[type="file"], textarea {
 	width: 310px;
 	background-color: #DFEFFF;
 	border-width: thin;
