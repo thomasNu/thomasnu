@@ -183,8 +183,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function createAction(Tx_Thomasnu_Domain_Model_News $newNews) {
 		$this->newsRepository->add($newNews);
-		$page = $GLOBALS['TSFE']->page;
-		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
+		$GLOBALS['TSFE']->clearPageCacheContent();
 		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**
@@ -266,8 +265,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 					break;
 			}
 		}
-		$page = $GLOBALS['TSFE']->page;
-		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
+		$GLOBALS['TSFE']->clearPageCacheContent();
 		if ($error) {
 			$this->redirect('edit', NULL, NULL, array('news' => $news, 'error' => $error));
 		} else {
@@ -282,8 +280,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function deleteAction(Tx_Thomasnu_Domain_Model_News $news) {
 		$this->newsRepository->remove($news);
-		$page = $GLOBALS['TSFE']->page;
-		$GLOBALS['TSFE']->clearPageCacheContent($page['uid']);
+		$GLOBALS['TSFE']->clearPageCacheContent();
 		$this->redirect('info', NULL, NULL, array('blog' => $this->category == 'BLOG'));
 	}
 	/**

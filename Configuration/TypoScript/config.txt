@@ -26,6 +26,7 @@ config {
   stat_mysql = 1
   stat_typeNumList = 0,1
   tx_realurl_enable = 1
+  adminPanel = 1
   tx_extbase.persistence.classes {
 	Tx_Thomasnu_Domain_Model_Content.newRecordStoragePid = {$config.contentStorage}
 	Tx_Thomasnu_Domain_Model_Section.newRecordStoragePid = {$config.contentStorage}  
@@ -34,6 +35,9 @@ config {
 	Tx_Thomasnu_Domain_Model_Poster.newRecordStoragePid = {$config.mailStorage}
 	}
   }
+[usergroup = {$content.editorGroup}]
+config.adminPanel = 1
+[global]
   # Default PAGE object:
 page = PAGE
 page {
@@ -64,5 +68,18 @@ page {
   10 = USER
   10.userFunc = tx_templavoila_pi1->main_page
   }
+
+tt_content.stdWrap.editPanel = 0
+tt_content.stdWrap.editPanel {
+  allow = {$config.editPanel}
+  line = 1
+  }
+[usergroup = {$content.editorGroup}]
+tt_content.stdWrap.editPanel = 1
+[global]
+[PIDinRootline = {$content.noEditPanel}]
+tt_content.stdWrap.editPanel = 0
+[global]
+
 includeLibs.user_my = EXT:thomasnu/Configuration/Script/user.php
   
