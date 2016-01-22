@@ -32,9 +32,18 @@ class tx_thomasnu_hooks {
      * Substitution of markers
      */
     public function substituteMarkers($_params, $feObj) {
+        $links = array(
+            array('„', '“', '´', '`'),
+            array('"', '"', "'", "'")
+        );
+		$feObj->content = str_replace($links[0], $links[1], $feObj->content);
+        
         $conf = $feObj->tmpl->setup['tx_thomasnu.'];
         if (isset($conf['markers.']) && is_array($conf['markers.'])) {
-        	if (!t3lib_div::inList($feObj->cObj->cObjGetSingle($conf['markers.']['noWiki'], $conf['markers.']['noWiki.']), $GLOBALS['TSFE']->id)) {
+        	$noWikiList = $feObj->cObj->cObjGetSingle($conf['markers.']['noWiki'], $conf['markers.']['noWiki.']);
+        	$withWikiList = $feObj->cObj->cObjGetSingle($conf['markers.']['withWiki'], $conf['markers.']['withWiki.']);
+        	if ($noWikiList != '0' && !t3lib_div::inList($noWikiList, $GLOBALS['TSFE']->id)
+        	        || t3lib_div::inList($withWikiList, $GLOBALS['TSFE']->id)) {
 		    	$wikiContent = $feObj->cObj->cObjGetSingle($conf['markers.']['wiki'], $conf['markers.']['wiki.']);
 		        if (t3lib_div::_GP('print')) {
 					$feObj->content = str_replace('<div id="prt-content">', '<div id="prt-content">' . $wikiContent, $feObj->content); 
@@ -50,13 +59,39 @@ class tx_thomasnu_hooks {
             }
         }
         if (isset($conf['remove.']) && is_array($conf['remove.'])) {
-        	$find = explode(',', $feObj->cObj->cObjGetSingle($conf['remove.']['emptyLinks'], $conf['remove.']['emptyLinks.']));
-			$feObj->content = preg_replace($find, '', $feObj->content); 
+        	$findList = explode(',', $feObj->cObj->cObjGetSingle($conf['remove.']['emptyLinks'], $conf['remove.']['emptyLinks.']));
+			$feObj->content = preg_replace($findList, '', $feObj->content); 
         }
         $matches = array();
         while (preg_match('%<a.+class=\"lightbox\".+>.*<img.+(title=\".+\").+</a>%U', $feObj->content, $matches)) {
 			$feObj->content = preg_replace('%class=\"lightbox\"%', $matches[1], $feObj->content, 1);
 		} 
+ /*       $matches = array();
+        $n = preg_match_all('%<a.+href=\"(.+)\".*>%U', $feObj->content, $matches, PREG_PATTERN_ORDER);
+ 		for ($i = 0; $i < $n; ++$i) {
+ 			$parts = explode('#', $matches[1][$i]);
+ 			$href = $parts[0];
+			if (strpos($href, 'fileadmin/user_upload') === FALSE && (strpos($href, 'http://') !== FALSE || strpos($href, 'https://') !== FALSE)) {
+				preg_match('%//(.+)/%U', $href . '/', $domains);
+				$tit = $domains[1];
+			} else {
+                $pos = strpos($href, 'fileadmin/user_upload');
+				if ($pos === FALSE) continue;
+				if (strpos($matches[0][$i], 'class="ka-download"')) continue;
+                $href = substr($href, $pos);
+				$parts = t3lib_div::split_fileref($href);
+                if ($fileSize = filesize(t3lib_div::getFileAbsFileName($href))) {
+				    $tit = 'Herunterladen: ' . strtoupper($parts['fileext']) . ' ' . t3lib_div::formatSize($fileSize, 'B| kB| MB| GB');
+                } else {
+      				$links[0][] = $matches[0][$i];
+        			$links[1][] = '<a href="' . $GLOBALS['TSFE']->siteScript . '" title="*** Datei fehlt! ***">';
+                    continue;
+                }
+			}
+			$links[0][] = $matches[0][$i];
+			$links[1][] = preg_replace(array('%target=\".*\"%U', '%title=\".*\"%U', '%href=%'), array('', '', 'target="_blank" title="' . $tit . '" href='), $matches[0][$i]);
+		}
+		$feObj->content = str_replace($links[0], $links[1], $feObj->content);   */
      }
     /**
      * Get markernames within a stringcontent

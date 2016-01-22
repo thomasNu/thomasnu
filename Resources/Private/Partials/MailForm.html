@@ -15,7 +15,7 @@
 					</f:else>
 				</tnu:if>
 				<h5><f:render partial="NewsTitle" arguments="{news: news}" /></h5>
-				<tnu:wiki><tnu:newsTeaser teaser="255">{news.teaser}</tnu:newsTeaser></tnu:wiki>
+				<tnu:wiki>!<tnu:newsTeaser teaser="255">{news.teaser}</tnu:newsTeaser></tnu:wiki>
 				<f:form.hidden property="form" value="COMMENT" />
 				<f:form.hidden property="hash" value="{news.uid}" />
 				<f:form.hidden property="subject" value="Re: {news.title}" />
@@ -30,7 +30,7 @@
 		</div>
 		<div class="col-margin">
 			<div class="margin-top">
-				<tnu:wiki specialChars="{[§°}]">{tnu:translate(key: 'wiki.help')}</tnu:wiki>			
+				<tnu:wiki>{tnu:translate(key: 'wiki.help')}</tnu:wiki>			
 			</div>
 		</div>
 	</div>

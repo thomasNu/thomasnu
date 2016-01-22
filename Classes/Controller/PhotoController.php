@@ -49,9 +49,12 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 	 * @return void
 	 * @dontvalidate $newSection
 	 */
-	public function newAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $newPhoto = NULL) {
+	public function newAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $newPhoto = NULL, $start, $back, $error = '') {
 		$this->view->assign('gallery', $gallery);
 		$this->view->assign('newPhoto', $newPhoto);
+		$this->view->assign('start', $start);
+		$this->view->assign('back', $back);
+		$this->view->assign('error', $error);
 	}
 	/**
 	 * Creates a new photo
@@ -60,6 +63,7 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 	 * @param Tx_Thomasnu_Domain_Model_Photo $newPhoto A fresh photo object which has not yet been added to the repository
 	 * @param string $start Startphoto
 	 * @param string $back Back to page
+	 * @param string $error Error on photo id
 	 * @return void
 	 */
 	public function createAction(Tx_Thomasnu_Domain_Model_Gallery $gallery, Tx_Thomasnu_Domain_Model_Photo $newPhoto, $start, $back) {
@@ -112,7 +116,7 @@ class Tx_Thomasnu_Controller_PhotoController extends Tx_Extbase_MVC_Controller_A
 					@rename($path . $oldId . '.jpg', $path . $start . '.jpg');
 				}
 			}
-			$this->photoRepository->update($photo);
+			$this->photoRepository->add($photo);
 			$galleryProperties = $this->request->getArgument('galleryProperties');
     		$gallery->setHeader($galleryProperties['header']);
     		$gallery->setLink($galleryProperties['link']);

@@ -8,14 +8,14 @@ plugin.tx_indexedsearch {
     clearSearchBox.enableSubSearchCheckBox = 1
     }
   }
-plugin.tx_macinasearchbox_pi1 {
-  templateFile = fileadmin/templates/searchbox.html
-  pidSearchpage = {$content.idSearch}
-  _LOCAL_LANG.de {
-    headline = {$content.searchFor}
-    submit = {$content.find}
-    }
-  }
+temp.jsSettings = COA
+temp.jsSettings {
+    10 = TEXT
+    10.value = <p class="lightbox-click">{$content.lightboxClick}</p>
+    20 = TEXT
+    20.value = <p class="lightbox-close">{$content.lightboxClose}</p>
+    wrap = <div class="settings" style="display: none";>|</div>
+}
 plugin.tx_thomasnu.settings {
 	clickPhoto = {$content.clickPhoto}
 	linkTitles = {$content.titLink}
@@ -123,6 +123,20 @@ lib.portal.1 {
     allWrap =  <li> | </li>
     }
   }
+  # Searchbox navigation cObject
+lib.searchbox = USER
+lib.searchbox {
+    userFunc = tx_extbase_core_bootstrap->run
+    extensionName = Thomasnu
+    pluginName = Search
+	}
+  # Banner navigation cObject
+lib.banner = USER
+lib.banner {
+    userFunc = tx_extbase_core_bootstrap->run
+    extensionName = Thomasnu
+    pluginName = Banner
+	}
   # Quick menu
 lib.quick = COA
 lib.quick {
@@ -138,7 +152,7 @@ lib.quick {
   25.wrap = <div class="image"> | </div>
   # Search box
   40 = COA
-  40.10 < plugin.tx_macinasearchbox_pi1
+  40.10 < lib.searchbox
   # Qick menu level 1
   60 = HMENU
   60.1 = TMENU
@@ -173,32 +187,32 @@ lib.quick {
   75.wrap = <div class="infos"> | </div>
   }
   # Banner menu
-lib.banner = HMENU
-lib.banner.1 = TMENU
-lib.banner.1 {
-    noBlur = 1
-    expAll = 1
-    begin = {$content.menuBanner}
-    maxItems = 1
-    NO.allWrap = <div class="banner1"> | </div>
-    }
-lib.banner.2 = GMENU
-lib.banner.2 {
-  noBlur = 1
-  NO {
-    XY = 160, [10.h]
-    10 = IMAGE
-    10.file {
-      import = fileadmin/images/design/
-      import.field = media
-      import.listNum = 0
-      }
-    ATagTitle.field = url
-    ATagTitle.noTrimWrap = | | » |
-    allWrap =  <div id="logo{elementUid}" class="logo"> | </div>
-    subst_elementUid = 1
-    }
-  }
+// lib.banner = HMENU
+// lib.banner.1 = TMENU
+// lib.banner.1 {
+//    noBlur = 1
+//    expAll = 1
+//    begin = {$content.menuBanner}
+//    maxItems = 1
+//    NO.allWrap = <div class="banner1"> | </div>
+//    }
+// lib.banner.2 = GMENU
+// lib.banner.2 {
+//  noBlur = 1
+//  NO {
+//    XY = 160, [10.h]
+//    10 = IMAGE
+//    10.file {
+//      import = fileadmin/images/design/
+//      import.field = media
+//      import.listNum = 0
+//      }
+//    ATagTitle.field = url
+//    ATagTitle.noTrimWrap = | | » |
+//    allWrap =  <div id="logo{elementUid}" class="logo"> | </div>
+//    subst_elementUid = 1
+//    }
+//  }
   # Add menu admin
 [loginUser = {$content.adminUser}]
 lib.menu.1.maxItems = {$content.maxMenuItems1}
@@ -206,13 +220,13 @@ lib.quick.60.1.begin = {$content.menuQuick1}
 lib.banner.1.begin = {$content.menuBanner1}
 [GLOBAL]
   # No quick (only Search box)
-[globalVar = LIT:99 < {$content.menuQuick}]
+[globalVar = LIT:9999 < {$content.menuQuick}]
 lib.quick.25 >
 lib.quick.60 >
 lib.quick.75 >
 [GLOBAL]
   # No banner
-[globalVar = LIT:99 < {$content.menuBanner}]
+[globalVar = LIT:9999 < {$content.menuBanner}]
 lib.banner >
 [GLOBAL]
  
@@ -524,6 +538,7 @@ temp.titletag {
   }
 lib.title = COA
 lib.title {
-  20 < lib.pagetitle
-  20.wrap = <h1 style="margin-top: 0"><a name="top">|</a></h1>
-  }
+    20 < lib.pagetitle
+    20.wrap = <h1 style="margin-top: 0"><a name="top">|</a></h1>
+    40 < temp.jsSettings
+}

@@ -22,66 +22,45 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+
 /**
  * The controller for actions related to page content
  */
-class Tx_Thomasnu_Controller_ContentController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_Thomasnu_Controller_ContentController extends ActionController {
 
 	/**
-	 * @var Tx_Thomasnu_Domain_Model_ContentRepository
+	 * @var Tx_Thomasnu_Domain_Repository_ContentRepository
+     * @inject
 	 */
 	protected $contentRepository;
 
 	/**
-	 * @var Tx_Thomasnu_Domain_Model_SectionRepository
+	 * @var Tx_Thomasnu_Domain_Repository_SectionRepository
+     * @inject
 	 */
 	protected $sectionRepository;
 
     /**
-    * @var Tx_Extbase_Persistence_Manager
-    */
-    protected $persistanceManager;
-
-	/**
-	 * Dependency injection of the Content Repository
-	 *
-	 * @param Tx_Thomasnu_Domain_Repository_ContentRepository $contentRepository
-	 * @return void
-	 */
-	public function injectContentRepository(Tx_Thomasnu_Domain_Repository_ContentRepository $contentRepository) {
-		$this->contentRepository = $contentRepository;
-	}
-	/**
-	 * Dependency injection of the Section Repository
-	 *
-	 * @param Tx_Thomasnu_Domain_Repository_SectionRepository $sectionRepository
-	 * @return void
-	 */
-	public function injectSectionRepository(Tx_Thomasnu_Domain_Repository_SectionRepository $sectionRepository) {
-		$this->sectionRepository = $sectionRepository;
-	}
-	/**
-	 * Dependency injection of the Persistence Manager
-	 *
-     * @param Tx_Extbase_Persistence_Manager $persistanceManager
-     * @return void
+     * @var \TYPO3\CMS\Extbase\Persistence\Generic\PersistenceManager
+     * @inject
      */
-    public function injectPersistanceManager(Tx_Extbase_Persistence_Manager $persistanceManager) {
-      $this->persistanceManager = $persistanceManager;
-    }
+    protected $persistenceManager;
+
 	/**
 	 * Index action for this controller. Displays content of current page.
 	 *
 	 * @return string The rendered view
 	 */
 	public function indexAction() {
-		$page = $GLOBALS['TSFE']->page;
+        $page = $GLOBALS['TSFE']->page;
 		while (($pageContent = $this->contentRepository->findOneByPage($page['uid'])) == NULL) {
 			$this->contentRepository->add(new Tx_Thomasnu_Domain_Model_Content($page['uid']));
-			$this->persistanceManager->persistAll();
+			$this->persistenceManager->persistAll();
 			}
 		$this->view->assign('page', $pageContent);
-		$this->view->assign('print', t3lib_div::_GP('print'));
+		$this->view->assign('print', GeneralUtility::_GP('print'));
 		$sections = $pageContent->getSections();
 		$this->view->assign('sections', $sections);
 		$references = array();

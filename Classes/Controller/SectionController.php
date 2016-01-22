@@ -160,7 +160,7 @@ class Tx_Thomasnu_Controller_SectionController extends Tx_Extbase_MVC_Controller
 	public function updateAction(Tx_Thomasnu_Domain_Model_Content $page, Tx_Thomasnu_Domain_Model_Section $section, $modify = NULL) {
 		$insert = 0;
 		if ($modify == NULL) {
-			$this->sectionRepository->update($section);
+			$this->sectionRepository->add($section);
 		} else if (is_numeric($modify)) {
 			$sectionId = (int)$modify;
 			if ($sectionId < 0) {

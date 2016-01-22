@@ -9,7 +9,7 @@
 				<tnu:eval code="substr('{start}', 0, -2)" as="galleryId">
 					<tnu:if condition="'{action}' == 'create'">
 						<f:then>
-							<tnu:translate key="photo.createHeader" /></h4>
+							<tnu:translate key="photo.createHeader" arguments="{0: galleryId}" /></h4>
 						</f:then>
 						<f:else>
 							<tnu:translate key="photo.editHeader" arguments="{0: galleryId}" /></h4>

@@ -28,7 +28,7 @@ function setMenuIcon($content, $conf) {
 	return str_ireplace($menu, $img, $content); 
 	}
 /**
- * Blende im Menü 2. Level bestimmte Items aus.
+ * Blende im Menu 2. Level bestimmte Items aus.
  * Entferne Steuerzeichen.
  */
 function remMenuItem($content, $conf) {
@@ -85,7 +85,7 @@ function noShortcutLink($content, $conf) {
 	if (strpos($content, $ids[0]) !== false) {
 		return str_replace('&nbsp;&raquo;&nbsp;' . $ids[0], '', strip_tags(implode('', $items), '<div><h1><title>'));
 		}
-	// DoNotLinkIt für Shortcuts Level 2
+	// DoNotLinkIt fï¿½r Shortcuts Level 2
 	$b = false;
 	foreach ($ids as $k) {
 		if (strpos($items[2], "id=$k") != false) {
@@ -95,12 +95,12 @@ function noShortcutLink($content, $conf) {
 			}
 		}
 	if ($b) $content = implode('', $items);
-	// Enferne Steuerzeichen für Navigation auf jeder Seite
+	// Enferne Steuerzeichen fï¿½r Navigation auf jeder Seite
 	return str_replace($ctrls, '', $content); 
 	}
 /**
  * Ersetze in $content alle $find durch $repl.
- * $find und $repl können je durch | getrennte Paare enthalten.
+ * $find und $repl kï¿½nnen je durch | getrennte Paare enthalten.
  */
 function replaceInContent($content, $conf) {
 	$find = explode('|', $conf['find']);
@@ -109,7 +109,7 @@ function replaceInContent($content, $conf) {
 	}
 /**
  * Hole Inhalt von FronPage Web Seite.
- * $find und $repl können je durch | getrennte Paare enthalten.
+ * $find und $repl kï¿½nnen je durch | getrennte Paare enthalten.
  */
 function getFpContent($content, $conf) {
 	$alis = explode(',', $conf['alis']);
@@ -159,11 +159,11 @@ function getFpContent($content, $conf) {
 function modifyLink($content, $conf) {
 	$tits = explode('|', $conf['tits']);
 	$find = array(
-		'¬',      '°',      '~',        ' - ',        ' / ',      '<<', '>>',
-		'£L', '£W', '£M', '£P', '£G', '£A', '£V', '£U', '.pdf/', '.flv/', '<img'
+        'Â¬',      'Â°',      '~',        ' - ',        ' / ',      '<<', '>>',
+        'Â£L', 'Â£W', 'Â£M', 'Â£P', 'Â£G', 'Â£A', 'Â£V', 'Â£U', '.pdf/', '.flv/', '<img'
 		);
 	$repl = array(
-		'<br />', '&nbsp;', '&#x2011;', ' &#x2011; ', '&nbsp;/ ', '«',  '»',
+		'<br />', '&nbsp;', '&#x2011;', ' &#x2011; ', '&nbsp;/ ', 'Â«', 'Â»',
 		'<img width="15" height="9" src="typo3conf/ext/thomasnu/Resources/Public/Icons/dot.gif" />',
 		'<img width="15" height="14" src="typo3conf/ext/thomasnu/Resources/Public/Icons/web.gif" />',
 		'<img width="15" height="14" src="typo3conf/ext/thomasnu/Resources/Public/Icons/mail.gif" />',
@@ -180,9 +180,9 @@ function modifyLink($content, $conf) {
 		'r' => '<span class=\"red\">{$a[0]}</span>',
 		'u' => '<u>{$a[0]}</u>'
 		);
-	$link = ' »';
+	$link = ' Â»';
 	$subject = 0;	
-	preg_match('%<a(.+)?>(.*)(</a>)%', utf8_decode($content), $parts);
+	preg_match('%<a(.+)?>(.*)(</a>)%', $content, $parts);
 	$atag = $parts[1];
 	$text = trim($parts[2]);
 	if (preg_match('%class=\"(.*)\"%U', $atag, $parts)) {
@@ -193,25 +193,25 @@ function modifyLink($content, $conf) {
 			$aclass = explode('-', $parts[1]);
 			switch ($aclass[0]) {
 				case 'internal':
-					if (substr($text, 0, 2) == '£U') {
+					if (preg_match('%^Â£U%', $text)) {
 						preg_match('%href=\"(.+)\"%U', $atag, $href);
 						array_unshift($find, 'href="' . $href[1] . '"');
 						array_unshift($repl, 'href="' . $href[1] . '?return_url=' . t3lib_div::getIndpEnv('TYPO3_REQUEST_URL') . '"');
 						}
 					else {
-						$text = '£L' . $text;
+						$text = 'Â£L' . $text;
 						}
 					break;
 				case 'external':
-					$text = '£W' . $text;
+					$text = 'Â£W' . $text;
 					break;
 				case 'download':
 					$link = '';
 					if (preg_match('%href=\"(.+)\.pdf\"%U', $atag, $parts)) {
-						$text = '£P' . $text;
+						$text = 'Â£P' . $text;
 						}
 					elseif (preg_match('%href=\"(.+)\.flv\"%U', $atag, $parts)) {
-						$text = '£V' . $text;
+						$text = 'Â£V' . $text;
 						}
 					elseif (preg_match('%href=\"(.+)/gallery/(.+)\.jpg\"%U', $atag, $parts)) {
 						preg_match('%href=\"(.+)\"%U', $atag, $href);
@@ -228,7 +228,7 @@ function modifyLink($content, $conf) {
 						}
 					break;
 				case 'mail':
-					$text = '£M' . $this->encodeMail($text);
+					$text = 'Â£M' . $this->encodeMail($text);
 					if (preg_match('%title=\"(.*)\"%U', $atag, $parts)) {
 						preg_match('%href=\"(.+)\"%U', $atag, $url);
 						array_unshift($find, 'href="' . $url[1] . '"');
@@ -246,7 +246,7 @@ function modifyLink($content, $conf) {
 		}
 	if (preg_match('%title=\"(.*)\"%U', $atag, $parts)) {
 		$replace = ($subject) ? $tits[0] . ': ' . $parts[1] : $parts[1] . $link;
-		if (strpos($replace, 'WWW »') !== false) {
+		if (strpos($replace, 'WWW Â»') !== false) {
 			preg_match('%href=\"http://(.+)/%U', $atag, $url);
 			$replace = str_replace('WWW', $url[1], $replace);
 			}
@@ -261,7 +261,7 @@ function modifyLink($content, $conf) {
 		array_unshift($find, $t[0][$i]);
 		array_unshift($repl, $replace);
 		}
-	return utf8_encode(str_replace($find, $repl, $link));
+	return str_replace($find, $repl, $link);
 	}
 /**
  * Encode the visible mail address.

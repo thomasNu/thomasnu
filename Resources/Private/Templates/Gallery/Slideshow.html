@@ -14,11 +14,11 @@
 			<div class="thumbnail" style="{f:if(condition: image.pager, then: ' border-top: #800000 solid 5px;')}{f:if(condition: image.hide, then: ' background: #CCCCCC;')}"> 
 				<p class="thumbnails-photo"><a name="a{image.id}" href="javascript:ShowPhoto('{image.id}')" title="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}">
 				<tnu:if condition="'{image.id}' == '{firstPhoto.id}'">
-					<span style="line-height:12px;"><strong>{settings.clickPhoto}</strong><br /></span>
+					<span class="mini">{settings.clickPhoto}</span><br />
 				</tnu:if>
-				<f:image src="fileadmin/images/gallery/{image.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}" width="100m" />
+				<f:image src="fileadmin/images/gallery/{image.id}.jpg" alt="{tnu:gallery(mode: 'alt', caption: image.caption, text: image.text)}" width="100m" maxHeight="140" />
 				<tnu:if condition="'{image.id}' == '{lastPhoto.id}'">
-					<br /><strong>{settings.clickPhoto}</strong>
+					<br /><span class="mini">{settings.clickPhoto}</span>
 				</tnu:if></a>
 				<f:security.ifHasRole role="Editor">
 					<f:for each="{gallery.photos}" as="photo">
@@ -27,7 +27,7 @@
 								<a id="b{image.id}" href="#" onmouseover="displayIcons(this.id)" onclick="return false;">&nbsp;</a>
 							</div>
 							<div class="thumbnails-left">
-								<f:link.action controller="Photo" action="create" arguments="{gallery: gallery, newPhoto: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.new')}">
+								<f:link.action controller="Photo" action="new" arguments="{gallery: gallery, newPhoto: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.new')}">
 									<f:image src="EXT:thomasnu/Resources/Public/Icons/content.gif" alt="{tnu:translate(key: 'photo.new')}" />
 								</f:link.action><br />
 								<f:link.action controller="Photo" action="edit" arguments="{gallery: gallery, photo: photo, start: photo.id, back: back}" title="{tnu:translate(key: 'photo.edit')}">
@@ -92,7 +92,7 @@
 </f:groupedFor> 
 
 <div id = "slideshow">
-	<h2>{settings.galleryTitle} {gallery.header}</h2>
+	<h2 id="gallery">{settings.galleryTitle} {gallery.header}</h2>
 	<p class="navlinks"><b>{tnu:translate(key: 'slideshow.control')}
 		<span class="navlink"><a title="{tnu:translate(key: 'slideshow.previous')}" href="javascript:NextPhoto(-1)"><font color="#800000">&nbsp;<<&nbsp;</font></a></span>
 		<span class="navlink"><a title="1 {tnu:translate(key: 'slideshow.interval')}" href="javascript:PlayPhotos(1)"><font color="#800000">&nbsp;&gt;1&nbsp;</font></a></span>

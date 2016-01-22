@@ -1,4 +1,5 @@
 <?php
+
 /***************************************************************
 *  Copyright notice
 *
@@ -22,18 +23,24 @@
 *  This copyright notice MUST APPEAR in all copies of the script!
 ***************************************************************/
 
+use TYPO3\CMS\Extbase\Mvc\Controller\ActionController;
+use TYPO3\CMS\Core\Utility\GeneralUtility;
+use TYPO3\CMS\Extbase\Reflection\ObjectAccess;
+
 /**
  * The controller for actions related to News
  */
-class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_ActionController {
+class Tx_Thomasnu_Controller_NewsController extends ActionController {
 
 	/**
-	 * @var Tx_Thomasnu_Domain_Model_NewsRepository
+	 * @var Tx_Thomasnu_Domain_Repository_NewsRepository
+     * @inject
 	 */
 	protected $newsRepository;
 
 	/**
-	 * @var Tx_Thomasnu_Domain_Model_MailRepository
+	 * @var Tx_Thomasnu_Domain_Repository_MailRepository
+     * @inject
 	 */
 	protected $mailRepository;
 
@@ -42,24 +49,6 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	protected $category;
 
-	/**
-	 * Dependency injection of the News Repository
-	 *
-	 * @param Tx_Thomasnu_Domain_Repository_NewsRepository $newsRepository
-	 * @return void
-	 */
-	public function injectNewsRepository(Tx_Thomasnu_Domain_Repository_NewsRepository $newsRepository) {
-		$this->newsRepository = $newsRepository;
-	}
-	/**
-	 * Dependency injection of the Mail Repository
-	 *
-	 * @param Tx_Thomasnu_Domain_Repository_MailRepository $mailRepository
-	 * @return void
-	 */
-	public function injectMailRepository(Tx_Thomasnu_Domain_Repository_MailRepository $mailRepository) {
-		$this->mailRepository = $mailRepository;
-	}
 	/**
 	 * Gets category from settings
 	 *
@@ -208,8 +197,9 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 	 */
 	public function updateAction(Tx_Thomasnu_Domain_Model_News $news, $modify = NULL) {
 		$insert = 0;
+        $error = '';
 		if ($modify == NULL) {
-			$this->newsRepository->update($news);
+			$this->newsRepository->add($news);
 			if ($imageFile = $this->request->getArgument('imageFile')) {
 				if ($imageFile['type'] == 'image/jpeg') {
 					$imageProperties = $this->request->getArgument('imageProperties');
@@ -217,12 +207,12 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 					$parts = explode('.', $imageName);
 					$imageName = strtolower(preg_replace('%[^a-z0-9]%i', '-', 
 						$GLOBALS['TSFE']->csConvObj->specCharsToASCII($GLOBALS['TSFE']->defaultCharSet, str_replace(' ', '', $parts[0])))) . '.jpg';
-					$tempFile = t3lib_div::getFileAbsFileName('fileadmin/user_upload/' . $imageName);
-					t3lib_div::upload_copy_move($imageFile['tmp_name'], $tempFile);
-					$imageTag = t3lib_div::makeInstance('tslib_cObj')->IMAGE(array('file' => 'fileadmin/user_upload/' . $imageName, 'file.' => array('width' => $imageProperties['width'])));
+					$tempFile = GeneralUtility::getFileAbsFileName('fileadmin/user_upload/' . $imageName);
+                    GeneralUtility::upload_copy_move($imageFile['tmp_name'], $tempFile);
+					$imageTag = GeneralUtility::makeInstance('tslib_cObj')->IMAGE(array('file' => 'fileadmin/user_upload/' . $imageName, 'file.' => array('width' => $imageProperties['width'])));
 					preg_match('%src="(.+)".+width="(.+)"%U', $imageTag, $imageParams);
-					if ($imageProperties['overwrite'] || !in_array($imageName, t3lib_div::getFilesInDir('fileadmin/images/news/', 'jpg'))) {
-						@copy(t3lib_div::getFileAbsFileName($imageParams[1]), t3lib_div::getFileAbsFileName('fileadmin/images/news/' . $imageName));
+					if ($imageProperties['overwrite'] || !in_array($imageName, GeneralUtility::getFilesInDir('fileadmin/images/news/', 'jpg'))) {
+						@copy(GeneralUtility::getFileAbsFileName($imageParams[1]), GeneralUtility::getFileAbsFileName('fileadmin/images/news/' . $imageName));
 						$error = 'news/' . $imageName . '(' . $imageParams[2] . 'px)';
 					} else {
 						$error = 'news/' . $imageName;
@@ -323,7 +313,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$ymUnique = "";
 		$entries = $this->newsRepository->findAgendaEntries($categories[0]);
 		foreach ($entries as $entry) {
-			$ymd = date('ymd', Tx_Extbase_Reflection_ObjectAccess::getProperty($entry, 'term'));
+			$ymd = date('ymd', ObjectAccess::getProperty($entry, 'term'));
 			if ($ymd != $ymdUnique) {
 				$dayLinks .= '#' . $ymd;
 				$ymdUnique = $ymd;
@@ -342,8 +332,8 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$dayLinks .= $this->settings['agHolidays'];
 		$holidays = $this->newsRepository->findSchoolEntries($categories[0]);
 		foreach ($holidays as $entry) {
-			$start = Tx_Extbase_Reflection_ObjectAccess::getProperty($entry, 'term');
-			$end = Tx_Extbase_Reflection_ObjectAccess::getProperty($entry, 'endterm');
+			$start = ObjectAccess::getProperty($entry, 'term');
+			$end = ObjectAccess::getProperty($entry, 'endterm');
 			for ($i = $start; $i < 60 + $end; $i += 86400) {
 				if (date('w', $i) > 0) {
 					$dayLinks .= date('£\Smd', $i);
@@ -360,7 +350,7 @@ class Tx_Thomasnu_Controller_NewsController extends Tx_Extbase_MVC_Controller_Ac
 		$this->view->assign('firstGroup', $groups->getFirst());
 		$courses = $this->newsRepository->findCourseEntries($categories[2]);
 		foreach ($courses as $firstCourse) {
-			if (Tx_Extbase_Reflection_ObjectAccess::getProperty($firstCourse, 'category') != $categories[3]) break;
+			if (ObjectAccess::getProperty($firstCourse, 'category') != $categories[3]) break;
 		}
 		$this->view->assign('firstCourse', $firstCourse);
 	}

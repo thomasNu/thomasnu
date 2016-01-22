@@ -78,6 +78,8 @@
 			<label index="error.code.1238108069">The given &lt;strong&gt;%s&lt;/strong&gt; is too long</label>
 			<label index="error.code.1221559976">The given &lt;strong&gt;%s&lt;/strong&gt; is not a valid email address</label>
 			<label index="error.code.1221560718">The &lt;strong&gt;%s&lt;/strong&gt; must not be empty</label>
+			<label index="search.for">Search for ...</label>
+			<label index="search.cmd">Search [↵]</label>
 			<label index="section.createHeader">Create new section</label>
 			<label index="section.editHeader">Edit section "%s"</label>
 			<label index="section.new">Insert new section here</label>
@@ -128,8 +130,9 @@
 			<label index="comment.content">Your comment</label>
 			<label index="poster.email">Email address</label>
 			<label index="poster.name">Full name</label>
+			<label index="photo.createHeader">Insert new image in gallery "%s"</label>
 			<label index="photo.editHeader">Edit image in gallery "%s"</label>
-			<label index="photo.new">Insert new image (Not yet implemented)</label>
+			<label index="photo.new">Insert new image</label>
 			<label index="photo.edit">Edit this image</label>
 			<label index="photo.pager">Print image individually always on a new page</label>
 			<label index="photo.pager1">No mandatory page break when printing</label>
@@ -227,7 +230,8 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 		<languageKey index="de" type="array">
 			<label index="back">Zurück</label>
 			<label index="submit">Abschicken</label>
-			<label index="logInToCreateBlogs">Melden Sie sich mit einem Websitenbenutzer aus der Benutzergruppe #%d (konfigurierbar) ein, um Blogs und Beiträge im FE Modus hinzuzufügen/zu editieren!</label>
+			<label index="search.for">Suche nach ...</label>
+			<label index="search.cmd">Suche [↵]</label>
 			<label index="section.createHeader">Neuen Abschnitt erstellen</label>
 			<label index="section.editHeader">Abschnitt "%s" bearbeiten</label>
 			<label index="section.new">Neuen Abschnitt hier einfügen</label>
@@ -278,8 +282,9 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="comment.content">Ihr Kommentar</label>
 			<label index="poster.email">Ihre E-Mail-Adresse</label>
 			<label index="poster.name">Vorname Nachname</label>
+			<label index="photo.createHeader">Neues Bild in Galerie "%s" einfügen</label>
 			<label index="photo.editHeader">Bild in Galerie "%s" bearbeiten</label>
-			<label index="photo.new">Neues Bild einfügen (Noch nicht verfügbar)</label>
+			<label index="photo.new">Neues Bild einfügen</label>
 			<label index="photo.edit">Bild bearbeiten</label>
 			<label index="photo.pager">Bild individuell immer auf neuer Seite drucken</label>
 			<label index="photo.pager1">Kein zwingender Druckseitenumbruch</label>
@@ -435,6 +440,8 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="error.code.1221560718">&lt;strong&gt;%s&lt;/strong&gt; darf nicht leer sein</label>
 		</languageKey>
 		<languageKey index="da" type="array">
+			<label index="search.for">Søg efter ...</label>
+			<label index="search.cmd">Søg [↵]</label>
 			<label index="news.overview">« Oversigt indlæg</label>
 			<label index="slideshow.control">Show:</label>
 			<label index="slideshow.previous">Forrige billede</label>
@@ -442,7 +449,7 @@ Wiki [m:\°] oder [m:\¬]¬= besseren Umbruch¬[m:+]Beschriftung¬= auf neuer Se
 			<label index="slideshow.pause">Pause</label>
 			<label index="slideshow.next">Næste billede</label>
 			<label index="slideshow.print">Album print</label>
-			<label index="slideshow.back">Tilbage til siden</label>
+			<label index="slideshow.back">Vælg album</label>
 			<label index="blog.welcome">=Velkommen til bloggen
 Der er nye tider på vej for alternativ behandling udført på højt niveau
 Bloggen vil give et bidrag til dette og fremme forståelsen for en god folkelig sundhedsøkologi</label>

@@ -1,0 +1,38 @@
+<T3DataStructure>
+	<ROOT>
+		<type>array</type>
+		<el>
+			<switchableControllerActions>
+				<TCEforms>
+					<label>Inhaltselement wählen:</label>
+					<config>
+						<type>select</type>
+						<items type="array">
+							<numIndex index="0" type="array">
+								<numIndex index="0">Default</numIndex>
+								<numIndex index="1">Content->index;Section->index;Section->edit;Section->update;Section->new;Section->create;Section->delete</numIndex>
+							</numIndex>
+							<numIndex index="1" type="array">
+								<numIndex index="0">Searchbox</numIndex>
+								<numIndex index="1">Content->searchbox</numIndex>
+							</numIndex>
+						</items>
+						<maxitems>1</maxitems>
+						<size>1</size>
+					</config>
+				</TCEforms>
+			</switchableControllerActions>
+			<settings.startPhoto>
+				<TCEforms>
+					<label>Galerie Startfoto:</label>
+					<config>
+						<type>input</type>
+						<size>10</size>
+						<eval>trim</eval>
+					</config>
+				</TCEforms>
+			</settings.startPhoto>
+		</el>
+	</ROOT>
+</T3DataStructure>
+

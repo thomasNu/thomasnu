@@ -1,0 +1,14 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div <tnu:backgroundImage image="<f:image src='{image}' width='160m' />" color="#0049d2" /> class="banner">
+    <div class="menu-level1-no" style="padding-bottom: 4px;">
+        <f:if condition="{uri}">
+            <f:then>
+                <f:link.external uri="{uri}" target="_blank">{title}</f:link.external>
+            </f:then>
+            <f:else>
+                <f:link.page pageUid="{pageUid}">{title}</f:link.page>
+            </f:else>
+        </f:if>
+    </div>
+</div>

@@ -3,7 +3,7 @@
 *  Copyright notice
 *
 *  (c) 2010 Claus Due <claus@wildside.dk>, Wildside A/S
-*  (c) 2013 Thomas Nussbaumer <typo3@thomasnu.ch>
+*  (c) 2014 Thomas Nussbaumer <typo3@thomasnu.ch>
 *
 *  All rights reserved
 *
@@ -54,21 +54,8 @@
 
 class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractTagBasedViewHelper {
 
-	/**
-	 * @var Tx_Thomasnu_Utility_DocumentHead
-	 */
-	protected $documentHead;
-
 	protected $tagName = 'div';
-
 	protected $uniqId;
-
-	/**
-	 * @param Tx_Thomasnu_Utility_DocumentHead $documentHead
-	 */
-	public function injectDocumentHead(Tx_Thomasnu_Utility_DocumentHead $documentHead) {
-		$this->documentHead = $documentHead;
-	}
 
 	/**
 	 * Initialization
@@ -78,9 +65,9 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 	public function initializeArguments() {
 		$this->registerUniversalTagAttributes();
 		$this->registerArgument('tagName', 'string', 'Tag name to use, default "div"');
-		$this->registerArgument('animated', 'boolean', 'Boolean, wether or not to animate tab changes');
+		$this->registerArgument('animated', 'boolean', 'Boolean, wether or not to animate tab changes (currently always TRUE)');
 		$this->registerArgument('active', 'boolean', 'Set this to TRUE to indicate which tab should be active - use only on a single tab');
-		$this->registerArgument('disabled', 'boolean', 'Set this to true to deactivate entire tab sets or individual tabs');
+		$this->registerArgument('disabled', 'boolean', 'Set this to true to deactivate entire tab sets or individual tabs (currently not used');
 		parent::initializeArguments();
 	}
 
@@ -94,13 +81,15 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 			// render one tab
 			$index = $this->getCurrentIndex();
 			$this->tag->addAttribute('class', 'tnu-tab');
+            $active = FALSE;
 			if ($this->arguments['active'] === TRUE) {
 				$this->setSelectedIndex($index);
+                $active = TRUE;
 			}
 			if ($this->arguments['disabled'] === TRUE) {
 				$this->addDisabledIndex($index);
 			}
-			$this->addTab($this->arguments['title'], $this->renderChildren());
+			$this->addTab($this->arguments['title'], $active, $this->renderChildren());
 			$this->setCurrentIndex($index + 1);
 			return NULL;
 		}
@@ -114,13 +103,13 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 		$content = $this->renderChildren();
 
 		// unique id for this DOM element
-		$this->uniqId = uniqid('tnujquerytabs');
+		$this->uniqId = 'tnu-jquery-tabs'; // uniqid('tnujquerytabs');
 		$tabSelector = $this->renderTabSelector();
 		$tabs = $this->renderTabs();
 		$html = ($tabSelector . LF . $tabs . LF . $content . LF);
 //		$this->addScript();
-		$html .= '<script type="text/javascript">' . LF . '/*<![CDATA[*/' . LF;
-		$html .= $this->addScript() . LF . '/*]]>*/' . LF . '</script>' . LF;
+//		$html .= '<script type="text/javascript">' . LF . '/*<![CDATA[*/' . LF;
+//		$html .= $this->addScript() . LF . '/*]]>*/' . LF . '</script>' . LF;
 		$this->tag->setContent($html);
 		$this->tag->addAttribute('class', 'tnu-tab-group');
 		$this->tag->addAttribute('id', $this->uniqId);
@@ -135,7 +124,8 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 		$html = "<ul>" . LF;
 		foreach ($this->templateVariableContainer->get('tabs') as $tab) {
 			$lid = strtolower(preg_replace('/[^a-z0-9]/i', '_', $tab['title']));
-			$html .= '<li><a href="#' . $lid . '" title="' . $lid . '">' . $tab['title'] . '</a></li>' . LF;
+            $html .= $tab['active'] ? '<li class="active">' : '<li>';
+			$html .= '<a href="#' . $lid . '" title="' . $lid . '">' . $tab['title'] . '</a></li>' . LF;
 		}
 		$html .= "</ul>" . LF;
 		return $html;
@@ -145,14 +135,16 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 		$html = "";
 		foreach ($this->templateVariableContainer->get('tabs') as $tab) {
 			$lid = strtolower(preg_replace('/[^a-z0-9]/i', '_', $tab['title']));
-			$html .= '<div id="' . $lid . '">' . $tab['content'] . '</div>' . LF;
+            $html .= $tab['active'] ? '<div class="tnu-tab-content tnu-tab-active"' : '<div class="tnu-tab-content"';
+			$html .= ' id="' . $lid . '">' . $tab['content'] . '</div>' . LF;
 		}
 		return $html;
 	}
 
-	protected function addTab($title, $content) {
+	protected function addTab($title, $active, $content) {
 		$tab = array(
 			'title' => $title,
+            'active' => $active,
 			'content' => $content
 		);
 		$tabs = (array) $this->templateVariableContainer->get('tabs');
@@ -183,7 +175,7 @@ class Tx_Thomasnu_ViewHelpers_JQuery_TabViewHelper extends Tx_Fluid_Core_ViewHel
 	}
 
 	/**
-	 * Attach necessary scripting
+	 * Attach necessary scripting (currently not used)
 	 */
 	protected function addScript() {
 		$selectedIndex = $this->templateVariableContainer->get('selectedIndex');

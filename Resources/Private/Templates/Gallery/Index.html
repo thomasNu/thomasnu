@@ -3,7 +3,7 @@
 <table border="0" cellspacing="0" cellpadding="0" width="575">
 	<tr>
 		<td width="400" valign="top">
-			<h2 style="margin-bottom:22px;">{settings.albumTitle} {gallery.header}</h2>
+			<h2 id="gallery" style="margin-bottom:22px;">{settings.albumTitle} {gallery.header}</h2>
 		</td>
 		<td width="15"></td>
 		<td width="160" align="right" valign="bottom" class="note">
@@ -18,7 +18,7 @@
 		</f:if>
 		<tr>
 			<td width="400" valign="top">
-				<p><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="" width="400m" /></p>
+				<p><f:image src="fileadmin/images/gallery/{photo.id}.jpg" alt="" width="400m" maxHeight="550" /></p>
 			</td>
 			<td width="15"></td>
 			<td width="160" valign="bottom" class="note">

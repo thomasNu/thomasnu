@@ -1,0 +1,13 @@
+{namespace tnu=Tx_Thomasnu_ViewHelpers}
+
+<div class="searchbox">
+    <form action="{f:uri.page(pageUid: '{settings.searchPage}')}" method="post" name="searchform">
+        <input type="text" class="search-text" name="tx_indexedsearch[sword]" value="{tnu:translate(key: 'search.for')}" onclick="this.value=''" />
+        <input type="image" class="search-image" name="tx_indexedsearch[submit_button]" src="typo3conf/ext/thomasnu/Resources/Public/Icons/find.gif" title="{tnu:translate(key: 'search.cmd')}" />
+        <input type="hidden" name="tx_indexedsearch[_sections]" value="0" />
+        <input type="hidden" name="tx_indexedsearch[pointer]" value="0" />
+        <input type="hidden" name="tx_indexedsearch[ext]" value="0" />
+        <input type="hidden" name="tx_indexedsearch[lang]" value="0" />
+    </form>
+</div>
+

@@ -24,6 +24,10 @@
 								<numIndex index="0">Banner</numIndex>
 								<numIndex index="1">Gallery->banner</numIndex>
 							</numIndex>
+							<numIndex index="4" type="array">
+								<numIndex index="0">Demo</numIndex>
+								<numIndex index="1">Gallery->list;Photo->show</numIndex>
+							</numIndex>
 						</items>
 						<maxitems>1</maxitems>
 						<size>1</size>
