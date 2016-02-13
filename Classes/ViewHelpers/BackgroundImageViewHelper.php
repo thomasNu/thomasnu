@@ -25,18 +25,36 @@
 /**
  * View helper for rendering background image style.
  */
-class Tx_Thomasnu_ViewHelpers_BackgroundImageViewHelper extends Tx_Fluid_Core_ViewHelper_AbstractViewHelper {
+class Tx_Thomasnu_ViewHelpers_BackgroundImageViewHelper extends \TYPO3\CMS\Fluid\Core\ViewHelper\AbstractViewHelper {
+
+	/**
+	 * @var \TYPO3\CMS\Extbase\Service\ImageService
+	 * @inject
+	 */
+	protected $imageService;
 
 	/**
 	 * Render the background image style.
 	 *
-	 * @param string $image The scaled background image
-	 * @param string $color The background color if no image given
+	 * @param string $src
+	 * @param string $width 
 	 * @return string Rendered string
 	 */
-	public function render($image, $color) {
-		preg_match('%src="(.+)"%', $image, $matches);
-        return 'style="background: url(' . $matches[1] . ') ' . $color . '"';
+	public function render($src, $width) {
+		if ($src) {
+            $image = $this->imageService->getImage($src, NULL, NULL);
+    		$processingInstructions = array(
+    			'width' => $width,
+    			'height' => NULL,
+    			'minWidth' => NULL,
+    			'minHeight' => NULL,
+    			'maxWidth' => NULL,
+    			'maxHeight' => NULL,
+    		);
+    		$processedImage = $this->imageService->applyProcessingInstructions($image, $processingInstructions);
+    		$src = $this->imageService->getImageUri($processedImage);
+        }
+        return 'background-image: url(' . $src . ');';
 	}
 }
-?>
+

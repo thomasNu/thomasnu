@@ -1,5 +1,44 @@
+var slideshow = {
+	init: function(settings) {
+		slideshow.config = {
+			$slides: $('div.slide-object'),
+			interval: 10000
+		}
+		$.extend(slideshow.config, settings);	
+		if (slideshow.getSlides().length <= 1) return;
+		slideshow.start();
+	},
+	getSlides: function() {
+		return slideshow.config.$slides;
+	},	
+	loop: function() {
+		var current = slideshow.getSlides().filter('.current').fadeOut('fast').removeClass('current');
+		current = (current.next().length) ? current.next() : slideshow.getSlides().first();
+		current.fadeIn('fast').addClass('current');
+		setTimeout(slideshow.loop, slideshow.config.interval);
+	},
+	getLargest: function(array) {
+		return Math.max.apply(Math, array);
+	},
+	start: function() {
+		var array = [];
+		slideshow.getSlides().hide();
+		slideshow.getSlides().each(function() {
+			array.push($(this).height());
+		});
+		slideshow.getSlides().parent().animate({height: slideshow.getLargest(array)}, 'fast');
+		slideshow.getSlides().first().fadeIn('slow',function() {
+			setTimeout(slideshow.loop, slideshow.config.interval);
+		}).addClass('current');
+	}
+}
 
-$(function() {
+$(document).ready(function() {
+// Slideshow with banners
+	slideshow.init({ 
+		$slides: $('div.banner'),
+		interval: 10000
+	});
 	$(window).resize(function() {
 		$('div.slide').each(function() {
 			var w = $(this).find('img').width();
@@ -35,7 +74,6 @@ $(function() {
             }
     	});
     });
-    // rotateBanners();
     initLightbox($('div.settings p.lightbox-click').text(), $('div.settings p.lightbox-close').text());
 	$('div#calendar').each(function() {
 		markNow();

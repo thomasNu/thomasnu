@@ -1,61 +1,61 @@
 #logo {
 	overflow: hidden;
-	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; 
 	}
-#logo DIV A {
+#logo div a {
 	color: #EEEEEE;
 	text-decoration: none;
 	display: block;
 	}
-#logo DIV A:hover {
+#logo div a:hover {
 	color: yellow;
 	text-decoration: none;
 	font-weight: bold;
 	}
-#logo DIV.home-no {
+#logo div.home-no {
 	}
-#logo DIV.home-act {
-	visibility:hidden;
+#logo div.home-act {
+	visibility: hidden;
 	}
-#menu {	
+#menu, .banner {	
 	vertical-align: top; 
 	width: 160px;	
 	margin-top: 10px;
 	border-top: 1px dotted #999999;
-	font-family:Verdana,Geneva,Arial,Helvetica,sans-serif; 
+	font-family: Verdana,Geneva,Arial,Helvetica,sans-serif; 
 	color: #EEEEEE;
 	}
-#menu DIV A {
+#menu div a, .banner div a {
 	color: #EEEEEE;
 	text-decoration: none;
 	display: block;
 	}
-#menu DIV A:hover {
+#menu div a:hover, .banner div a:hover {
 	color: yellow;
 	text-decoration: none;
 	font-weight: bold;
 	}
-#menu DIV.menu-level1-no {
+div.menu-level1-no {
 	border-bottom: 1px dotted #999999;
 	font-weight: bold;
 	font-size: 13px;
 	line-height:17px; 
 	padding: 4px 10px 1px 10px;
 	}
-#menu DIV.menu-level1-act {
+div.menu-level1-act {
 	border-bottom: 1px dotted #999999;
 	font-weight: bold;
 	font-size: 13px;
 	line-height:17px; 
 	padding: 4px 10px 1px 10px;
 	}
-#menu DIV.menu-level2-no {
+div.menu-level2-no {
 	border-bottom: 1px dotted #999999;
 	font-size: 11px;
 	line-height:15px; 
 	padding-left: 15px;
 	}
-#menu DIV.menu-level2-act {
+div.menu-level2-act {
 	border-bottom: 1px dotted #999999;
 	font-size: 11px;
 	line-height:15px; 
@@ -73,37 +73,52 @@
 	color: #CCCCCC;
 	font-weight: bold;
 	}
-#quick DIV A {
+#quick div a {
 	color: #CCCCCC;
 	text-decoration: none;
 	display: block;
 	}
-#quick DIV A:hover {
+#quick div a:hover {
 	color: yellow;
 	}
-#quick DIV.quick1 {
+#quick div.quick1 {
 	display:none;
 	}
-#quick DIV.quick2 {
+#quick div.quick2 {
 	border-bottom: 1px dotted #999999;
 	padding-right: 10px;
 	}
-#quick DIV.tx-macinasearchbox-pi1 {
+#quick div.searchbox {
 	padding-top: 4px;
 	padding-bottom: 2px;
 	border-bottom: 1px dotted #999999;
 	}
-#quick DIV.image {
+input.search-text {
+  width: 119px; 
+  font-size: 11px; 
+  border-style: dotted;
+}
+input.search-image {
+  vertical-align: bottom;
+  margin: 1px 10px 0px 0px;
+}
+#quick div.image {
 	padding-top: 4px;
 	padding-bottom: 4px;
 	border-bottom: 1px dotted #999999;
 	}
-#quick DIV.infos {
+#quick div.infos {
 	position: absolute;
 	width: 36px;
 	left: 12px;
 	bottom: 4px;
 	}
+div#banner-show, div#banner-images {	
+	position: relative;
+}
+div.banner, div.banner-image {	
+	position: absolute;
+}
 #banner {	
 	position: relative;
 	vertical-align: top; 
@@ -115,18 +130,18 @@
 	color: #CCCCCC; 
 	font-weight: bold;
 }
-#banner A {
+#banner a {
 	color: #CCCCCC;
 	text-decoration: none;
 	}
-#banner A:hover {
+#banner a:hover {
 	color: yellow;
 	}
-#banner DIV.banner1 {
+#banner div.banner1 {
 	border-bottom: 1px dotted #999999;
 	padding-right: 10px;
 	}
-#banner DIV.logo {
+#banner div.logo {
 	position: absolute;
 	visibility: hidden;
 	width: 160px;

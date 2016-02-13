@@ -36,7 +36,7 @@ class tx_thomasnu_hooks {
             array('„', '“', '´', '`'),
             array('"', '"', "'", "'")
         );
-		$feObj->content = str_replace($links[0], $links[1], $feObj->content);
+		$feObj->content = str_replace($links[0], $links[1], $feObj->content); // print_r($feObj->tmpl);
         
         $conf = $feObj->tmpl->setup['tx_thomasnu.'];
         if (isset($conf['markers.']) && is_array($conf['markers.'])) {

@@ -1,24 +1,24 @@
 function rotateBanners() {
 	var logo0 = 106;	// 1. Logo
-	var number = 4;		// Anzahl Logos
+	var number = 3;		// Anzahl Logos
 	var delay = 10;	 	// Sekunden Anzeige einzelnes Logo
 	var dt = new Date();
 	var t = (dt.getSeconds() + 60 * dt.getMinutes() + 3600 * dt.getHours()) / delay;
-	if (document.getElementById && document.getElementById('logo' + logo0)) {
+/*	if (document.getElementById && document.getElementById('logo' + logo0)) {
 		var n = Math.floor(t % number);
 		for (var i = 0; i < number; i++) {
 			var s = (i == n) ? 'visible' : 'hidden';
 			document.getElementById('logo' + (logo0 + i)).style.visibility = s;
 			}	
-		}
-	if (document.getElementById && document.getElementById('reg01')) {
-		var n1 = Math.floor(t % 5);
-		for (var j = 0; j < 5; j++) {
+		}  */
+	if (document.getElementById && document.getElementById('banner10')) {
+		var n1 = Math.floor(t % number);
+		for (var j = 0; j < number; j++) {
 			var s1 = (j == n1) ? 'block' : 'none';
-			document.getElementById('reg0' + (j + 1)).style.display = s1;
+			document.getElementById('banner1' + (j + 1)).style.display = s1;
 			}	
 		}
-	window.setTimeout('rotateBanners()', delay * 1000);	
+	window.setTimeout(this.rotateBanners(), delay * 1000);	
 	}
 function markNow() {
 	var d = new Date();

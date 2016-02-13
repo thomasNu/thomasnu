@@ -3,7 +3,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2014 Thomas Nussbaumer <typo3@thomasnu.ch>
+*  (c) 2016 Thomas Nussbaumer <typo3@thomasnu.ch>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -29,28 +29,36 @@ use TYPO3\CMS\Core\Utility\GeneralUtility;
 /**
  * The controller for actions related to Banner
  */
-class Tx_Thomasnu_Controller_BannerController extends ActionController  {
+class Tx_Thomasnu_Controller_BannerController extends ActionController {
 	/**
 	 * Index action for this controller. Displays banner.
 	 *
 	 * @return string The rendered view
 	 */
 	public function indexAction() {
-        if (($pageUid = $this->settings['bannerPage']) < 10000) {
-            foreach (Tx_Thomasnu_Utility_Database::getRows('pages', 'uid = ' . $pageUid) as $row) {
-                if (($title = $row['subtitle']) == '') {
-                    $title = $row['title'];
-                }
-        		$this->view->assign('pageUid', $pageUid);
-        		$this->view->assign('title', html_entity_decode($title));
-                if (($linkPageUid = $this->settings['bannerLink']) != $pageUid) {
-                    foreach (Tx_Thomasnu_Utility_Database::getRows('pages', 'uid = ' . $linkPageUid) as $row) {
-            		    $this->view->assign('uri', $row['url']);
+        $pages = explode(',', $this->settings['bannerPages']);
+        if ($pages[0] < 10000) {
+            $banners = array();
+            $images = GeneralUtility::getFilesInDir('fileadmin/images/design/banner/', 'jpg', 1);
+            for ($i = 0; $i < count($pages); $i++) {
+                $links = explode(',', $this->settings['bannerLinks']);            
+                foreach (Tx_Thomasnu_Utility_Database::getRows('pages', 'uid = ' . $pages[$i]) as $row) {
+                    $title = $row['subtitle'] ? : $row['title'];
+                    $uri = '';
+                    if ($links[$i] != $pages[$i]) {
+                        foreach (Tx_Thomasnu_Utility_Database::getRows('pages', 'uid = ' . $links[$i]) as $row) {
+                		    $uri = $row['url'];
+                        }
                     }
+                    $banners[] = array(
+                        'page' => $pages[$i], 
+                        'link' => $uri,
+                        'title' => html_entity_decode($title, ENT_COMPAT, 'UTF-8'),
+                        'image' => array_shift($images)
+                    );
                 }
-                $files = GeneralUtility::getFilesInDir('fileadmin/images/design/banner/', 'jpg', 1);
-        		$this->view->assign('image', array_shift($files));
             }
+        	$this->view->assign('banners', $banners);
         }
 	}
 }

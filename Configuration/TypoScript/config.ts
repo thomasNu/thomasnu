@@ -6,7 +6,9 @@ config {
   doctypeSwitch = 1
   htmlTag_langKey = {$config.language}
   xhtml_cleaning = all
-  removeDefaultJS = external
+    removeDefaultJS = external
+//    removeDefaultJS = 1
+//    noBlur = 1
   noPageTitle = 2
   disablePrefixComment = 1
 

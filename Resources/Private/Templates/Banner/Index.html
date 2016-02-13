@@ -1,14 +1,18 @@
 {namespace tnu=Tx_Thomasnu_ViewHelpers}
 
-<div <tnu:backgroundImage image="<f:image src='{image}' width='160m' />" color="#0049d2" /> class="banner">
-    <div class="menu-level1-no" style="padding-bottom: 4px;">
-        <f:if condition="{uri}">
-            <f:then>
-                <f:link.external uri="{uri}" target="_blank">{title}</f:link.external>
-            </f:then>
-            <f:else>
-                <f:link.page pageUid="{pageUid}">{title}</f:link.page>
-            </f:else>
-        </f:if>
-    </div>
+<div id="banner-show">
+    <f:for each="{banners}" as="banner" iteration="count">
+        <div class="banner" style="{tnu:backgroundImage(src: '{banner.image}', width: '160')} background-color: #0049d2;"> 
+            <div class="menu-level1-no" style="padding-bottom: 4px;">
+                <f:if condition="{banner.link}">
+                    <f:then>
+                        <f:link.external uri="{banner.link}" target="_blank">{banner.title}</f:link.external>
+                    </f:then>
+                    <f:else>
+                        <f:link.page pageUid="{banner.page}">{banner.title}</f:link.page>
+                    </f:else>
+                </f:if>
+            </div>
+        </div>
+    </f:for>
 </div>

@@ -39,8 +39,8 @@ plugin.tx_ehrentafel.features.rewrittenPropertyMapper = 0
 plugin.tx_kernaarau.features.rewrittenPropertyMapper = 0
 plugin.tx_thomasnu.settings {
     searchPage = {$content.idSearch}
-    bannerPage = {$content.menuBanner}
-    bannerLink = {$content.menuBanner1}
+    bannerPages = {$content.menuBanner}
+    bannerLinks = {$content.menuBanner1}
     bannerImage = {$content.bannerImage}
     galleryTitle = {$content.galleryTitle}
 	  clickPhoto = {$content.clickPhoto}

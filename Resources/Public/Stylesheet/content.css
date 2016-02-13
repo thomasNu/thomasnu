@@ -60,6 +60,46 @@
 	padding-top: 1px;
 	border-bottom: 1px dotted black; 
 	}
+.tnu-tab-group ul {
+	background-color: #F6A828;
+    padding: 0px 2px;
+    overflow: hidden;
+	}
+.tnu-tab-group li {	
+  	background-color: #FFFFFF;
+    font-weight: bold;
+    white-space: nowrap;
+    padding: 1px 6px;
+    margin: 4px 2px 1px 2px;	
+    list-style: outside none none;
+	float: left;
+    cursor: pointer;
+	}
+.tnu-tab-group li a {	
+	text-decoration: none;
+	}
+.tnu-tab-group li.active {	
+ 	background-color: #EEEECC;
+    padding-bottom: 2px;
+    margin-bottom: 0px;
+    cursor: default;
+	}
+.tnu-tab-group li.active a {	
+	color: #800000;
+    cursor: default;
+	}
+.tnu-tab-content {	
+ 	background-color: #EEEECC;
+    padding: 6px 1px 0px 1px;
+    border-right: #F6A828 solid 1px;
+    border-bottom: #F6A828 solid 1px;
+    border-left: #F6A828 solid 1px;
+    margin-bottom: 6px;
+    display: none;
+	}
+.tnu-tab-active {	
+    display: block;
+	}
 #thumbnails {
 	width: 160px;
 	text-align: right;
